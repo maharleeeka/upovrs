@@ -1,0 +1,143 @@
+img {
+    width:50px;
+    height:50px;
+    margin-top: 4px;
+}
+
+a:link, a:visited {
+    text-align: left; 
+    text-decoration: none;
+    display: inline-block;
+}
+
+.center {
+    margin: auto;
+    border: none;
+    margin-bottom: 0;
+}
+
+.nav {
+    padding-left: 0;
+}
+
+.navbar{
+    background: #7c0f0e;
+    color: white;
+    min-height: 60px;
+}
+
+.navbar-header{
+    position: absolute;
+    height: 50px;
+    width: 100%;
+}
+
+.navbar-nav {
+    margin: 0px 0px;
+}
+
+.navbar-default .navbar-title {
+    color: #fff;
+    font-weight: 600;
+    font-size: 20px;
+    padding-left: 0;
+    display: inline-block;
+    margin-top: 18px;
+}
+
+.form-inline {
+    margin-top: -20px;
+}
+
+.navbar-collapse {
+    padding-right: 0;
+    padding-left: 0;
+    margin: auto;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: #fff;
+    /*margin-top: 0;*/
+    /*margin-top: 16px;*/
+    margin-left: 4px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    /*display: inline-block;*/
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.nav>li{
+    position: static;
+    display: flex;
+    margin-left: 20px
+}
+
+/*search field*/
+.search {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+}
+
+.glyphicon{
+    display: inline-block;    
+}
+
+.navbar-toggle{
+    margin-top: 12px;
+}
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+    border-color: transparent;
+}
+
+.form-inline .form-control {
+    margin-top: 15px;
+    vertical-align: middle;
+}
+
+/*Login button style*/
+.button {
+    background-color: transparent; 
+    border: 2px solid #4CAF50; /* Green */
+    border-radius: 3px;
+    color: #fff;
+    margin-top: 16px;
+    margin-left: 4px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;   
+    
+}
+
+.login_button {
+    background-color: #4CAF50;
+    color: black;
+    border: 2px solid #4CAF50;
+}
+
+/*Login button hover style*/
+.navbar-default .navbar-nav>li>a:hover {
+    color: white;
+    background-color: #7c0f0e;
+}
+
+.form-control {
+    margin-top: 15px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.has-success .form-control-feedback {
+    color: #3c763d;
+    display: inline-block;
+    margin-top: 14px;
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE-edge,chrome=1">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name=viewport content="width=device-width, initial-scale=1">
+	<script src="../../static/js/sweetalert.min.js"></script>
+	<!-- Bootstrap Core CSS -->
+	<link href="../../static/css/bootstrap.min.css" rel="stylesheet">
+	<link href="../../static/css/sweetalert.css" rel="stylesheet" type="text/css">
+	<title>Success Page</title>
+</head>
+<body>
+</body>
+	<script>
+		swal({
+			title: "Are you sure?",
+			text: "You will not be able to edit your request!",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#7EB6FF",
+			confirmButtonText: "Yes, submit it!",
+			cancelButtonText: "No, I'll review and edit.",
+			closeOnConfirm: false,
+			closeOnCancel: true
+		},
+
+			function(isConfirm){
+				if (isConfirm) {
+					swal("Success!", "Your request is now in process.", "success");
+				}
+				else{
+					swal("Cancelled", "Your imaginary file is safe :)", "error");
+				}});
+		swal("Success!", "Your request is now in process.", "success");
+	</script>
+</html>

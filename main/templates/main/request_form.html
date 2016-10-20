@@ -1,0 +1,119 @@
+{% extends 'main/base.html' %}
+{% block content %}
+		<div id="content">
+			<div class="container">
+				<div id="form-header">
+					<div class="col-sm-12">
+						<h2 class="text-center">University of the Philippines Cebu</h2>
+					</div>
+					
+					<h3 class="text-center">General Request Form/Event Sheet</h3>
+				</div>
+				<!-- #form-header -->
+				<hr>
+				<form method="post" id="request_form" name="Form">
+					{% csrf_token %}
+
+					<div class="form-group">
+						<div class="col-md-6">
+							<label>Name: </label>
+							<input type="text" class="form-control required" name="name">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-md-6">
+							<label>Organization: </label>
+							<input type="text" class="form-control required" name="organization">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-md-12">
+							<label>Purpose: </label>
+							<input type="text" class="form-control required" name="purpose">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-xs-12">
+							<label>Participants: </label>
+							<input type="text" class="form-control required" name="participants">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-md-12">
+							<label>Speakers: </label>
+							<input type="text" class="form-control" name="speakers">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-xs-12">
+							<label>Venue</label>
+							<select class="form-control" id="ex11" name="venue_id">
+								{% for venue in venue_list %}
+									{{ form.venue}}
+									<option value="{{venue.pk}}">{{venue}}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					
+					
+					<div id="schedule">
+						<div class="form-group">
+							<div class="col-sm-4">
+								<label>Date: </label>
+								<input type="date" class="form-control required" name="date_needed" id="date_needed">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<div class="col-sm-4 col-xs-6">
+								<label>Time (from): </label>
+								<input type="time" class="form-control required" name="time_from">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-sm-4 col-xs-6">
+								<label>Time (to): </label>
+								<input type="time" class="form-control required" name="time_to">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-md-6">
+						<label>Equipments</label>
+					</div>
+
+					<div class="form-group">
+						<div class="col-md-12">
+							<!-- var i = 2 -->
+							{% for equipment in equipment_list %}		
+								<div class="checkbox col-md-4">
+									<label id="equipments"><input type="checkbox" name="aircon" id="unitbox" value="{{equipment.pk}}">{{equipment}}</label>
+									<input type="text" name="unit" id="equi_box">
+								</div>	
+							{% endfor %}
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="col-xs-12">
+							<label style="display:none;">Remarks</label>
+							<textarea rows="4" cols="40" id="ex11 comment" class="form-control" style="display:none;" readonly></textarea>
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<div class="col-xs-12">
+							<input type="button" class="form-control btn-default btn" id="ex11" value="Submit" onclick="validateForm();">
+						</div>
+					</div>
+				</form>	
+			</div>
+		</div>
+		<!-- #content -->
+{% endblock %}

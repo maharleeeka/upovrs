@@ -1,0 +1,66 @@
+body{
+}
+
+textarea {
+	width: 100%;
+	background: transparent;
+	border: none;
+}
+
+#header{
+	position: absolute;
+}
+
+#content{
+	/*position: relative;*/
+	position: absolute;
+	top: 50px;
+	width: 100%;
+	height: 100%;
+	padding-bottom: 20px;
+	margin-bottom: 50px;
+}
+
+.main{
+	width: 850px;
+	/*margin-bottom: 50px;*/
+	margin-left: auto;
+	margin-right: auto;
+}
+.btn{
+	margin-top:  25px;
+}
+label{
+	margin-top: 10px;
+}
+
+.add-date-btn label {
+	width: 100%;
+}
+
+.form-group.required .control-label:after {
+	content:"*";
+  	color:red;
+}
+
+.btn-default{
+	margin-bottom: 50px;
+
+}
+
+#form-header{
+	position: relative;
+	top: 20px;
+	padding-bottom: 20px;
+}
+
+#equi_box{
+	width: 100px;
+}
+#equipments{
+	width: 150px;
+}
+
+.submit-btn{
+	
+}
