@@ -3,29 +3,33 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, CreateView
 from django.views import View
 from main.models import Venue, Equipment, Request
-from main import forms
+from main import forms, views
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic.edit import ModelFormMixin
 
 
-def index(request):
-    return HttpResponse("request")
-
-def guidelines(request):
-	template = 'main/guidelines.html'
-	return render(request,template)
-
 def login(request):
-	template = 'main/login.html'
+	template = 'login.html'
 	return render(request,template)
 
-def success(request):
-	template = 'success.html'
-	return render(request,template)
+# class MainView(TemplateView):
+# 	template_name = "index.html"
 
-class home(TemplateView):
-	template_name = "index.html"
+class SuccessView(TemplateView):
+	template_name = "success.html"
 
+class GuidelineView(TemplateView):
+	template_name = "guidelines.html"
+
+class RateView(TemplateView):
+	template_name = "rates.html"
+
+class LoginView(TemplateView):
+	template_name = "login.html"
+
+	def form_valid(self, form):
+ 		self.object = form.save()
+ 		return super(ModelFormMixin, self).form_valid(form)
 
 class RequestView(CreateView):
 	template_name = 'request_form.html'
