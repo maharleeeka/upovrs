@@ -20,7 +20,7 @@ def login(request):
 	return render(request,template)
 
 def success(request):
-	template = 'main/success.html'
+	template = 'success.html'
 	return render(request,template)
 
 class home(TemplateView):
@@ -28,7 +28,7 @@ class home(TemplateView):
 
 
 class RequestView(CreateView):
-	template_name = 'main/request_form.html'
+	template_name = 'request_form.html'
 	model = Request
 	form_class = forms.RequestForm
 	
