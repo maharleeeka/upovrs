@@ -1,0 +1,8 @@
+#card{
+	position: relative;
+	top: 200px;
+	width: 800px;
+	height: 300px;
+	margin: auto;
+	/*border: 2px solid black; */
+}
