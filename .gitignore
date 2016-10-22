@@ -5,6 +5,8 @@ __pycache__/
 *.pyc
 *.pyo
 
+*.sqlite
+
 # C extensions
 *.so
 
