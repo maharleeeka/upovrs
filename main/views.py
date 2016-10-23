@@ -8,19 +8,11 @@ from django.core.urlresolvers import reverse_lazy
 from django.views.generic.edit import ModelFormMixin
 
 
-# def guidelines(request):
-# 	template = 'main/guidelines.html'
-# 	return render(request,template)
-
 def login(request):
 	template = 'login.html'
 	return render(request,template)
 
-def success(request):
-	template = 'success.html'
-	return render(request,template)
-
-class home(TemplateView):
+class MainView(TemplateView):
 	template_name = "index.html"
 
 class SuccessView(TemplateView):
@@ -38,9 +30,6 @@ class LoginView(TemplateView):
 	def form_valid(self, form):
  		self.object = form.save()
  		return super(ModelFormMixin, self).form_valid(form)
-
-class HomepageView(TemplateView):
-	template_name = "index.html"
 
 class RequestView(CreateView):
 	template_name = 'request_form.html'
