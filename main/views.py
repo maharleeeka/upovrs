@@ -18,6 +18,9 @@ class SuccessView(TemplateView):
 class GuidelineView(TemplateView):
 	template_name = "guidelines.html"
 
+class MainView(TemplateView):
+	template_name = "index.html"
+
 class RateView(TemplateView):
 	template_name = "rates.html"
 
