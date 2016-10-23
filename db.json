@@ -60,7 +60,7 @@
   "pk": 8,
   "fields": {
     "app_label": "main",
-    "model": "offices"
+    "model": "office"
   }
 },
 {
@@ -80,6 +80,14 @@
   }
 },
 {
+  "model": "contenttypes.contenttype",
+  "pk": 11,
+  "fields": {
+    "app_label": "main",
+    "model": "rentedequipment"
+  }
+},
+{
   "model": "sessions.session",
   "pk": "2ps7rutjgdw0bvd64wh0k3ilg51yqnvc",
   "fields": {
@@ -96,8 +104,104 @@
   }
 },
 {
+  "model": "sessions.session",
+  "pk": "9q76yzuc7nv7l2hjdxr0u14miyfchv98",
+  "fields": {
+    "session_data": "ODdjYjg1NWEzMGNhM2M3YTM3MTA2N2EwMTAwNmM0MGQ3NmFkNGJkMjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9oYXNoIjoiZTU0MjI2NjdmN2ZhZDBjNTE4ODMyMmZiNjcyNTQzNzdmYzRkMWUxMyIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=",
+    "expire_date": "2016-10-27T20:27:59.382Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "j667mmow8zggsssphk1vx5ib9xkvvl0k",
+  "fields": {
+    "session_data": "ODhhOTM2ZDgyZmU0YjExYTA3NTdmZmNkYzU1Y2JjNzEzYTBiYWM1NDp7Il9hdXRoX3VzZXJfaGFzaCI6ImU1NDIyNjY3ZjdmYWQwYzUxODgzMjJmYjY3MjU0Mzc3ZmM0ZDFlMTMiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=",
+    "expire_date": "2016-10-23T12:41:02.111Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "p47ji9wd1qzfsjixfogz4osrzdnn7c5x",
+  "fields": {
+    "session_data": "MDQ2NGRlYjU3NGZiNDY4ODNmNDQwYWZkNDVhM2U0N2U0YWRhOGYzMjp7Il9hdXRoX3VzZXJfaGFzaCI6ImU1NDIyNjY3ZjdmYWQwYzUxODgzMjJmYjY3MjU0Mzc3ZmM0ZDFlMTMiLCJfYXV0aF91c2VyX2lkIjoiMSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=",
+    "expire_date": "2016-11-03T23:21:01.391Z"
+  }
+},
+{
+  "model": "main.equipment",
+  "pk": 2,
+  "fields": {
+    "name": "Lights (courts)",
+    "price": "50.00",
+    "unit": "hour"
+  }
+},
+{
+  "model": "main.equipment",
+  "pk": 3,
+  "fields": {
+    "name": "Tables",
+    "price": "0.00",
+    "unit": "hour"
+  }
+},
+{
+  "model": "main.equipment",
+  "pk": 4,
+  "fields": {
+    "name": "Chairs",
+    "price": "0.00",
+    "unit": "hour"
+  }
+},
+{
+  "model": "main.equipment",
+  "pk": 5,
+  "fields": {
+    "name": "LCD Projector",
+    "price": "150.00",
+    "unit": "hour"
+  }
+},
+{
+  "model": "main.equipment",
+  "pk": 6,
+  "fields": {
+    "name": "Sound System",
+    "price": "100.00",
+    "unit": "hour"
+  }
+},
+{
+  "model": "main.equipment",
+  "pk": 7,
+  "fields": {
+    "name": "IWATA Fan",
+    "price": "60.00",
+    "unit": "hour"
+  }
+},
+{
+  "model": "main.equipment",
+  "pk": 8,
+  "fields": {
+    "name": "Air Condition",
+    "price": "50.00",
+    "unit": "hour"
+  }
+},
+{
+  "model": "main.equipment",
+  "pk": 9,
+  "fields": {
+    "name": "Computer Units",
+    "price": "20.00",
+    "unit": "hour"
+  }
+},
+{
   "model": "main.venue",
-  "pk": 1,
+  "pk": 3,
   "fields": {
     "name": "AS 135",
     "unit": "hour",
@@ -108,13 +212,857 @@
 },
 {
   "model": "main.venue",
-  "pk": 2,
+  "pk": 4,
   "fields": {
-    "name": "AS 150",
+    "name": "AS 151",
     "unit": "hour",
     "price_general": "200.00",
     "price_student": "200.00",
     "price_alumni": "200.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 5,
+  "fields": {
+    "name": "AS 153",
+    "unit": "hour",
+    "price_general": "130.00",
+    "price_student": "130.00",
+    "price_alumni": "130.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 6,
+  "fields": {
+    "name": "AS 162-164",
+    "unit": "hour",
+    "price_general": "350.00",
+    "price_student": "350.00",
+    "price_alumni": "350.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 7,
+  "fields": {
+    "name": "AS 165",
+    "unit": "hour",
+    "price_general": "130.00",
+    "price_student": "130.00",
+    "price_alumni": "130.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 8,
+  "fields": {
+    "name": "AS 167",
+    "unit": "hour",
+    "price_general": "130.00",
+    "price_student": "130.00",
+    "price_alumni": "130.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 9,
+  "fields": {
+    "name": "AS 206",
+    "unit": "hour",
+    "price_general": "200.00",
+    "price_student": "200.00",
+    "price_alumni": "200.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 10,
+  "fields": {
+    "name": "AS 231",
+    "unit": "hour",
+    "price_general": "200.00",
+    "price_student": "200.00",
+    "price_alumni": "200.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 11,
+  "fields": {
+    "name": "AS 233",
+    "unit": "hour",
+    "price_general": "130.00",
+    "price_student": "130.00",
+    "price_alumni": "130.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 12,
+  "fields": {
+    "name": "AS 235",
+    "unit": "hour",
+    "price_general": "200.00",
+    "price_student": "200.00",
+    "price_alumni": "200.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 13,
+  "fields": {
+    "name": "AS 247-249",
+    "unit": "hour",
+    "price_general": "350.00",
+    "price_student": "350.00",
+    "price_alumni": "350.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 14,
+  "fields": {
+    "name": "AS 259-261",
+    "unit": "hour",
+    "price_general": "350.00",
+    "price_student": "350.00",
+    "price_alumni": "350.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 15,
+  "fields": {
+    "name": "AS 302",
+    "unit": "hour",
+    "price_general": "200.00",
+    "price_student": "200.00",
+    "price_alumni": "200.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 16,
+  "fields": {
+    "name": "AS 304",
+    "unit": "hour",
+    "price_general": "500.00",
+    "price_student": "500.00",
+    "price_alumni": "500.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 17,
+  "fields": {
+    "name": "AS Conference Hall A",
+    "unit": "hour",
+    "price_general": "500.00",
+    "price_student": "500.00",
+    "price_alumni": "500.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 18,
+  "fields": {
+    "name": "AS Conference Hall B",
+    "unit": "hour",
+    "price_general": "1500.00",
+    "price_student": "1500.00",
+    "price_alumni": "1500.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 19,
+  "fields": {
+    "name": "AS Parking Area",
+    "unit": "hour",
+    "price_general": "400.00",
+    "price_student": "400.00",
+    "price_alumni": "400.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 20,
+  "fields": {
+    "name": "SRP-AVR",
+    "unit": "hour",
+    "price_general": "900.00",
+    "price_student": "900.00",
+    "price_alumni": "900.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 21,
+  "fields": {
+    "name": "AVR 1 (beside PAH) ONLY",
+    "unit": "hour",
+    "price_general": "420.00",
+    "price_student": "420.00",
+    "price_alumni": "420.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 22,
+  "fields": {
+    "name": "AVR 1 (beside PAH) WITH Lobby",
+    "unit": "hour",
+    "price_general": "420.00",
+    "price_student": "420.00",
+    "price_alumni": "420.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 23,
+  "fields": {
+    "name": "AVR 2 (undergrad building)",
+    "unit": "hour",
+    "price_general": "350.00",
+    "price_student": "350.00",
+    "price_alumni": "350.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 24,
+  "fields": {
+    "name": "Basket Ball/Tennis Courts",
+    "unit": "hour",
+    "price_general": "400.00",
+    "price_student": "0.00",
+    "price_alumni": "200.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 25,
+  "fields": {
+    "name": "BMC Lounge",
+    "unit": "hour",
+    "price_general": "250.00",
+    "price_student": "250.00",
+    "price_alumni": "250.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 26,
+  "fields": {
+    "name": "BMC Pantry",
+    "unit": "hour",
+    "price_general": "200.00",
+    "price_student": "200.00",
+    "price_alumni": "200.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 27,
+  "fields": {
+    "name": "Computer Laboratories",
+    "unit": "hour",
+    "price_general": "450.00",
+    "price_student": "450.00",
+    "price_alumni": "450.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 28,
+  "fields": {
+    "name": "Cottages",
+    "unit": "hour",
+    "price_general": "300.00",
+    "price_student": "300.00",
+    "price_alumni": "300.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 29,
+  "fields": {
+    "name": "Football Field (AS Field)",
+    "unit": "hour",
+    "price_general": "250.00",
+    "price_student": "0.00",
+    "price_alumni": "250.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 30,
+  "fields": {
+    "name": "GP1",
+    "unit": "hour",
+    "price_general": "300.00",
+    "price_student": "300.00",
+    "price_alumni": "300.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 31,
+  "fields": {
+    "name": "GP2",
+    "unit": "hour",
+    "price_general": "300.00",
+    "price_student": "300.00",
+    "price_alumni": "300.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 32,
+  "fields": {
+    "name": "GP3",
+    "unit": "hour",
+    "price_general": "250.00",
+    "price_student": "250.00",
+    "price_alumni": "250.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 33,
+  "fields": {
+    "name": "GP4",
+    "unit": "HOUR",
+    "price_general": "300.00",
+    "price_student": "300.00",
+    "price_alumni": "300.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 34,
+  "fields": {
+    "name": "Guesthouse",
+    "unit": "hour",
+    "price_general": "500.00",
+    "price_student": "0.00",
+    "price_alumni": "500.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 35,
+  "fields": {
+    "name": "High School Covered Court",
+    "unit": "hour",
+    "price_general": "300.00",
+    "price_student": "300.00",
+    "price_alumni": "300.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 36,
+  "fields": {
+    "name": "ILC - AVR",
+    "unit": "hour",
+    "price_general": "350.00",
+    "price_student": "350.00",
+    "price_alumni": "350.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 37,
+  "fields": {
+    "name": "NSMD Lobby",
+    "unit": "hour",
+    "price_general": "100.00",
+    "price_student": "100.00",
+    "price_alumni": "100.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 38,
+  "fields": {
+    "name": "Open Field (near Admin building)",
+    "unit": "hour",
+    "price_general": "400.00",
+    "price_student": "400.00",
+    "price_alumni": "400.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 39,
+  "fields": {
+    "name": "Performing Arts Hall (PAH) A",
+    "unit": "package",
+    "price_general": "12000.00",
+    "price_student": "12000.00",
+    "price_alumni": "12000.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 40,
+  "fields": {
+    "name": "Performing Arts Hall (PAH) A WITH Lobby",
+    "unit": "package",
+    "price_general": "13000.00",
+    "price_student": "13000.00",
+    "price_alumni": "13000.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 41,
+  "fields": {
+    "name": "Performing Arts Hall (PAH) B",
+    "unit": "package",
+    "price_general": "12000.00",
+    "price_student": "12000.00",
+    "price_alumni": "12000.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 42,
+  "fields": {
+    "name": "Performing Arts Hall (PAH) C",
+    "unit": "package",
+    "price_general": "6000.00",
+    "price_student": "6000.00",
+    "price_alumni": "6000.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 43,
+  "fields": {
+    "name": "Performing Arts Hall (PAH) Lobby ONLY",
+    "unit": "hour",
+    "price_general": "400.00",
+    "price_student": "400.00",
+    "price_alumni": "400.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 44,
+  "fields": {
+    "name": "Performing Arts Hall (PAH) B WITH Lobby",
+    "unit": "package",
+    "price_general": "13000.00",
+    "price_student": "13000.00",
+    "price_alumni": "13000.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 45,
+  "fields": {
+    "name": "Rm 241",
+    "unit": "hour",
+    "price_general": "180.00",
+    "price_student": "180.00",
+    "price_alumni": "180.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 46,
+  "fields": {
+    "name": "Rm 215",
+    "unit": "hour",
+    "price_general": "180.00",
+    "price_student": "180.00",
+    "price_alumni": "180.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 47,
+  "fields": {
+    "name": "Rm 216",
+    "unit": "hour",
+    "price_general": "180.00",
+    "price_student": "180.00",
+    "price_alumni": "180.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 48,
+  "fields": {
+    "name": "Rm 217",
+    "unit": "hour",
+    "price_general": "180.00",
+    "price_student": "180.00",
+    "price_alumni": "180.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 49,
+  "fields": {
+    "name": "Rm 218",
+    "unit": "hour",
+    "price_general": "180.00",
+    "price_student": "180.00",
+    "price_alumni": "180.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 50,
+  "fields": {
+    "name": "Rm 219",
+    "unit": "hour",
+    "price_general": "180.00",
+    "price_student": "180.00",
+    "price_alumni": "180.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 51,
+  "fields": {
+    "name": "SRP 201A-1",
+    "unit": "hour",
+    "price_general": "200.00",
+    "price_student": "200.00",
+    "price_alumni": "200.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 52,
+  "fields": {
+    "name": "SRP 201A-2",
+    "unit": "package",
+    "price_general": "200.00",
+    "price_student": "200.00",
+    "price_alumni": "200.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 53,
+  "fields": {
+    "name": "SRP 201B",
+    "unit": "hour",
+    "price_general": "200.00",
+    "price_student": "200.00",
+    "price_alumni": "200.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 54,
+  "fields": {
+    "name": "SRP Auditorium",
+    "unit": "hour",
+    "price_general": "900.00",
+    "price_student": "900.00",
+    "price_alumni": "900.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 55,
+  "fields": {
+    "name": "SRP Boardroom (15 seaters)",
+    "unit": "package",
+    "price_general": "8500.00",
+    "price_student": "8500.00",
+    "price_alumni": "8500.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 56,
+  "fields": {
+    "name": "SRP Case Room 103",
+    "unit": "hour",
+    "price_general": "300.00",
+    "price_student": "300.00",
+    "price_alumni": "300.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 57,
+  "fields": {
+    "name": "SRP Case Room 105",
+    "unit": "hour",
+    "price_general": "300.00",
+    "price_student": "300.00",
+    "price_alumni": "300.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 58,
+  "fields": {
+    "name": "SRP Case Room 202",
+    "unit": "hour",
+    "price_general": "300.00",
+    "price_student": "300.00",
+    "price_alumni": "300.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 59,
+  "fields": {
+    "name": "SRP Case Room 203A",
+    "unit": "hour",
+    "price_general": "300.00",
+    "price_student": "300.00",
+    "price_alumni": "300.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 60,
+  "fields": {
+    "name": "SRP Case Room 203B",
+    "unit": "hour",
+    "price_general": "300.00",
+    "price_student": "300.00",
+    "price_alumni": "300.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 61,
+  "fields": {
+    "name": "SRP Case Room 204A",
+    "unit": "hour",
+    "price_general": "300.00",
+    "price_student": "300.00",
+    "price_alumni": "300.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 62,
+  "fields": {
+    "name": "SRP Case Room 204B",
+    "unit": "hour",
+    "price_general": "300.00",
+    "price_student": "300.00",
+    "price_alumni": "300.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 63,
+  "fields": {
+    "name": "SRP Case Room 205",
+    "unit": "hour",
+    "price_general": "300.00",
+    "price_student": "300.00",
+    "price_alumni": "300.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 64,
+  "fields": {
+    "name": "SRP Classrooms",
+    "unit": "hour",
+    "price_general": "200.00",
+    "price_student": "200.00",
+    "price_alumni": "200.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 65,
+  "fields": {
+    "name": "Union Building",
+    "unit": "hour",
+    "price_general": "400.00",
+    "price_student": "400.00",
+    "price_alumni": "400.00"
+  }
+},
+{
+  "model": "main.venue",
+  "pk": 66,
+  "fields": {
+    "name": "UP High School Ground",
+    "unit": "hour",
+    "price_general": "800.00",
+    "price_student": "800.00",
+    "price_alumni": "800.00"
+  }
+},
+{
+  "model": "main.request",
+  "pk": 61,
+  "fields": {
+    "date_filed": "2016-10-13",
+    "name": "Jessah Marie Duran",
+    "organization": "BS Computer Science",
+    "purpose": "Meeting",
+    "participants": "5",
+    "speakers": "none",
+    "status": false,
+    "remarks": "",
+    "venue_id": 3,
+    "date_needed": "2016-10-16",
+    "time_from": "10:10:00",
+    "time_to": "11:00:00"
+  }
+},
+{
+  "model": "main.request",
+  "pk": 62,
+  "fields": {
+    "date_filed": "2016-10-13",
+    "name": "Jannielyn Acha",
+    "organization": "BS Computer Science",
+    "purpose": "N/A",
+    "participants": "Starra",
+    "speakers": "Starra",
+    "status": false,
+    "remarks": "",
+    "venue_id": 4,
+    "date_needed": "2016-10-17",
+    "time_from": "10:00:00",
+    "time_to": "11:00:00"
+  }
+},
+{
+  "model": "main.request",
+  "pk": 63,
+  "fields": {
+    "date_filed": "2016-10-13",
+    "name": "Maharlika Alberca",
+    "organization": "BS Computer Science",
+    "purpose": "Concert",
+    "participants": "5",
+    "speakers": "Starra",
+    "status": false,
+    "remarks": "",
+    "venue_id": 4,
+    "date_needed": "2016-10-17",
+    "time_from": "22:10:00",
+    "time_to": "23:00:00"
+  }
+},
+{
+  "model": "main.request",
+  "pk": 64,
+  "fields": {
+    "date_filed": "2016-10-13",
+    "name": "Angel Locsin",
+    "organization": "BS Computer Science",
+    "purpose": "Concert",
+    "participants": "5",
+    "speakers": "RJ",
+    "status": false,
+    "remarks": "",
+    "venue_id": 4,
+    "date_needed": "2016-10-17",
+    "time_from": "22:00:00",
+    "time_to": "23:00:00"
+  }
+},
+{
+  "model": "main.request",
+  "pk": 65,
+  "fields": {
+    "date_filed": "2016-10-13",
+    "name": "Starra Jane Furton",
+    "organization": "BS Computer Science",
+    "purpose": "Concert",
+    "participants": "5",
+    "speakers": "Starra",
+    "status": false,
+    "remarks": "",
+    "venue_id": 3,
+    "date_needed": "2016-10-17",
+    "time_from": "22:00:00",
+    "time_to": "23:00:00"
+  }
+},
+{
+  "model": "main.request",
+  "pk": 66,
+  "fields": {
+    "date_filed": "2016-10-19",
+    "name": "James Reid",
+    "organization": "BS Computer Science",
+    "purpose": "N/A",
+    "participants": "Starra",
+    "speakers": "Starra",
+    "status": false,
+    "remarks": "",
+    "venue_id": 5,
+    "date_needed": "2016-10-25",
+    "time_from": "10:00:00",
+    "time_to": "11:00:00"
+  }
+},
+{
+  "model": "main.request",
+  "pk": 67,
+  "fields": {
+    "date_filed": "2016-10-19",
+    "name": "Jessuh Marie Duran",
+    "organization": "BS Computer Science",
+    "purpose": "N/A",
+    "participants": "5",
+    "speakers": "Starra",
+    "status": false,
+    "remarks": "",
+    "venue_id": 5,
+    "date_needed": "2016-10-25",
+    "time_from": "10:00:00",
+    "time_to": "11:00:00"
+  }
+},
+{
+  "model": "main.request",
+  "pk": 68,
+  "fields": {
+    "date_filed": "2016-10-22",
+    "name": "Pangalan",
+    "organization": "BS Computer Science",
+    "purpose": "N/A",
+    "participants": "Starra",
+    "speakers": "Starra",
+    "status": false,
+    "remarks": "",
+    "venue_id": 4,
+    "date_needed": "2016-12-12",
+    "time_from": "11:01:00",
+    "time_to": "23:00:00"
+  }
+},
+{
+  "model": "main.request",
+  "pk": 69,
+  "fields": {
+    "date_filed": "2016-10-22",
+    "name": "Sheldon Cooper",
+    "organization": "N/A",
+    "purpose": "N/A",
+    "participants": "N/A",
+    "speakers": "N/A",
+    "status": false,
+    "remarks": "",
+    "venue_id": 3,
+    "date_needed": "2016-12-31",
+    "time_from": "12:59:00",
+    "time_to": "12:59:00"
   }
 },
 {
@@ -388,11 +1336,154 @@
   }
 },
 {
+  "model": "auth.permission",
+  "pk": 31,
+  "fields": {
+    "name": "Can add equipments rented",
+    "content_type": 11,
+    "codename": "add_equipmentsrented"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 32,
+  "fields": {
+    "name": "Can change equipments rented",
+    "content_type": 11,
+    "codename": "change_equipmentsrented"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 33,
+  "fields": {
+    "name": "Can delete equipments rented",
+    "content_type": 11,
+    "codename": "delete_equipmentsrented"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 34,
+  "fields": {
+    "name": "Can add office",
+    "content_type": 8,
+    "codename": "add_office"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 35,
+  "fields": {
+    "name": "Can change office",
+    "content_type": 8,
+    "codename": "change_office"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 36,
+  "fields": {
+    "name": "Can delete office",
+    "content_type": 8,
+    "codename": "delete_office"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 37,
+  "fields": {
+    "name": "Can add rented equipment",
+    "content_type": 11,
+    "codename": "add_rentedequipment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 38,
+  "fields": {
+    "name": "Can change rented equipment",
+    "content_type": 11,
+    "codename": "change_rentedequipment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 39,
+  "fields": {
+    "name": "Can delete rented equipment",
+    "content_type": 11,
+    "codename": "delete_rentedequipment"
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 1,
+  "fields": {
+    "name": "Outsiders",
+    "permissions": [
+      37,
+      28
+    ]
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 2,
+  "fields": {
+    "name": "UPC Orgs",
+    "permissions": [
+      37,
+      28
+    ]
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 3,
+  "fields": {
+    "name": "OSA Staff",
+    "permissions": [
+      29
+    ]
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 4,
+  "fields": {
+    "name": "CDMO Staff",
+    "permissions": [
+      29
+    ]
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 5,
+  "fields": {
+    "name": "ADA Staff",
+    "permissions": [
+      28
+    ]
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 6,
+  "fields": {
+    "name": "Cashier Staff",
+    "permissions": [
+      29
+    ]
+  }
+},
+{
   "model": "auth.user",
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$30000$6b0YMm0IQ3KA$eESfsodSIa1danyXiHEeNGNfrRYuJcbXchgGO08Q93w=",
-    "last_login": "2016-10-09T11:22:30.234Z",
+    "last_login": "2016-10-20T23:21:01.075Z",
     "is_superuser": true,
     "username": "user",
     "first_name": "",
@@ -420,6 +1511,166 @@
     "is_active": true,
     "date_joined": "2016-10-09T11:12:14.721Z",
     "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$30000$hL8D48SqbTz1$m86xWR2ir9XhnI7W1VadRdxGSMfdAi1SAbbLaVvcLTI=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "out2016001",
+    "first_name": "Brad",
+    "last_name": "Pitt",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2016-10-22T13:09:55Z",
+    "groups": [
+      1
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$30000$vr33rbTAMDs7$X3QCqt4niENcP3rvAV3MfGD3l8Oe6GOxz6q/tGBi650=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "org_sc2016",
+    "first_name": "Angelina",
+    "last_name": "Jolie",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2016-10-22T13:10:58Z",
+    "groups": [
+      2
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$30000$o7QoCB4ETLqx$zyy5KbhWOqhW6LOTb7y1J1FbRMbLZe3TjVb4zbwJDMg=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "org_sayawe2016",
+    "first_name": "Indiana",
+    "last_name": "Jones",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2016-10-22T13:11:54Z",
+    "groups": [
+      2
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$30000$PvYDRks7eW6Q$yJNCikCB57KwQ8VvwV7GlL9ImO9ONUR6AgmmpcTwSZc=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "org_csg2016",
+    "first_name": "Joe",
+    "last_name": "Jonas",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2016-10-22T13:14:56Z",
+    "groups": [
+      2
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 7,
+  "fields": {
+    "password": "pbkdf2_sha256$30000$mYBq6BihVX1G$6wotL102xbWtXpGnc0FY9T+PUXl5lVZ8hGNRY8IMUHI=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "osa_maria",
+    "first_name": "Maria",
+    "last_name": "Flordiluna",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2016-10-22T13:15:54Z",
+    "groups": [
+      3
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 8,
+  "fields": {
+    "password": "pbkdf2_sha256$30000$nneAhmx7oOhj$ZpmJyhux8tH8FwFMt8BOSXU85VfAXMipecNrL/IoItU=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "cdmo_juan",
+    "first_name": "Juan",
+    "last_name": "Tamad",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2016-10-22T13:16:38Z",
+    "groups": [
+      4
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 9,
+  "fields": {
+    "password": "pbkdf2_sha256$30000$8tycf2Z3cTGB$cuWWWmUoNTyrGDWgHvx2X/ec2Q7b1jNnadmqrBbKtoM=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "ada_adelfa",
+    "first_name": "Adelfa",
+    "last_name": "Bulaklak",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2016-10-22T13:17:07Z",
+    "groups": [
+      5
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 10,
+  "fields": {
+    "password": "pbkdf2_sha256$30000$wFk42MGKPRbR$oi5qJ8yLg8Ei0VMBr/M7EcyLK2wte7CiDF4P9KsIMWM=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "cash_carmen",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2016-10-22T13:17:43Z",
+    "groups": [
+      6
+    ],
     "user_permissions": []
   }
 },
@@ -460,6 +1711,2086 @@
     "object_repr": "AS 150",
     "action_flag": 1,
     "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2016-10-11T12:15:44.980Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "21",
+    "object_repr": "James Reid",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2016-10-11T12:15:45.055Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "20",
+    "object_repr": "Angel Locsin",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2016-10-11T12:15:45.205Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "19",
+    "object_repr": "Elaine Alfeche",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2016-10-11T12:15:45.405Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "18",
+    "object_repr": "Gerald Anderson",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2016-10-11T12:15:45.566Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "17",
+    "object_repr": "Mae",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2016-10-11T12:15:45.653Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "16",
+    "object_repr": "Marie",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2016-10-11T12:15:45.744Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "15",
+    "object_repr": "Jane",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2016-10-11T12:15:45.835Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "14",
+    "object_repr": "Xian Lim",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2016-10-11T12:15:45.921Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "13",
+    "object_repr": "Kim Chiu",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2016-10-11T12:15:46.009Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "12",
+    "object_repr": "Reygie Luspo",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2016-10-11T12:15:46.081Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "11",
+    "object_repr": "",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2016-10-11T12:15:46.155Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "10",
+    "object_repr": "Mang",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2016-10-11T12:15:46.253Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "9",
+    "object_repr": "RJ Esteban",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 17,
+  "fields": {
+    "action_time": "2016-10-11T12:15:46.330Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "8",
+    "object_repr": "Jessah Marie Duran",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 18,
+  "fields": {
+    "action_time": "2016-10-11T12:15:46.420Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "7",
+    "object_repr": "",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 19,
+  "fields": {
+    "action_time": "2016-10-11T12:15:46.492Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "6",
+    "object_repr": "Charie Mae Manayaga",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 20,
+  "fields": {
+    "action_time": "2016-10-11T12:15:46.664Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "5",
+    "object_repr": "Jannielyn Acha",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 21,
+  "fields": {
+    "action_time": "2016-10-11T12:15:46.774Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "4",
+    "object_repr": "Maharlika Alberca",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 22,
+  "fields": {
+    "action_time": "2016-10-11T12:15:46.896Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "3",
+    "object_repr": "Starra Jane Furton",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 23,
+  "fields": {
+    "action_time": "2016-10-11T12:15:46.972Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "2",
+    "object_repr": "Starra Jane Furton",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 24,
+  "fields": {
+    "action_time": "2016-10-11T12:15:47.065Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "1",
+    "object_repr": "Starra Jane Furton",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 25,
+  "fields": {
+    "action_time": "2016-10-11T12:54:13.316Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "22",
+    "object_repr": "",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 26,
+  "fields": {
+    "action_time": "2016-10-12T12:16:05.472Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "25",
+    "object_repr": "",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 27,
+  "fields": {
+    "action_time": "2016-10-12T12:16:05.570Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "24",
+    "object_repr": "Charie Mae Manayaga",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 28,
+  "fields": {
+    "action_time": "2016-10-12T12:16:05.636Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "23",
+    "object_repr": "Starra Jane Furton",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 29,
+  "fields": {
+    "action_time": "2016-10-12T12:23:47.551Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "28",
+    "object_repr": "",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 30,
+  "fields": {
+    "action_time": "2016-10-12T12:23:47.606Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "27",
+    "object_repr": "",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 31,
+  "fields": {
+    "action_time": "2016-10-12T12:23:47.685Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "26",
+    "object_repr": "",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 32,
+  "fields": {
+    "action_time": "2016-10-12T12:26:53.076Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "29",
+    "object_repr": "",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 33,
+  "fields": {
+    "action_time": "2016-10-12T12:28:50.481Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "30",
+    "object_repr": "",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 34,
+  "fields": {
+    "action_time": "2016-10-12T12:29:59.932Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "31",
+    "object_repr": "",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 35,
+  "fields": {
+    "action_time": "2016-10-12T12:49:53.339Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "32",
+    "object_repr": "",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 36,
+  "fields": {
+    "action_time": "2016-10-12T13:03:29.847Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "34",
+    "object_repr": "",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 37,
+  "fields": {
+    "action_time": "2016-10-12T13:03:29.959Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "33",
+    "object_repr": "Jessah",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 38,
+  "fields": {
+    "action_time": "2016-10-12T13:06:15.915Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "37",
+    "object_repr": "",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 39,
+  "fields": {
+    "action_time": "2016-10-12T13:06:16.022Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "36",
+    "object_repr": "",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 40,
+  "fields": {
+    "action_time": "2016-10-12T13:06:16.089Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "35",
+    "object_repr": "",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 41,
+  "fields": {
+    "action_time": "2016-10-12T13:16:50.317Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "38",
+    "object_repr": "Starra Jane Furton",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 42,
+  "fields": {
+    "action_time": "2016-10-12T13:23:06.128Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "39",
+    "object_repr": "Jessah Marie Duran",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 43,
+  "fields": {
+    "action_time": "2016-10-12T13:36:27.368Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "41",
+    "object_repr": "Starra Jane Furton",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 44,
+  "fields": {
+    "action_time": "2016-10-12T13:36:27.481Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "40",
+    "object_repr": "Starra Jane Furton",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 45,
+  "fields": {
+    "action_time": "2016-10-12T14:12:50.474Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "44",
+    "object_repr": "Starra Jane Furton",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 46,
+  "fields": {
+    "action_time": "2016-10-12T14:12:50.532Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "43",
+    "object_repr": "Starra Jane Furton",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 47,
+  "fields": {
+    "action_time": "2016-10-12T14:12:50.609Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "42",
+    "object_repr": "Starra Jane Furton",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 48,
+  "fields": {
+    "action_time": "2016-10-12T17:16:47.251Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "1",
+    "object_repr": "Set",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 49,
+  "fields": {
+    "action_time": "2016-10-13T01:53:22.496Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "1",
+    "object_repr": "Set",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 50,
+  "fields": {
+    "action_time": "2016-10-13T01:58:01.577Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "2",
+    "object_repr": "Lights (courts)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 51,
+  "fields": {
+    "action_time": "2016-10-13T01:58:15.532Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "3",
+    "object_repr": "Tables",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 52,
+  "fields": {
+    "action_time": "2016-10-13T01:58:27.923Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "4",
+    "object_repr": "Chairs",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 53,
+  "fields": {
+    "action_time": "2016-10-13T01:58:54.609Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "5",
+    "object_repr": "LCD Projector",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 54,
+  "fields": {
+    "action_time": "2016-10-13T01:59:12.269Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "6",
+    "object_repr": "Sound System",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 55,
+  "fields": {
+    "action_time": "2016-10-13T01:59:23.730Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "7",
+    "object_repr": "IWATA Fan",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 56,
+  "fields": {
+    "action_time": "2016-10-13T01:59:38.625Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "8",
+    "object_repr": "Air Condition",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 57,
+  "fields": {
+    "action_time": "2016-10-13T01:59:54.819Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "9",
+    "object_repr": "Computer Units",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 58,
+  "fields": {
+    "action_time": "2016-10-13T02:00:28.390Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "2",
+    "object_repr": "AS 150",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 59,
+  "fields": {
+    "action_time": "2016-10-13T02:00:28.520Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "1",
+    "object_repr": "AS 135",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 60,
+  "fields": {
+    "action_time": "2016-10-13T02:01:00.425Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "3",
+    "object_repr": "AS 135",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 61,
+  "fields": {
+    "action_time": "2016-10-13T02:01:15.745Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "4",
+    "object_repr": "AS 151",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 62,
+  "fields": {
+    "action_time": "2016-10-13T02:01:44.836Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "5",
+    "object_repr": "AS 153",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 63,
+  "fields": {
+    "action_time": "2016-10-13T02:02:05.826Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "6",
+    "object_repr": "AS 162-164",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 64,
+  "fields": {
+    "action_time": "2016-10-13T02:02:28.310Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "7",
+    "object_repr": "AS 165",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 65,
+  "fields": {
+    "action_time": "2016-10-13T02:02:51.321Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "8",
+    "object_repr": "AS 167",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 66,
+  "fields": {
+    "action_time": "2016-10-13T02:03:06.109Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "9",
+    "object_repr": "AS 206",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 67,
+  "fields": {
+    "action_time": "2016-10-13T02:03:22.639Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "10",
+    "object_repr": "AS 231",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 68,
+  "fields": {
+    "action_time": "2016-10-13T02:03:47.343Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "11",
+    "object_repr": "AS 233",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 69,
+  "fields": {
+    "action_time": "2016-10-13T02:04:08.532Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "12",
+    "object_repr": "AS 235",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 70,
+  "fields": {
+    "action_time": "2016-10-13T02:04:23.076Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "11",
+    "object_repr": "AS 233",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"price_general\", \"price_student\", \"price_alumni\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 71,
+  "fields": {
+    "action_time": "2016-10-13T02:04:38.538Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "13",
+    "object_repr": "AS 247-249",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 72,
+  "fields": {
+    "action_time": "2016-10-13T02:05:52.234Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "14",
+    "object_repr": "AS 259-261",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 73,
+  "fields": {
+    "action_time": "2016-10-13T02:06:09.484Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "15",
+    "object_repr": "AS 302",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 74,
+  "fields": {
+    "action_time": "2016-10-13T02:06:26.518Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "16",
+    "object_repr": "AS 304",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 75,
+  "fields": {
+    "action_time": "2016-10-13T02:06:48.735Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "17",
+    "object_repr": "AS Conference Hall A",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 76,
+  "fields": {
+    "action_time": "2016-10-13T02:07:07.786Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "18",
+    "object_repr": "AS Conference Hall B",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 77,
+  "fields": {
+    "action_time": "2016-10-13T02:07:19.218Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "19",
+    "object_repr": "AS Parking Area",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 78,
+  "fields": {
+    "action_time": "2016-10-13T02:07:47.499Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "20",
+    "object_repr": "SRP-AVR",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 79,
+  "fields": {
+    "action_time": "2016-10-13T02:08:02.650Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "21",
+    "object_repr": "AVR 1 (beside PAH) ONLY",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 80,
+  "fields": {
+    "action_time": "2016-10-13T02:08:16.853Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "22",
+    "object_repr": "AVR 1 (beside PAH) WITH Lobby",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 81,
+  "fields": {
+    "action_time": "2016-10-13T02:08:47.153Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "23",
+    "object_repr": "AVR 2 (undergrad building)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 82,
+  "fields": {
+    "action_time": "2016-10-13T02:09:04.769Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "24",
+    "object_repr": "Basket Ball/Tennis Courts",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 83,
+  "fields": {
+    "action_time": "2016-10-13T02:09:20.984Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "25",
+    "object_repr": "BMC Lounge",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 84,
+  "fields": {
+    "action_time": "2016-10-13T02:09:48.363Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "26",
+    "object_repr": "BMC Pantry",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 85,
+  "fields": {
+    "action_time": "2016-10-13T02:10:04.381Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "27",
+    "object_repr": "Computer Laboratories",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 86,
+  "fields": {
+    "action_time": "2016-10-13T02:10:19.225Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "28",
+    "object_repr": "Cottages",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 87,
+  "fields": {
+    "action_time": "2016-10-13T02:10:39.727Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "29",
+    "object_repr": "Football Field (AS Field)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 88,
+  "fields": {
+    "action_time": "2016-10-13T02:10:53.556Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "30",
+    "object_repr": "GP1",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 89,
+  "fields": {
+    "action_time": "2016-10-13T02:11:07.597Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "31",
+    "object_repr": "GP2",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 90,
+  "fields": {
+    "action_time": "2016-10-13T02:11:33.152Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "32",
+    "object_repr": "GP3",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 91,
+  "fields": {
+    "action_time": "2016-10-13T02:11:45.330Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "33",
+    "object_repr": "GP4",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 92,
+  "fields": {
+    "action_time": "2016-10-13T02:12:03.416Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "34",
+    "object_repr": "Guesthouse",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 93,
+  "fields": {
+    "action_time": "2016-10-13T02:12:28.690Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "35",
+    "object_repr": "High School Covered Court",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 94,
+  "fields": {
+    "action_time": "2016-10-13T02:12:46.678Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "36",
+    "object_repr": "ILC - AVR",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 95,
+  "fields": {
+    "action_time": "2016-10-13T02:12:59.703Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "37",
+    "object_repr": "NSMD Lobby",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 96,
+  "fields": {
+    "action_time": "2016-10-13T02:13:20.048Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "38",
+    "object_repr": "Open Field (near Admin building)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 97,
+  "fields": {
+    "action_time": "2016-10-13T02:13:44.886Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "39",
+    "object_repr": "Performing Arts Hall (PAH) A",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 98,
+  "fields": {
+    "action_time": "2016-10-13T02:14:01.805Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "40",
+    "object_repr": "Performing Arts Hall (PAH) A WITH Lobby",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 99,
+  "fields": {
+    "action_time": "2016-10-13T02:15:11.601Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "41",
+    "object_repr": "Performing Arts Hall (PAH) B",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 100,
+  "fields": {
+    "action_time": "2016-10-13T02:15:31.790Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "42",
+    "object_repr": "Performing Arts Hall (PAH) C",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 101,
+  "fields": {
+    "action_time": "2016-10-13T02:15:55.900Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "43",
+    "object_repr": "Performing Arts Hall (PAH) Lobby ONLY",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 102,
+  "fields": {
+    "action_time": "2016-10-13T02:16:23.917Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "44",
+    "object_repr": "Performing Arts Hall (PAH) B WITH Lobby",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 103,
+  "fields": {
+    "action_time": "2016-10-13T02:16:42.865Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "45",
+    "object_repr": "Rm 241",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 104,
+  "fields": {
+    "action_time": "2016-10-13T02:17:05.942Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "46",
+    "object_repr": "Rm 215",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 105,
+  "fields": {
+    "action_time": "2016-10-13T02:17:22.781Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "47",
+    "object_repr": "Rm 216",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 106,
+  "fields": {
+    "action_time": "2016-10-13T02:17:42.156Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "48",
+    "object_repr": "Rm 217",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 107,
+  "fields": {
+    "action_time": "2016-10-13T02:18:03.331Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "49",
+    "object_repr": "Rm 218",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 108,
+  "fields": {
+    "action_time": "2016-10-13T02:18:14.855Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "50",
+    "object_repr": "Rm 219",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 109,
+  "fields": {
+    "action_time": "2016-10-13T02:18:28.949Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "51",
+    "object_repr": "SRP 201A-1",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 110,
+  "fields": {
+    "action_time": "2016-10-13T02:18:48.562Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "52",
+    "object_repr": "SRP 201A-2",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 111,
+  "fields": {
+    "action_time": "2016-10-13T02:19:02.203Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "53",
+    "object_repr": "SRP 201B",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 112,
+  "fields": {
+    "action_time": "2016-10-13T02:19:14.745Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "54",
+    "object_repr": "SRP Auditorium",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 113,
+  "fields": {
+    "action_time": "2016-10-13T02:19:41.873Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "55",
+    "object_repr": "SRP Boardroom (15 seaters)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 114,
+  "fields": {
+    "action_time": "2016-10-13T02:19:58.400Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "56",
+    "object_repr": "SRP Case Room 103",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 115,
+  "fields": {
+    "action_time": "2016-10-13T02:20:16.102Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "57",
+    "object_repr": "SRP Case Room 105",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 116,
+  "fields": {
+    "action_time": "2016-10-13T02:20:37.319Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "58",
+    "object_repr": "SRP Case Room 202",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 117,
+  "fields": {
+    "action_time": "2016-10-13T02:20:51.675Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "59",
+    "object_repr": "SRP Case Room 203A",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 118,
+  "fields": {
+    "action_time": "2016-10-13T02:21:10.157Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "60",
+    "object_repr": "SRP Case Room 203B",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 119,
+  "fields": {
+    "action_time": "2016-10-13T02:21:31.057Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "61",
+    "object_repr": "SRP Case Room 204A",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 120,
+  "fields": {
+    "action_time": "2016-10-13T02:21:53.133Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "62",
+    "object_repr": "SRP Case Room 204B",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 121,
+  "fields": {
+    "action_time": "2016-10-13T02:22:15.350Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "63",
+    "object_repr": "SRP Case Room 205",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 122,
+  "fields": {
+    "action_time": "2016-10-13T02:22:35.078Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "64",
+    "object_repr": "SRP Classrooms",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 123,
+  "fields": {
+    "action_time": "2016-10-13T02:22:50.597Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "65",
+    "object_repr": "Union Building",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 124,
+  "fields": {
+    "action_time": "2016-10-13T02:23:00.855Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "66",
+    "object_repr": "UP High School Ground",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 125,
+  "fields": {
+    "action_time": "2016-10-13T20:52:40.140Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "50",
+    "object_repr": "2",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 126,
+  "fields": {
+    "action_time": "2016-10-13T20:52:40.272Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "49",
+    "object_repr": "5",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 127,
+  "fields": {
+    "action_time": "2016-10-13T20:52:40.406Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "48",
+    "object_repr": "2",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 128,
+  "fields": {
+    "action_time": "2016-10-13T20:54:32.043Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "51",
+    "object_repr": "",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 129,
+  "fields": {
+    "action_time": "2016-10-13T20:59:54.021Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "52",
+    "object_repr": "",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 130,
+  "fields": {
+    "action_time": "2016-10-13T05:49:12.997Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "60",
+    "object_repr": "Jai",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 131,
+  "fields": {
+    "action_time": "2016-10-13T05:49:13.137Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "59",
+    "object_repr": "Starra Jane Furton",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 132,
+  "fields": {
+    "action_time": "2016-10-13T05:49:13.217Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "57",
+    "object_repr": "",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 133,
+  "fields": {
+    "action_time": "2016-10-13T05:49:13.293Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "56",
+    "object_repr": "",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 134,
+  "fields": {
+    "action_time": "2016-10-13T05:49:13.381Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "55",
+    "object_repr": "",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 135,
+  "fields": {
+    "action_time": "2016-10-13T05:49:13.472Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "54",
+    "object_repr": "",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 136,
+  "fields": {
+    "action_time": "2016-10-13T05:49:13.550Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "53",
+    "object_repr": "Name",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 137,
+  "fields": {
+    "action_time": "2016-10-13T05:49:37.429Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "58",
+    "object_repr": "Starra Jane Furton",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 138,
+  "fields": {
+    "action_time": "2016-10-13T05:49:37.562Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "47",
+    "object_repr": "Maharlika Alberca",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 139,
+  "fields": {
+    "action_time": "2016-10-13T05:49:37.636Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "46",
+    "object_repr": "Charie Mae Manayaga",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 140,
+  "fields": {
+    "action_time": "2016-10-13T05:49:37.712Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "45",
+    "object_repr": "Starra Jane Furton",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 141,
+  "fields": {
+    "action_time": "2016-10-22T13:05:25.363Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "1",
+    "object_repr": "Outsiders",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 142,
+  "fields": {
+    "action_time": "2016-10-22T13:06:26.983Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "1",
+    "object_repr": "Outsiders",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 143,
+  "fields": {
+    "action_time": "2016-10-22T13:07:01.829Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "2",
+    "object_repr": "UPC Orgs",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 144,
+  "fields": {
+    "action_time": "2016-10-22T13:07:27.697Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "3",
+    "object_repr": "OSA Staff",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 145,
+  "fields": {
+    "action_time": "2016-10-22T13:07:44.348Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "4",
+    "object_repr": "CDMO Staff",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 146,
+  "fields": {
+    "action_time": "2016-10-22T13:08:08.819Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "5",
+    "object_repr": "ADA Staff",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 147,
+  "fields": {
+    "action_time": "2016-10-22T13:09:19.501Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "6",
+    "object_repr": "Cashier Staff",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 148,
+  "fields": {
+    "action_time": "2016-10-22T13:09:56.051Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "3",
+    "object_repr": "out2016001",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 149,
+  "fields": {
+    "action_time": "2016-10-22T13:10:25.844Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "3",
+    "object_repr": "out2016001",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"first_name\", \"last_name\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 150,
+  "fields": {
+    "action_time": "2016-10-22T13:10:58.583Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "4",
+    "object_repr": "org_sc2016",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 151,
+  "fields": {
+    "action_time": "2016-10-22T13:11:32.721Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "4",
+    "object_repr": "org_sc2016",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"first_name\", \"last_name\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 152,
+  "fields": {
+    "action_time": "2016-10-22T13:11:54.125Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "5",
+    "object_repr": "org_sayawe2016",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 153,
+  "fields": {
+    "action_time": "2016-10-22T13:12:09.502Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "5",
+    "object_repr": "org_sayawe2016",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"first_name\", \"last_name\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 154,
+  "fields": {
+    "action_time": "2016-10-22T13:14:56.341Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "6",
+    "object_repr": "org_csg2016",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 155,
+  "fields": {
+    "action_time": "2016-10-22T13:15:20.993Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "6",
+    "object_repr": "org_csg2016",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"first_name\", \"last_name\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 156,
+  "fields": {
+    "action_time": "2016-10-22T13:15:54.611Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "7",
+    "object_repr": "osa_maria",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 157,
+  "fields": {
+    "action_time": "2016-10-22T13:16:12.761Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "7",
+    "object_repr": "osa_maria",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"first_name\", \"last_name\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 158,
+  "fields": {
+    "action_time": "2016-10-22T13:16:38.472Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "8",
+    "object_repr": "cdmo_juan",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 159,
+  "fields": {
+    "action_time": "2016-10-22T13:16:52.799Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "8",
+    "object_repr": "cdmo_juan",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"first_name\", \"last_name\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 160,
+  "fields": {
+    "action_time": "2016-10-22T13:17:07.391Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "9",
+    "object_repr": "ada_adelfa",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 161,
+  "fields": {
+    "action_time": "2016-10-22T13:17:26.096Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "9",
+    "object_repr": "ada_adelfa",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"first_name\", \"last_name\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 162,
+  "fields": {
+    "action_time": "2016-10-22T13:17:43.992Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "10",
+    "object_repr": "cash_carmen",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 163,
+  "fields": {
+    "action_time": "2016-10-22T13:17:50.018Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "10",
+    "object_repr": "cash_carmen",
+    "action_flag": 2,
+    "change_message": "[]"
   }
 }
 ]
