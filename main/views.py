@@ -12,8 +12,8 @@ def login(request):
 	template = 'login.html'
 	return render(request,template)
 
-class MainView(TemplateView):
-	template_name = "index.html"
+# class MainView(TemplateView):
+# 	template_name = "index.html"
 
 class SuccessView(TemplateView):
 	template_name = "success.html"
