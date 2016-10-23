@@ -23,6 +23,9 @@ def success(request):
 class home(TemplateView):
 	template_name = "index.html"
 
+class SuccessView(TemplateView):
+	template_name = "success.html"
+
 class GuidelineView(TemplateView):
 	template_name = "guidelines.html"
 
