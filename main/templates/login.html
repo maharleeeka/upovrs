@@ -1,10 +1,17 @@
-<!DOCTYPE>
-<html>
-	<head>
-		
-	</head>
-	<body>
-		<h1>LOGIN</h1>
-	</body>
+{% extends 'base.html' %}
+{% block content %}
 
-</html>
+<div id="">
+	<div id="loginbx" class="form-signin">
+		<h2 class="form-signin-heading">Please sign in</h2>
+		<form action="">
+			<label for="inputEmail" class="sr-only">Email address</label>
+			<input type="text" id="inputEmail" class="form-control" placeholder="Username" required="" autofocus="">
+			<label for="inputPassword" class="sr-only">Password</label>
+			<input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+			<button class="btn btn-lg btn-default btn-block" type="submit">Sign in</button>
+		</form>
+	</div>
+</div>
+
+{% endblock %}
