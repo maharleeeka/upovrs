@@ -21,17 +21,48 @@ textarea {
 	margin-bottom: 50px;
 }
 
+#content .form-control{
+	margin-top: 0px; 
+
+}
+
+#added_date {
+	font-size: 15px;
+}
+
+#added_date input {
+	border: 0px;
+	pointer-events: none;
+}
+
+.block {
+	/*border: 1px solid #ccc;*/
+	margin: 5px;
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.40);
+}
+
+#schedule .btn{
+	margin-top:  45px;
+	width: 100%
+}
+
+#schedule a {
+	text-align: center;
+}
+
+#schedule hr {
+	margin-top: 40px;
+}
+
+label{
+	margin-top: 20px;
+}
+
 .main{
 	width: 850px;
 	/*margin-bottom: 50px;*/
 	margin-left: auto;
 	margin-right: auto;
-}
-.btn{
-	margin-top:  25px;
-}
-label{
-	margin-top: 10px;
 }
 
 .add-date-btn label {
@@ -45,6 +76,7 @@ label{
 
 .btn-default{
 	margin-bottom: 50px;
+	background-color: #ccc;
 
 }
 
@@ -61,6 +93,14 @@ label{
 	width: 150px;
 }
 
-.submit-btn{
-	
+#submit_btn{
+	margin-top: 30px;
+}
+
+@media (max-width: 992px){
+	#schedule .btn {
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+
 }
