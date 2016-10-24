@@ -125,10 +125,11 @@ a:link, a:visited {
 }
 
 /*Login button hover style*/
-/*.navbar-default .navbar-nav>li>a:hover {
-    color: white;
-}*/
+.navbar-default .navbar-nav>li>a:hover{
+    color: #FFF;
+    background: #4CAF50;
 
+}
 .form-control {
     margin-top: 15px;
     vertical-align: middle;
