@@ -11,6 +11,7 @@
 				</div>
 				<!-- #form-header -->
 				<hr>
+
 				<form method="post" id="request_form" name="Form">
 					{% csrf_token %}
 
@@ -34,7 +35,7 @@
 					</div>
 
 					<div class="form-group">
-						<div class="col-xs-12">
+						<div class="col-md-12">
 							<label>Participants: </label>
 							<input type="text" class="form-control required" name="participants">
 						</div>
@@ -48,7 +49,7 @@
 					</div>
 
 					<div class="form-group">
-						<div class="col-xs-12">
+						<div class="col-md-12">
 							<label>Venue</label>
 							<select class="form-control" id="ex11" name="venue_id">
 								{% for venue in venue_list %}
@@ -61,26 +62,32 @@
 					
 					
 					<div id="schedule">
+					<hr>
 						<div class="form-group">
-							<div class="col-sm-4">
+							<div class="col-md-3">
 								<label>Date: </label>
-								<input type="date" class="form-control required" name="date_needed" id="date_needed">
+								<input type="date" class="form-control required" name="date_needed" id="date_needed" value="">
 							</div>
 						</div>
 						
 						<div class="form-group">
-							<div class="col-sm-4 col-xs-6">
+							<div class="col-md-3">
 								<label>Time (from): </label>
-								<input type="time" class="form-control required" name="time_from">
+								<input type="time" class="form-control required" name="time_from" id="val">
 							</div>
 						</div>
 
 						<div class="form-group">
-							<div class="col-sm-4 col-xs-6">
+							<div class="col-md-3">
 								<label>Time (to): </label>
-								<input type="time" class="form-control required" name="time_to">
+								<input type="time" class="form-control required" name="time_to" id="val">
 							</div>
 						</div>
+
+						<div class="col-md-3">
+							<a class="btn btn-default" href="#" role="button" onclick="dateAdded();"> Add Date</a>
+						</div>
+					<hr>
 					</div>
 					<!-- #schedule -->
 					
@@ -101,18 +108,22 @@
 					</div>
 					
 					<div class="form-group">
-						<div class="col-xs-12">
+						<div class="col-md-12">
 							<label style="display:none;">Remarks</label>
 							<textarea rows="4" cols="40" id="ex11 comment" class="form-control" style="display:none;" readonly></textarea>
 						</div>
 					</div>
 
 
-					<div class="form-group">
-						<div class="col-xs-12">
-							<input type="button" class="form-control btn-default btn" id="ex11" value="Submit" onclick="validateForm();">
+					<div id="submit_btn">
+						<div class="form-group">
+							<div class="col-md-12">
+								<input type="button" class="submit-btn form-control btn-default btn" id="ex11" value="Submit" onclick="validateForm();">
+							</div>
 						</div>
 					</div>
+					<!-- #submit_btn -->
+					
 				</form>	
 			</div>
 		</div>
