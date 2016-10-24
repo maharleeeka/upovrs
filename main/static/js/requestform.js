@@ -74,6 +74,23 @@ function validateForm(){
 		}
 	}
 
+  //for equipment
+  var x = document.getElementsByClassName("check");
+  var y = document.getElementsByClassName("unit_field");
+
+  for (var i=0; i < x.length; i++){
+    if (x[i].checked == true && y[i].value == ''){
+      alert("Please provide number of units for equipment to be rented.");
+      valid = false;
+      break;
+    }
+    if (!isInteger(y[i].value)) {
+      alert("Must input integer only for the units.");
+      valid = false;
+      break;
+    }
+  }
+
 	if (valid){
     valid = checkDate();
 
@@ -105,3 +122,22 @@ function checkDate() {
     }
 }
 
+function enable() {
+  var x = document.getElementsByClassName("unit_field");
+  var y = document.getElementsByClassName("check");
+  var i;
+  
+  for (i = 0; i < x.length; i++) {
+      if(y[i].checked){
+        x[i].disabled = false;
+      }
+      else{
+        x[i].disabled = true;
+      }
+  }
+    
+}
+
+function isInteger(x) {
+        return x % 1 === 0;
+}

@@ -100,8 +100,8 @@
 							<!-- var i = 2 -->
 							{% for equipment in equipment_list %}		
 								<div class="checkbox col-md-4">
-									<label id="equipments"><input type="checkbox" name="aircon" id="unitbox" value="{{equipment.pk}}">{{equipment}}</label>
-									<input type="text" name="unit" id="equi_box">
+									<label id="equipments"><input onclick="enable()" class="check" type="checkbox" name="aircon" id="unitbox" value="{{equipment.pk}}">{{equipment}}</label>
+									<input type="text" name="unit" id="equi_box" class="unit_field" disabled>
 								</div>	
 							{% endfor %}
 						</div>
