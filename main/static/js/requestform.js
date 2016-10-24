@@ -1,3 +1,5 @@
+var i = 1;
+
 function repeat() {
   var div = document.getElementById('schedule'),
     clone = div.cloneNode(true); // true means clone all childNodes and all event handlers
@@ -7,7 +9,9 @@ function repeat() {
 
 
 function dateAdded() {
-  /* by charie: PLEASE DO NOT MODIFY THIS FUNCTION */
+  /* by charie: PLEASE DO NOT MODIFY THIS FUNCTION
+     will be minified further
+  */
 
   /*get the input values*/
   var date = document.getElementsByName('date_needed')[0].value;
@@ -19,20 +23,22 @@ function dateAdded() {
   var input_1 = document.createElement('input');
   var input_2 = document.createElement('input');
   var input_3 = document.createElement('input');
-  var btn = document.createElement ('button');
+  var btn = document.createElement ('span');
   
   /* set id and class for div*/
-  iDiv.id = 'added_date';
+  iDiv.id = 'added_date_' + i;
   iDiv.className = 'col-md-12 block';
 
   /* create name attribute for the input tags*/
   var att_1 = document.createAttribute('name');
   var att_2 = document.createAttribute('name');
   var att_3 = document.createAttribute('name');
+  var click = document.createAttribute('onclick');
+  var role = document.createAttribute('role');
 
   /*set the inputs*/
   input_1.setAttributeNode(att_1);
-  att_2.value = "date_needed";
+  att_1.value = "date_needed";
   input_1.className = 'col-md-3';
   input_1.value = date;
  
@@ -46,20 +52,33 @@ function dateAdded() {
   input_3.className = 'col-md-3';
   input_3.value = timeTo;  
 
+  btn.setAttributeNode(click);
+  btn.setAttributeNode(role);
+  click.value = "this.parentNode.remove();";           /* calls the function when click*/
+  role.value = "button";
+  btn.className = 'glyphicon glyphicon-remove';
+
+
   /* append input tags to div tag*/
   iDiv.appendChild(input_1);
   iDiv.appendChild(input_2);
   iDiv.appendChild(input_3);
+  iDiv.appendChild(btn);
 
   /* append div tag to html body*/
-   document.getElementById('schedule').appendChild(iDiv);
+   document.getElementById('added_date').appendChild(iDiv);
+   i++;
 
 }
 
 
-function requireDateField(){
-  /* by charie: PLEASE DO NOT MODIFY THIS FUNCTION */
-}
+// function removeDate(a){
+//   /* by charie: PLEASE DO NOT MODIFY THIS FUNCTION */
+
+//   while(a.parentNode.parentNode.hasChildNodes()){
+//     a.parentNode.parentNode.removeChild(a.parentNode);
+//   }
+// }
 
 
 function validateForm(){

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-		<div id="content">
+		<div id="content" onload="removeDate()">
 			<div class="container">
 				<div id="form-header">
 					<div class="col-sm-12">
@@ -73,23 +73,31 @@
 						<div class="form-group">
 							<div class="col-md-3">
 								<label>Time (from): </label>
-								<input type="time" class="form-control required" name="time_from" id="val">
+								<input type="time" class="form-control required" name="time_from" id="val" value="">
 							</div>
 						</div>
 
 						<div class="form-group">
 							<div class="col-md-3">
 								<label>Time (to): </label>
-								<input type="time" class="form-control required" name="time_to" id="val">
+								<input type="time" class="form-control required" name="time_to" id="val" value="">
 							</div>
 						</div>
 
 						<div class="col-md-3">
 							<a class="btn btn-default" href="#" role="button" onclick="dateAdded();"> Add Date</a>
 						</div>
+
+						
 					<hr>
 					</div>
 					<!-- #schedule -->
+
+					<div id="added_date">
+					</div>
+					<!-- #added_date -->
+
+
 					
 					<div class="col-md-6">
 						<label>Equipments</label>
@@ -118,7 +126,7 @@
 					<div id="submit_btn">
 						<div class="form-group">
 							<div class="col-md-12">
-								<input type="button" class="submit-btn form-control btn-default btn" id="ex11" value="Submit" onclick="validateForm();">
+								<input type="button" class="submit-btn form-control btn-default btn" id="ex11" value="Submit" onclick="validateForm(); checkDate();">
 							</div>
 						</div>
 					</div>

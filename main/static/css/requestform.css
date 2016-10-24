@@ -26,17 +26,21 @@ textarea {
 
 }
 
-#added_date {
+/*#added_date {
 	font-size: 15px;
-}
+}*/
 
-#added_date input {
+.block input {
 	border: 0px;
 	pointer-events: none;
 }
 
+.block .glyphicon {
+	float: right;
+	margin-top: 4px;
+}
+
 .block {
-	/*border: 1px solid #ccc;*/
 	margin: 5px;
 	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.40);
 }
@@ -93,11 +97,11 @@ label{
 	width: 150px;
 }
 
-#submit_btn{
-	margin-top: 30px;
+#submit_btn .submit-btn{
+	margin-top: 35px;
 }
 
-@media (max-width: 992px){
+@media (max-width: 991px){
 	#schedule .btn {
 		margin-top: 20px;
 		margin-bottom: 20px;
