@@ -9,9 +9,7 @@ function repeat() {
 
 
 function dateAdded() {
-  /* by charie: PLEASE DO NOT MODIFY THIS FUNCTION
-     will be minified further
-  */
+  /* by charie: PLEASE DO NOT MODIFY THIS FUNCTION. Will be minified further */
 
   /*get the input values*/
   var date = document.getElementsByName('date_needed')[0].value;
@@ -54,10 +52,9 @@ function dateAdded() {
 
   btn.setAttributeNode(click);
   btn.setAttributeNode(role);
-  click.value = "this.parentNode.remove();";           /* calls the function when click*/
+  click.value = "this.parentNode.remove();";           /* remove date when click*/
   role.value = "button";
   btn.className = 'glyphicon glyphicon-remove';
-
 
   /* append input tags to div tag*/
   iDiv.appendChild(input_1);
@@ -71,14 +68,24 @@ function dateAdded() {
 
 }
 
+function checkDateFields() {
+  /*by charie: PLEASE DO NOT MODIFY THIS FUNCTION*/
+  var i = 0;
+  var input = document.getElementById('schedule').getElementsByTagName('input');
 
-// function removeDate(a){
-//   /* by charie: PLEASE DO NOT MODIFY THIS FUNCTION */
+  for (i = 0; i < input.length; i++){
+    if (input.item(i).value == ''){
+      alert("Please fill fields needed for reservation date");
+      break;
+    }
+  }
 
-//   while(a.parentNode.parentNode.hasChildNodes()){
-//     a.parentNode.parentNode.removeChild(a.parentNode);
-//   }
-// }
+  if (i >= input.length){
+    if (checkDate() == true){
+      dateAdded();
+    }
+  }
+}
 
 
 function validateForm(){
