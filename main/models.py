@@ -42,9 +42,7 @@ class Request(models.Model):
 	status = models.BooleanField(blank=True)
 	remarks = models.CharField(max_length=500, blank=True)
 	venue_id = models.ForeignKey(Venue, models.DO_NOTHING, db_column='venue_id', blank=True, null=True)
-	date_needed = models.DateField(blank=True, null=True)
-	time_from = models.TimeField(blank=True, null=True)
-	time_to = models.TimeField(blank=True, null=True)
+	
 	
 	def __str__(self):
 		return str(self.name)
@@ -54,6 +52,15 @@ class RentedEquipment(models.Model):
 	#equipment_id = models.ForeignKey(Equipment, models.DO_NOTHING, db_column='equipment_id', null=True, blank=True)
 	equipment_id = models.DecimalField(max_digits = 4, decimal_places=0, null=True)
 	unit = models.DecimalField(max_digits = 4, decimal_places=0, null=True)
+
+	def __str__(self):
+		return str(self.pk)
+
+class RequestedDate(models.Model):
+	request_id = models.ForeignKey(Request, models.DO_NOTHING, db_column='request_id')
+	date_needed = models.DateField(blank=True, null=True)
+	time_from = models.TimeField(blank=True, null=True)
+	time_to = models.TimeField(blank=True, null=True)
 
 	def __str__(self):
 		return str(self.pk)
