@@ -11,9 +11,8 @@
 				</div>
 				<!-- #form-header -->
 				<hr>
-				<form method="post" id="request_form" name="Form">
+				<form method="post" id="request_form" name="request_form">
 					{% csrf_token %}
-
 					<div class="form-group">
 						<div class="col-md-6">
 							<label>Name: </label>
@@ -86,14 +85,16 @@
 					<div class="col-md-6">
 						<label>Equipments</label>
 					</div>
-
+				</form>
+				<form method="post" id="rentedequipments_form" name="rentedequipments_form">
+					{% csrf_token %}
 					<div class="form-group">
 						<div class="col-md-12">
 							<!-- var i = 2 -->
 							{% for equipment in equipment_list %}		
 								<div class="checkbox col-md-4">
-									<label id="equipments"><input type="checkbox" name="equipment" id="unitbox" value="{{equipment.pk}}">{{equipment}}</label>
-									<input type="text" name="unit" id="equi_box">
+									<label id="equipments"><input type="checkbox" name="equipment_id" id="unitbox" value="{{equipment.pk}}">{{equipment}}</label>
+									<input type="text" name="unit{{equipment.pk}}" id="equi_box">
 								</div>	
 							{% endfor %}
 						</div>

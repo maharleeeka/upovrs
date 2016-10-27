@@ -29,6 +29,8 @@ function validateForm(){
   	if(valid){
   		var form = document.getElementById("request_form");
   		form.submit();
+      var form2 = document.getElementById("rentedequipments_form");
+      //form2.submit();
   	}
   }
 }

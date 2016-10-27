@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView, CreateView, FormView
 from main.models import Venue, Equipment, Request, RentedEquipment
-from main.forms import RequestForm, RentedEqForm
+from main.forms import RequestForm
 from main import forms, views
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic.edit import ModelFormMixin
@@ -39,22 +39,13 @@ class RequestView(FormView):
 	    form = self.get_form()
 	    if form.is_valid():
 	    	self.object = form.save()
-	    	"""reqForm = RequestForm(request.POST, instance=Request())
-	    	renEqForm = RentedEqForm(request.POST, instance=RentedEquipment())
-	    	if reqForm.is_valid():
-	    		new = reqForm.save()
-	    		for cf in reqForm:
-	    			new_req = cf.save(commit=False)
-	    			new_req.request_id = new_req
-	    			new_req.save()"""
+	    	
+	    	RentedEquipmentView.getPK(self.object)
 	    	return self.form_valid(form)
 	    else:
 	        return self.form_invalid(form)
 		
 	def form_valid(self, form):
-		
-		#renEq = RentedEquipment(request_id=self.object,equipment_id='',unit='')
-		#renEq.save()
 		return super(RequestView, self).form_valid(form)
 
 	def get_success_url(self):
@@ -65,6 +56,48 @@ class RequestView(FormView):
 		context['venue_list'] = Venue.objects.all()
 		context['equipment_list'] = Equipment.objects.all()
 		return context
+
+class RentedEquipmentView(FormView):
+	template_name = 'request_form.html'
+	form_class = forms.RentedEqForm
+	pk = None
+
+	def getPK(object):
+		RentedEquipmentView.pk = object
+		print(RentedEquipmentView.pk)
+		re = RentedEquipment(request_id=object) 
+		re.save()
+		return super(RequestView)
+
+	def post(self, request, *args, **kwargs):
+		print('here')
+		form = RentedEquipment.get_form
+		for equipment in forms.cleaned_data.get('equipment_id'):
+			equipment = RentedEqForm({'equipment_id':equipment_id})
+			unit = form.cleaned_data.get('unit'+equipment)
+			r = RentedEquipment(request_id=pk, equipment_id=equipment, unit=unit)
+			r.save()
+		
+	def form_valid(self, form):
+		return super(RentedEquipmentView, self).form_valid(form)
+
+	def get_success_url(self):
+		return reverse_lazy('success')
+
+	def get_context_data(self, **kwargs):
+		context = super(RentedEquipmentView, self).get_context_data(**kwargs)
+		return context
+
+	def get_form(self, form_class=None):
+		if form_class is None: 
+			form_class = RentedEquipmentView.get_form_class()
+		return form_class(**RentedEquipmentView.get_form_kwargs())
+
+	def get_form_class(self):
+		return self.form_class
+
+
+
 
 
 
