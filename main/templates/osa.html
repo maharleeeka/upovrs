@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div id="osa-home">
+	<center><h1>List of Pending Requests</h1></center>
+	<hr>
+	<br>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>REQ #</th>
+				<th>NAME</th>
+				<th>EVENT</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for request in requests %}
+			<tr>
+		      	<th scope="row" class="col-md-4"><a href="#">{{request.pk}}</a></th>
+		    	<td class="col-md-4">{{request.name}}</td>
+		      	<td class="col-md-4">{{request.purpose}}</td>
+		    </tr>
+		    {% endfor %}
+		</tbody>
+	</table>
+
+	<div class="pagination">
+	    <span class="step-links">
+	        {% if requests.has_previous %}
+	            <a href="?page={{ requests.previous_page_number }}">previous</a>
+	        {% endif %}
+
+	        <span class="current">
+	            Page {{ requests.number }} of {{ requests.paginator.num_pages }}.
+	        </span>
+
+	        {% if requests.has_next %}
+	            <a href="?page={{ requests.next_page_number }}">next</a>
+	        {% endif %}
+	    </span>
+	</div>
+</div>
+
+
+{% endblock %}
+
