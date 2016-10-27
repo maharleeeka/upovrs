@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^rates/$', views.RateView.as_view(), name='rate'),
     url(r'^success/$', views.SuccessView.as_view(), name='success'),
     url(r'^login/$', views.login, name='login'),
+    url(r'^osa/requestlist$', views.RequestListView.as_view(), name='requestlist'),
 ]

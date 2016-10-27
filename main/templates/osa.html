@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div id="osa-home">
+	<h2></h2>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>REQ #</th>
+				<th>NAME</th>
+				<th>EVENT</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for request in request_list %}
+			<tr>
+		      	<th scope="row" class="col-md-4"><a href="#">{{request.pk}}</a></th>
+		    	<td class="col-md-4">{{request.name}}</td>
+		      	<td class="col-md-4">{{request.purpose}}</td>
+		    </tr>
+		    {% endfor %}
+		</tbody>
+	</table>
+	
+</div>
+
+
+{% endblock %}
+

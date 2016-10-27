@@ -24,6 +24,14 @@ class MainView(TemplateView):
 class RateView(TemplateView):
 	template_name = "rates.html"
 
+class RequestListView(TemplateView):
+	template_name = "osa.html"
+
+	def get_context_data(self, **kwargs):
+		context = super(RequestListView, self).get_context_data(**kwargs)
+		context['request_list'] = Request.objects.all()
+		return context
+
 class LoginView(TemplateView):
 	template_name = "login.html"
 
