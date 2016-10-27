@@ -91,9 +91,7 @@ class RequestView(FormView):
 		context = super(RequestView, self).get_context_data(**kwargs)
 		context['venue_list'] = Venue.objects.all()
 		context['equipment_list'] = Equipment.objects.all()
-<<<<<<< HEAD
-		return context
-=======
+		
 		return context
 
 class RentedEquipmentView(FormView):
