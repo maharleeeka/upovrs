@@ -6,6 +6,7 @@ from main.forms import RequestForm, RentedEqForm
 from main import forms, views
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic.edit import ModelFormMixin
+from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
 
 
 def login(request):
@@ -24,13 +25,40 @@ class MainView(TemplateView):
 class RateView(TemplateView):
 	template_name = "rates.html"
 
-class RequestListView(TemplateView):
-	template_name = "osa.html"
+# class RequestListView(TemplateView):
+# 	login_url = "login.html"
+# 	template_name = "osa.html"
 
-	def get_context_data(self, **kwargs):
-		context = super(RequestListView, self).get_context_data(**kwargs)
-		context['request_list'] = Request.objects.all()
-		return context
+
+# 	def get_context_data(self, **kwargs):
+# 		context = super(RequestListView, self).get_context_data(**kwargs)
+# 		context['request_list'] = Request.objects.all()
+# 		paginator = Paginator(context['request_list'],20)
+		
+# 		page = request.GET.get('page')
+# 		try:
+# 			requests = paginator.page(page)
+# 		except PageNotAnInteger:
+# 			requests = paginator.page(1)
+# 		except EmptyPage:
+# 			requests = paginator.page(paginator.num_pages)
+# 		return context
+
+
+def listing(request):
+	request_list = Request.objects.all()
+	paginator = Paginator(request_list,10)
+	page = request.GET.get('page')
+
+	try:
+		requests = paginator.page(page)
+	except PageNotAnInteger:
+		requests = paginator.page(1)
+	except EmptyPage:
+		requests = paginator.page(paginator.num_pages)
+
+	return render(request, 'osa.html', {'requests': requests})
+
 
 class LoginView(TemplateView):
 	template_name = "login.html"
@@ -73,6 +101,3 @@ class RequestView(FormView):
 		context['venue_list'] = Venue.objects.all()
 		context['equipment_list'] = Equipment.objects.all()
 		return context
-
-
-
