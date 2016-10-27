@@ -19,11 +19,19 @@ textarea {
 	height: 100%;
 	padding-bottom: 20px;
 	margin-bottom: 50px;
+	
 }
 
 #content .form-control{
 	margin-top: 0px; 
 
+}
+
+#container{
+	background: #7c0f0e;
+	width: 800px;
+	height: 100%;
+	margin: auto;
 }
 
 /*#added_date {
@@ -99,6 +107,12 @@ label{
 
 #submit_btn .submit-btn{
 	margin-top: 35px;
+	background: #4CAF50;
+	color: #FFF;
+}
+
+.btn-default{
+	background: none;
 }
 
 @media (max-width: 991px){
