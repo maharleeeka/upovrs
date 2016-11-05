@@ -4,5 +4,26 @@
 	width: 350px;
 	height: 250px;
 	margin: auto;
-	border: 
+	background: #7c0f0e;
+	padding: 10px 15px;
+	border-radius: 10px;
+
+}
+
+#loginbx .btn{
+	margin-top: 20px;
+	background: #4CAF50;
+	color: #FFF;
+	border: none;
+}
+
+#login-header{
+	background: #7c0f0e;
+	color: #FFF;
+	padding: 3px;
+}
+
+#login-header > h2{
+	width: 100px;
+	margin: auto;
 }
