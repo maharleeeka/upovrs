@@ -12,9 +12,9 @@
 				<!-- #form-header -->
 				<hr>
 
-				<form method="post" id="request_form" name="Form">
-					{% csrf_token %}
+				<form method="post" id="request_form" name="request_form">
 
+					{% csrf_token %}
 					<div class="form-group">
 						<div class="col-md-6">
 							<label>Name: </label>
@@ -85,7 +85,7 @@
 						</div>
 
 						<div class="col-md-3">
-							<a class="btn btn-default" href="#" role="button" onclick="checkDateFields();"> Add Date</a>
+							<a class="btn btn-default" href="#schedule" role="button" onclick="checkDateFields();"> Add Date</a>
 						</div>
 					<hr>
 					</div>
@@ -100,15 +100,16 @@
 					<div class="col-md-6">
 						<label>Equipments</label>
 					</div>
-
+				</form>
+				<form method="post" id="rentedequipments_form" name="rentedequipments_form">
+					{% csrf_token %}
 					<div class="form-group">
 						<div class="col-md-12">
 							<!-- var i = 2 -->
 							{% for equipment in equipment_list %}		
 								<div class="checkbox col-md-4">
-									<label id="equipments"><input onclick="enable()" class="check" type="checkbox" name="equipment" id="unitbox" value="{{equipment.pk}}">{{equipment}}</label>
-									<input type="text" name="unit" id="equi_box" class="unit_field" disabled>
-
+									<label id="equipments"><input onclick="enable()" class="check" type="checkbox" name="equipment_id" id="unitbox" value="{{equipment.pk}}">{{equipment}}</label>
+									<input type="text" name="unit{{equipment.pk}}" id="equi_box" class="unit_field" disabled>
 								</div>	
 							{% endfor %}
 						</div>

@@ -82,9 +82,53 @@ function checkDateFields() {
 
   if (i >= input.length){
     if (checkDate() == true){
+      checkDuplicateDates();
+    }
+  }
+}
+
+function checkDuplicateDates(){
+  /*by charie: PLEASE DO NOT MODIFY THIS FUNCTION*/
+  var new_date = document.getElementById('schedule').getElementsByTagName('input')[0].value;
+  var x = document.getElementById('added_date').getElementsByTagName('div'); 
+  var i;
+  var areEqual = false;
+
+  if(x.length == 0){
+    dateAdded();
+  } else {
+    for(i = 0; i < x.length; i++){
+      var addedDate = x[i].getElementsByTagName('input')[0].value;
+      if (new_date == addedDate){
+        alert("You already added this date");
+        areEqual = true;
+        break;
+      }
+    }
+    if (i == x.length && !areEqual){
       dateAdded();
     }
   }
+}
+
+function checkDate() {
+    var EnteredDate = document.getElementById("date_needed").value; //for javascript
+
+    var EnteredDate = $("#date_needed").val(); // For JQuery
+    var myDate = new Date(EnteredDate);
+ 
+    var today = new Date();
+    today.setDate(today.getDate() + 2);
+
+   // console.log(today + " " + myDate);
+
+    if (myDate > today) {
+        return true;
+    }
+    else {
+        alert("Reservation must be done 3 days before your desired reservation date. ");
+        return false;
+    }
 }
 
 
@@ -123,30 +167,12 @@ function validateForm(){
   	if(valid){
   		var form = document.getElementById("request_form");
   		form.submit();
+      var form2 = document.getElementById("rentedequipments_form");
+      //form2.submit();
   	}
   }
 }
 
-
-function checkDate() {
-    var EnteredDate = document.getElementById("date_needed").value; //for javascript
-
-    var EnteredDate = $("#date_needed").val(); // For JQuery
-    var myDate = new Date(EnteredDate);
- 
-    var today = new Date();
-    today.setDate(today.getDate() + 2);
-
-    console.log(today + " " + myDate);
-
-    if (myDate > today) {
-        return true;
-    }
-    else {
-        alert("Reservation must be done 3 days before your desired reservation date. ");
-        return false;
-    }
-}
 
 function enable() {
   var x = document.getElementsByClassName("unit_field");
