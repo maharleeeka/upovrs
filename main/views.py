@@ -1,10 +1,10 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, CreateView, FormView
 from main.models import Venue, Equipment, Request, RentedEquipment
 from main.forms import RequestForm
 from main import forms, views
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, reverse
 from django.views.generic.edit import ModelFormMixin
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
 
@@ -24,41 +24,6 @@ class MainView(TemplateView):
 
 class RateView(TemplateView):
 	template_name = "rates.html"
-
-# class RequestListView(TemplateView):
-# 	login_url = "login.html"
-# 	template_name = "osa.html"
-
-
-# 	def get_context_data(self, **kwargs):
-# 		context = super(RequestListView, self).get_context_data(**kwargs)
-# 		context['request_list'] = Request.objects.all()
-# 		paginator = Paginator(context['request_list'],20)
-		
-# 		page = request.GET.get('page')
-# 		try:
-# 			requests = paginator.page(page)
-# 		except PageNotAnInteger:
-# 			requests = paginator.page(1)
-# 		except EmptyPage:
-# 			requests = paginator.page(paginator.num_pages)
-# 		return context
-
-
-def listing(request):
-	request_list = Request.objects.all()
-	paginator = Paginator(request_list,10)
-	page = request.GET.get('page')
-
-	try:
-		requests = paginator.page(page)
-	except PageNotAnInteger:
-		requests = paginator.page(1)
-	except EmptyPage:
-		requests = paginator.page(paginator.num_pages)
-
-	return render(request, 'osa.html', {'requests': requests})
-
 
 class LoginView(TemplateView):
 	template_name = "login.html"
@@ -85,7 +50,7 @@ class RequestView(FormView):
 		return super(RequestView, self).form_valid(form)
 
 	def get_success_url(self):
-		return reverse_lazy('success')
+		reverse_lazy('requestform', kwargs={'pk':self.object.pk})
 
 	def get_context_data(self, **kwargs):
 		context = super(RequestView, self).get_context_data(**kwargs)
@@ -93,6 +58,12 @@ class RequestView(FormView):
 		context['equipment_list'] = Equipment.objects.all()
 		
 		return context
+
+class ScheduleRequestView(FormView):
+	template_name = 'request_form.html'
+
+	def get_success_url(self):
+		return reverse('requestform')
 
 class RentedEquipmentView(FormView):
 	template_name = 'request_form.html'
@@ -119,7 +90,7 @@ class RentedEquipmentView(FormView):
 		return super(RentedEquipmentView, self).form_valid(form)
 
 	def get_success_url(self):
-		return reverse_lazy('success')
+		return reverse('success')
 
 	def get_context_data(self, **kwargs):
 		context = super(RentedEquipmentView, self).get_context_data(**kwargs)
