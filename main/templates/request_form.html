@@ -22,46 +22,47 @@
 						<div class="form-group">
 							<div class="col-md-6">
 								<label>Name: </label>
-								<input type="text" class="form-control required" 
-													name="name" 
-													value="{{pk.name}}" 
-													placeholder="{{pk.name}}">
+								<input type="text" class="form-control" name="name" value="{{ request.name }}">
+								<input type="text" class="form-control hidden" name="pk" id="pk" value="{{ request.pk }}">
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-md-6">
 								<label>Organization: </label>
-								<input type="text" class="form-control required" name="organization">
+								<input type="text" class="form-control" name="organization" value="{{ request.organization }}">
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-md-6">
 								<label>Purpose: </label>
-								<input type="text" class="form-control required" name="purpose">
+								<input type="text" class="form-control" name="purpose" value="{{ request.purpose }}">
 							</div>
 						</div>
 
 						<div class="form-group">
 							<div class="col-md-6">
 								<label>Participants: </label>
-								<input type="text" class="form-control required" name="participants">
+								<input type="text" class="form-control" name="participants" value="{{ request.participants }}">
 							</div>
 						</div>
 
 						<div class="form-group">
 							<div class="col-md-6">
 								<label>Speakers: </label>
-								<input type="text" class="form-control" name="speakers">
+								<input type="text" class="form-control" name="speakers" value="{{ request.speakers }}">
 							</div>
 						</div>
 
 						<div class="form-group">
 							<div class="col-md-6">
 								<label>Venue</label>
-								<select class="form-control required" id="ex11" name="venue_id">
+								<select class="form-control" id="ex11" name="venue_id">
 									{% for venue in venue_list %}
-										{{ form.venue}}
-										<option value="{{venue.pk}}">{{venue}}</option>
+										{{ form.venue }}
+										{% if request.venue_id.pk == venue.pk %}
+											<option value="{{venue.pk}}" selected>{{venue}}</option>
+										{% endif %}
+										<option value="{{venue.pk}}">{{venue}}</option>									
 									{% endfor %}
 								</select>
 							</div>

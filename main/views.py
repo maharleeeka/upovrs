@@ -1,105 +1,169 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.views.generic import TemplateView, CreateView, FormView
 from main.models import Venue, Equipment, Request, RentedEquipment
 from main.forms import RequestForm
 from main import forms, views
-from django.core.urlresolvers import reverse_lazy, reverse
+from django.core.urlresolvers import reverse_lazy
 from django.views.generic.edit import ModelFormMixin
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
+from django.utils.http import is_safe_url
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import REDIRECT_FIELD_NAME, login as auth_login, logout as auth_logout
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.debug import sensitive_post_parameters
+from django.views.generic import FormView, RedirectView
+
+class LoginView(FormView):
+    """
+    Provides the ability to login as a user with a username and password
+    """
+    success_url = '/main/requestform'
+    form_class = AuthenticationForm
+    template_name = "login.html"
+    redirect_field_name = '/templates/request_form'
+
+    @method_decorator(sensitive_post_parameters('password'))
+    @method_decorator(csrf_protect)
+    @method_decorator(never_cache)
+    def dispatch(self, request, *args, **kwargs):
+        # Sets a test cookie to make sure the user has cookies enabled
+        request.session.set_test_cookie()
+
+        return super(LoginView, self).dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        print(form.get_user())
+        auth_login(self.request, form.get_user())
+
+        # If the test cookie worked, go ahead and
+        # delete it since its no longer needed
+        if self.request.session.test_cookie_worked():
+            self.request.session.delete_test_cookie()
+
+        return super(LoginView, self).form_valid(form)
+
+    def get_success_url(self):
+        redirect_to = self.request.POST.get(self.redirect_field_name)
+        if not is_safe_url(url=redirect_to, host=self.request.get_host()):
+            redirect_to = self.success_url
+        return redirect_to
+
+class LogoutView(RedirectView):
+    """
+    Provides users the ability to logout
+    """
+    url = '/templates/login/'
+
+    def get(self, request, *args, **kwargs):
+        auth_logout(request)
+        return super(LogoutView, self).get(request, *args, **kwargs)
 
 
-def login(request):
-	template = 'login.html'
-	return render(request,template)
+# def login(request):
+# 	template = 'login.html'
+# 	return render(request,template)
 
 class SuccessView(TemplateView):
-	template_name = "success.html"
+    template_name = "success.html"
 
 class GuidelineView(TemplateView):
-	template_name = "guidelines.html"
+    template_name = "guidelines.html"
 
 class MainView(TemplateView):
-	template_name = "index.html"
+    template_name = "index.html"
 
 class RateView(TemplateView):
-	template_name = "rates.html"
+    template_name = "rates.html"
 
-class LoginView(TemplateView):
-	template_name = "login.html"
+# class RequestListView(TemplateView):
+# 	login_url = "login.html"
+# 	template_name = "osa.html"
 
-	def form_valid(self, form):
- 		self.object = form.save()
- 		return super(ModelFormMixin, self).form_valid(form)
 
-class RequestView(FormView):
+# 	def get_context_data(self, **kwargs):
+# 		context = super(RequestListView, self).get_context_data(**kwargs)
+# 		context['request_list'] = Request.objects.all()
+# 		paginator = Paginator(context['request_list'],20)
+		
+# 		page = request.GET.get('page')
+# 		try:
+# 			requests = paginator.page(page)
+# 		except PageNotAnInteger:
+# 			requests = paginator.page(1)
+# 		except EmptyPage:
+# 			requests = paginator.page(paginator.num_pages)
+# 		return context
+
+
+def listing(request):
+	request_list = Request.objects.all()
+	paginator = Paginator(request_list,10)
+	page = request.GET.get('page')
+
+	try:
+		requests = paginator.page(page)
+	except PageNotAnInteger:
+		requests = paginator.page(1)
+	except EmptyPage:
+		requests = paginator.page(paginator.num_pages)
+
+	return render(request, 'osa.html', {'requests': requests})
+
+
+# class LoginView(TemplateView):
+# 	template_name = "login.html"
+
+# 	def form_valid(self, form):
+#  		self.object = form.save()
+#  		return super(ModelFormMixin, self).form_valid(form)
+
+class RequestView(LoginRequiredMixin, FormView):
+	login_url = 'login'
+	#redirect_field_name = 'request_form'
 	template_name = 'request_form.html'
 	form_class = forms.RequestForm
+
 
 	def post(self, request, *args, **kwargs):
 	    form = self.get_form()
 	    if form.is_valid():
 	    	self.object = form.save()
-	    	
-	    	RentedEquipmentView.getPK(self.object)
 	    	return self.form_valid(form)
 	    else:
 	        return self.form_invalid(form)
-		
-	def form_valid(self, form):
-		return super(RequestView, self).form_valid(form)
 
 	def get_success_url(self):
-		reverse_lazy('requestform', kwargs={'pk':self.object.pk})
+		#return reverse_lazy('success')
+		return reverse_lazy("requestform", kwargs={'pk':self.object.pk})
 
 	def get_context_data(self, **kwargs):
 		context = super(RequestView, self).get_context_data(**kwargs)
 		context['venue_list'] = Venue.objects.all()
 		context['equipment_list'] = Equipment.objects.all()
-		
+		pk = 0
+		if 'pk' in self.kwargs:
+			pk = self.kwargs['pk']
+			context['request'] = Request.objects.get(pk=pk)
+		context['pk'] = pk	
 		return context
 
-class ScheduleRequestView(FormView):
-	template_name = 'request_form.html'
-
-	def get_success_url(self):
-		return reverse('requestform')
-
-class RentedEquipmentView(FormView):
+class RentedEquipmentsView(TemplateView):
 	template_name = 'request_form.html'
 	form_class = forms.RentedEqForm
-	pk = None
-
-	def getPK(object):
-		RentedEquipmentView.pk = object
-		print(RentedEquipmentView.pk)
-		re = RentedEquipment(request_id=object) 
-		re.save()
-		return super(RequestView)
 
 	def post(self, request, *args, **kwargs):
-		print('here')
-		form = RentedEquipment.get_form
-		for equipment in forms.cleaned_data.get('equipment_id'):
-			equipment = RentedEqForm({'equipment_id':equipment_id})
-			unit = form.cleaned_data.get('unit'+equipment)
-			r = RentedEquipment(request_id=pk, equipment_id=equipment, unit=unit)
-			r.save()
-		
-	def form_valid(self, form):
-		return super(RentedEquipmentView, self).form_valid(form)
+		form = self.get_form()
+		if form.is_valid():
+			return self.form_valid(form)
+		else:
+			return self.form_invalid(form)
 
 	def get_success_url(self):
-		return reverse('success')
-
-	def get_context_data(self, **kwargs):
-		context = super(RentedEquipmentView, self).get_context_data(**kwargs)
-		return context
-
-	def get_form(self, form_class=None):
-		if form_class is None: 
-			form_class = RentedEquipmentView.get_form_class()
-		return form_class(**RentedEquipmentView.get_form_kwargs())
-
-	def get_form_class(self):
-		return self.form_class
+		return reverse_lazy("requestform")
