@@ -145,24 +145,24 @@ function validateForm(){
 	}
 
   //for equipment
-  var x = document.getElementsByClassName("check");
-  var y = document.getElementsByClassName("unit_field");
+ //  var x = document.getElementsByClassName("check");
+ //  var y = document.getElementsByClassName("unit_field");
 
-  for (var i=0; i < x.length; i++){
-    if (x[i].checked == true && y[i].value == ''){
-      alert("Please provide number of units for equipment to be rented.");
-      valid = false;
-      break;
-    }
-    if (!isInteger(y[i].value)) {
-      alert("Must input integer only for the units.");
-      valid = false;
-      break;
-    }
-  }
+ //  for (var i=0; i < x.length; i++){
+ //    if (x[i].checked == true && y[i].value == ''){
+ //      alert("Please provide number of units for equipment to be rented.");
+ //      valid = false;
+ //      break;
+ //    }
+ //    if (!isInteger(y[i].value)) {
+ //      alert("Must input integer only for the units.");
+ //      valid = false;
+ //      break;
+ //    }
+ //  }
 
 	if (valid){
-    valid = checkDate();
+    //valid = checkDate();
 
   	if(valid){
   		var form = document.getElementById("request_form");
@@ -171,6 +171,9 @@ function validateForm(){
       //form2.submit();
   	}
   }
+
+  //showDatePanel();
+  //showEquipmentPanel();
 }
 
 
@@ -192,4 +195,14 @@ function enable() {
 
 function isInteger(x) {
         return x % 1 === 0;
+}
+
+function showDatePanel(){
+  div = document.getElementById('event_schedule');
+  div.style.display = "block";
+}
+
+function showEquipmentPanel(){
+  div = document.getElementById('event_equipments');
+  div.style.display = "block";
 }
