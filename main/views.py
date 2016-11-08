@@ -7,23 +7,80 @@ from main import forms, views
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic.edit import ModelFormMixin
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
+from django.utils.http import is_safe_url
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import REDIRECT_FIELD_NAME, login as auth_login, logout as auth_logout
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.debug import sensitive_post_parameters
+from django.views.generic import FormView, RedirectView
+
+class LoginView(FormView):
+    """
+    Provides the ability to login as a user with a username and password
+    """
+    success_url = '/main/requestform'
+    form_class = AuthenticationForm
+    template_name = "login.html"
+    redirect_field_name = '/templates/request_form'
+
+    @method_decorator(sensitive_post_parameters('password'))
+    @method_decorator(csrf_protect)
+    @method_decorator(never_cache)
+    def dispatch(self, request, *args, **kwargs):
+        # Sets a test cookie to make sure the user has cookies enabled
+        request.session.set_test_cookie()
+
+        return super(LoginView, self).dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        print(form.get_user())
+        auth_login(self.request, form.get_user())
+
+        # If the test cookie worked, go ahead and
+        # delete it since its no longer needed
+        if self.request.session.test_cookie_worked():
+            self.request.session.delete_test_cookie()
+
+        return super(LoginView, self).form_valid(form)
+
+    def get_success_url(self):
+        redirect_to = self.request.POST.get(self.redirect_field_name)
+        if not is_safe_url(url=redirect_to, host=self.request.get_host()):
+            redirect_to = self.success_url
+        return redirect_to
+
+class LogoutView(RedirectView):
+    """
+    Provides users the ability to logout
+    """
+    url = '/templates/login/'
+
+    def get(self, request, *args, **kwargs):
+        auth_logout(request)
+        return super(LogoutView, self).get(request, *args, **kwargs)
 
 
-def login(request):
-	template = 'login.html'
-	return render(request,template)
+# def login(request):
+# 	template = 'login.html'
+# 	return render(request,template)
 
 class SuccessView(TemplateView):
-	template_name = "success.html"
+    template_name = "success.html"
 
 class GuidelineView(TemplateView):
-	template_name = "guidelines.html"
+    template_name = "guidelines.html"
 
 class MainView(TemplateView):
-	template_name = "index.html"
+    template_name = "index.html"
 
 class RateView(TemplateView):
-	template_name = "rates.html"
+    template_name = "rates.html"
 
 # class RequestListView(TemplateView):
 # 	login_url = "login.html"
@@ -60,14 +117,16 @@ def listing(request):
 	return render(request, 'osa.html', {'requests': requests})
 
 
-class LoginView(TemplateView):
-	template_name = "login.html"
+# class LoginView(TemplateView):
+# 	template_name = "login.html"
 
-	def form_valid(self, form):
- 		self.object = form.save()
- 		return super(ModelFormMixin, self).form_valid(form)
+# 	def form_valid(self, form):
+#  		self.object = form.save()
+#  		return super(ModelFormMixin, self).form_valid(form)
 
-class RequestView(FormView):
+class RequestView(LoginRequiredMixin, FormView):
+	login_url = 'login'
+	#redirect_field_name = 'request_form'
 	template_name = 'request_form.html'
 	form_class = forms.RequestForm
 

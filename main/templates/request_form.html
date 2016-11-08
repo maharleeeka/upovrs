@@ -14,16 +14,13 @@
 				<div id="basic_info">
 					<div class="form_panel_header">
 						<div class="form_panel_title">
-							Basic Information {{pk}}
+							Basic Information
 						</div>
 					</div>
 					<form method="post" id="request_form" name="request_form">
 						{% csrf_token %}
 						<div class="form-group">
 							<div class="col-md-6">
-								<!-- <label>Name: </label>
-								<input type="text" class="form-control required" 
-													name="name"> -->
 								<label>Name: </label>
 								<input type="text" class="form-control" name="name" value="{{ request.name }}">
 								<input type="text" class="form-control hidden" name="pk" id="pk" value="{{ request.pk }}">
