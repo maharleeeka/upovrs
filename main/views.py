@@ -157,7 +157,7 @@ class RequestView(LoginRequiredMixin, FormView):
 		context['pk'] = pk	
 		return context
 
-class RentedEquipmentsView(TemplateView):
+class RentedEquipmentsView(FormView):
 	template_name = 'request_form.html'
 	form_class = forms.RentedEqForm
 
