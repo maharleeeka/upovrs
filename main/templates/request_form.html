@@ -12,7 +12,11 @@
 				<hr>
 				
 				<div id="basic_info">
-					<!-- <div id="basic_info_header">Basic Information</div> -->
+					<div class="form_panel_header">
+						<div class="form_panel_title">
+							Basic Information
+						</div>
+					</div>
 					<form method="post" id="request_form" name="request_form">
 						{% csrf_token %}
 						<div class="form-group">
@@ -35,7 +39,6 @@
 								<input type="text" class="form-control" name="purpose" value="{{ request.purpose }}">
 							</div>
 						</div>
-
 						<div class="form-group">
 							<div class="col-md-6">
 								<label>Participants: </label>
@@ -49,7 +52,6 @@
 								<input type="text" class="form-control" name="speakers" value="{{ request.speakers }}">
 							</div>
 						</div>
-
 						<div class="form-group">
 							<div class="col-md-6">
 								<label>Venue</label>
@@ -75,13 +77,17 @@
 						<div id="submit_btn">
 							<div class="form-group">
 								<div class="col-md-12">
-									<input type="button" class="submit-btn form-control btn-default btn" id="part1" value="SUBMIT" onclick="validateForm(this.id)">
+									<input type="button" class="submit-btn form-control btn-default btn" id="part1" value="SUBMIT" onclick="validateForm(this.id)">		
 								</div>
 							</div>
 						</div>
 					</form>
 				</div>
-					
+				<div class="form_panel_header">
+					<div class="form_panel_title">
+						Event Schedule
+					</div>
+				</div>
 				<div id="event_schedule">
 					<!-- <div id="event_schedule_header">Event Schedule</div> -->
 					<form action="{% url 'submitDates' %}" method=post id=requestDates_form name=requestDates_form>
@@ -130,6 +136,11 @@
 					</div>
 				</div>
 				<div id="event_equipments">
+					<div class="form_panel_header">
+						<div class="form_panel_title">
+							Event Equipments
+						</div>
+					</div>
 					<!-- <div id="equipments_header">Equipments</div> -->
 					<form method="post" id="rentedequipments_form" name="rentedequipments_form" action="{% url 'submitEquipments' %}">
 						{% csrf_token %}
@@ -164,10 +175,7 @@
 									<input type="button" class="submit-btn form-control btn-default btn" id="part3" value="SUBMIT" onclick="validateForm(this.id);">
 								</div>
 							</div>
-						</div> -->
-					</form>	
-				</div>
-				
+						</div> -->				
 			</div>
 		</div>
 		<!-- #content -->

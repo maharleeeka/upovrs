@@ -174,6 +174,9 @@ function validateForm(clicked_id){
       form.submit();
     }
   }
+
+  //showDatePanel();
+  //showEquipmentPanel();
 }
 
 function enable() {
@@ -199,5 +202,15 @@ function isInteger(x) {
 function submitDateFields(){
   var form = document.getElementById("requestDates_form");
   form.submit();
+}
+
+function showDatePanel(){
+  div = document.getElementById('event_schedule');
+  div.style.display = "block";
+}
+
+function showEquipmentPanel(){
+  div = document.getElementById('event_equipments');
+  div.style.display = "block";
 }
 
