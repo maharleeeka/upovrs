@@ -11,32 +11,52 @@ textarea {
 	position: absolute;
 }
 
-#content{
-	/*position: relative;*/
+.content{
 	position: absolute;
 	top: 50px;
-	width: 100%;
+	width: 750px;
 	height: 100%;
 	padding-bottom: 20px;
 	margin-bottom: 50px;
 	
 }
 
-#content .form-control{
+.content .form-control{
 	margin-top: 0px; 
 
 }
 
-#container{
-	background: #7c0f0e;
-	width: 800px;
-	height: 100%;
-	margin: auto;
+.container{
+	width: 100%;
 }
 
-/*#added_date {
-	font-size: 15px;
-}*/
+#basic_info, #event_schedule, #event_equipments{
+	width: 900px;
+	margin: auto;
+	border: 1px solid #d3d3d3;
+	border-radius: 5px;
+}
+#basic_info{
+	height: 400px;
+}
+#basic_info_header{
+	width: 120px;
+    margin-top:-10px;
+    margin-left: 10px;
+    background: white;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#event_equipments, #event_schedule{
+	display: block;
+	margin-top: 25px;
+	overflow: auto;
+}
+
+#event_equipments{
+	margin-bottom: 25px;
+}
 
 .block input {
 	border: 0px;
@@ -53,18 +73,20 @@ textarea {
 	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.40);
 }
 
+/***********SCHEDULE DIV***********/
+/*#schedule{
+	background: red;
+	border: 5px solid black;
+}*/
 #schedule .btn{
 	margin-top:  45px;
-	width: 100%
+	width: 100%;
 }
 
 #schedule a {
 	text-align: center;
 }
-
-#schedule hr {
-	margin-top: 40px;
-}
+/***********SCHEDULE DIV***********/
 
 label{
 	margin-top: 20px;
