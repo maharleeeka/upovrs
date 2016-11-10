@@ -4,6 +4,7 @@ from django.views.generic import TemplateView, CreateView, FormView
 from main.models import Venue, Equipment, Request, RentedEquipment, RequestedDate
 from main.forms import RequestForm
 from main import forms, views
+from django.db.models import Q
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic.edit import ModelFormMixin
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
@@ -115,6 +116,26 @@ def listing(request):
 		requests = paginator.page(paginator.num_pages)
 
 	return render(request, 'osa.html', {'requests': requests})
+
+def requestviewing(request):
+	queryset_list = Request.objects.all()
+
+	query = request.GET.get("q")
+	if query:
+		queryset_list = queryset_list.filter(Q(pk__icontains=query)
+			)
+
+	paginator = Paginator(queryset_list, 10)
+	page = request.GET.get('page')
+
+	try:
+		requests = paginator.page(page)
+	except PageNotAnInteger:
+		requests = paginator.page(1)
+	except EmptyPage:
+		requests = paginator.page(paginator.num_pages)
+
+	return render(request, 'request_details.html', {'requests': requests} )
 
 
 # class LoginView(TemplateView):

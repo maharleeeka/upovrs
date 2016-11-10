@@ -11,7 +11,7 @@
 				<!-- #form-header -->
 				<hr>
 				
-				<div id="basic_info">
+				<div id="basic_info" class="col-md-6 col-xs-6 col-sm-12">
 					<div class="form_panel_header">
 						<div class="form_panel_title">
 							Basic Information
@@ -83,13 +83,12 @@
 						</div>
 					</form>
 				</div>
-				<div class="form_panel_header">
-					<div class="form_panel_title">
-						Event Schedule
-					</div>
-				</div>
 				<div id="event_schedule">
-					<!-- <div id="event_schedule_header">Event Schedule</div> -->
+					<div class="form_panel_header">
+						<div class="form_panel_title">
+							Event Schedule
+						</div>
+					</div>
 					<form action="{% url 'submitDates' %}" method=post id=requestDates_form name=requestDates_form>
 						{% csrf_token %}
 						{% for date in requested_dates %}
@@ -135,7 +134,7 @@
 					<div id="added_date">
 					</div>
 				</div>
-				<div id="event_equipments">
+				<div id="event_equipments" class="col-md-12 col-sm-6 col-xs-12">
 					<div class="form_panel_header">
 						<div class="form_panel_title">
 							Event Equipments

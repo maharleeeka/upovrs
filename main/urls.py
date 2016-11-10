@@ -14,6 +14,6 @@ urlpatterns = [
     url(r'^rates/$', views.RateView.as_view(), name='rate'),
     url(r'^success/$', views.SuccessView.as_view(), name='success'),
     url(r'^login/$', views.LoginView.as_view(), name='login'),
-    
+    url(r'^viewrequestdetails/', views.requestviewing, name='viewrequestdetails'),
 ]
 
