@@ -53,7 +53,7 @@ class RentedEquipment(models.Model):
 	unit = models.DecimalField(max_digits = 4, decimal_places=0, null=True)
 
 	def __str__(self):
-		return str(self.equipment_id.name)
+		return str(self.pk)
 
 class RequestedDate(models.Model):
 	request_id = models.ForeignKey(Request, models.DO_NOTHING, db_column='request_id')
