@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{% static "css/header.css" %}"/>
     <link rel="stylesheet" href="{% static "css/success.css" %}"/>
     <link rel="stylesheet" href="{% static "css/login.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/osa.css" %}"/>
 
   </head>
 
@@ -47,7 +48,11 @@
                     </div>
                 </li>
                 <li>
+                  {% if user.is_authenticated %}
+                  <a class="button login_button" href="{% url 'login' %}">Logout</a>
+                  {% else %}
                   <a class="button login_button" href="{% url 'login' %}">Login</a>
+                  {% endif %}
                 </li>
               </ul>
             </div>
@@ -61,7 +66,11 @@
   	{% block content %}
   	{% endblock %}
   	</div>
-
+    
+    <div id="site-footer">
+      
+      
+    </div>
       <script type="text/javascript" src="{% static 'js/requestform.js' %}"></script>
       <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
       <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
