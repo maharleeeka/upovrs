@@ -103,39 +103,6 @@ class RateView(TemplateView):
 # 		return context
 
 
-def listing(request):
-	request_list = Request.objects.all()
-	paginator = Paginator(request_list,10)
-	page = request.GET.get('page')
-
-	try:
-		requests = paginator.page(page)
-	except PageNotAnInteger:
-		requests = paginator.page(1)
-	except EmptyPage:
-		requests = paginator.page(paginator.num_pages)
-
-	return render(request, 'osa.html', {'requests': requests})
-
-def requestviewing(request):
-	queryset_list = Request.objects.all()
-
-	query = request.GET.get("q")
-	if query:
-		queryset_list = queryset_list.filter(Q(pk__icontains=query)
-			)
-
-	paginator = Paginator(queryset_list, 10)
-	page = request.GET.get('page')
-
-	try:
-		requests = paginator.page(page)
-	except PageNotAnInteger:
-		requests = paginator.page(1)
-	except EmptyPage:
-		requests = paginator.page(paginator.num_pages)
-
-	return render(request, 'request_details.html', {'requests': requests} )
 
 
 # class LoginView(TemplateView):
@@ -239,3 +206,43 @@ class DatesView(FormView):
 			context['requested_dates'] = RequestedDate.objects.filter(request_id=request_id)
 		context['pk'] = pk
 		return context
+
+def requestViewing(request):
+	queryset_list = Request.objects.all()
+	# date_list = RequestedDate.objects.all()
+	# equipment_list = RentedEquipment.objects.all()
+
+	query = request.GET.get("q")
+	if query:
+		queryset_list = queryset_list.filter(Q(pk__icontains=query))
+		request_id = Request.objects.get(pk=query)
+		date_list = RequestedDate.objects.filter(request_id=request_id)
+		equipment_list = RentedEquipment.objects.filter(request_id=request_id)
+
+		paginator = Paginator(queryset_list, 10)
+		page = request.GET.get('page')
+
+		try:
+			requests = paginator.page(page)
+		except PageNotAnInteger:
+			requests = paginator.page(1)
+		except EmptyPage:
+			requests = paginator.page(paginator.num_pages)
+
+		return render(request, 'request_details.html', {'requests': requests, 'date_list': date_list, 'equipment_list': equipment_list})
+	else:
+		return render(request, 'request_details.html')
+
+def listing(request):
+	request_list = Request.objects.all()
+	paginator = Paginator(request_list,10)
+	page = request.GET.get('page')
+
+	try:
+		requests = paginator.page(page)
+	except PageNotAnInteger:
+		requests = paginator.page(1)
+	except EmptyPage:
+		requests = paginator.page(paginator.num_pages)
+
+	return render(request, 'osa.html', {'requests': requests})

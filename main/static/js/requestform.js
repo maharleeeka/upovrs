@@ -146,21 +146,21 @@ function validateForm(clicked_id){
 	}
 
   //for equipment
-  // var x = document.getElementsByClassName("check");
-  // var y = document.getElementsByClassName("unit_field");
+  var x = document.getElementsByClassName("check");
+  var y = document.getElementsByClassName("unit_field");
 
-  // for (var i=0; i < x.length; i++){
-  //   if (x[i].checked == true && y[i].value == ''){
-  //     alert("Please provide number of units for equipment to be rented.");
-  //     valid = false;
-  //     break;
-  //   }
-  //   if (!isInteger(y[i].value)) {
-  //     alert("Must input integer only for the units.");
-  //     valid = false;
-  //     break;
-  //   }
-  // }
+  for (var i=0; i < x.length; i++){
+    if (x[i].checked == true && y[i].value == ''){
+      alert("Please provide number of units for equipment to be rented.");
+      valid = false;
+      break;
+    }
+    if (!isInteger(y[i].value)) {
+      alert("Must input integer only for the units.");
+      valid = false;
+      break;
+    }
+  }
 
   if(valid){
     if (clicked_id == "part1"){
@@ -174,9 +174,6 @@ function validateForm(clicked_id){
       form.submit();
     }
   }
-
-  //showDatePanel();
-  //showEquipmentPanel();
 }
 
 function enable() {
@@ -199,18 +196,24 @@ function isInteger(x) {
         return x % 1 === 0;
 }
 
+function showNotif(x){
+  if(x > 0){
+    document.getElementById('request-form-notif').style.display = "block";
+    scrollTo();
+    setTimeout();
+  }
+}
+
+setTimeout(function() {
+    $('#request-form-notif').fadeOut('fast');
+}, 3000);
+
+function scrollTo() {
+  $('html, body').animate({ scrollTop: $('#event_schedule').offset().top }, 'slow');
+  return false;
+}
+
 function submitDateFields(){
   var form = document.getElementById("requestDates_form");
   form.submit();
 }
-
-function showDatePanel(){
-  div = document.getElementById('event_schedule');
-  div.style.display = "block";
-}
-
-function showEquipmentPanel(){
-  div = document.getElementById('event_equipments');
-  div.style.display = "block";
-}
-

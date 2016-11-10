@@ -14,8 +14,8 @@ textarea {
 .content{
 	position: absolute;
 	top: 50px;
-	min-width: 750px;
-	min-height: 100%;
+	width: 750px;
+	height: 100%;
 	padding-bottom: 20px;
 	margin-bottom: 50px;
 	
@@ -30,38 +30,20 @@ textarea {
 	width: 100%;
 }
 
-#basic_info, #event_schedule, #event_equipments{
+.form_panel{
 	width: 900px;
 	margin: auto;
 	border: 1px solid #d3d3d3;
 	border-radius: 5px;
-<<<<<<< HEAD
-}
-#basic_info{
-	min-height: 420px;
-}
-#basic_info_header{
-	width: 120px;
-    margin-top:-10px;
-    margin-left: 10px;
-    background: white;
-    padding-left: 5px;
-    padding-right: 5px;
-}
-
-#event_equipments, #event_schedule{
-	display: block;
-	margin-top: 25px;
-	overflow: auto;
-}
-
-#event_equipments{
-	margin-bottom: 25px;
-=======
 	margin-bottom: 55px;
 }
 
+#basic_info{
+	height: 420px;
+}
+
 #event_equipments, #event_schedule{
+	padding-bottom: 30px;
 	display: block;
 	overflow: auto;
 }
@@ -84,7 +66,12 @@ textarea {
 	font-size: 25px;
 	height: 30;
 	margin: auto;
->>>>>>> 5aff34f06c83d043c4f84d95fc30164ac2b12b08
+}
+
+#form-final-button{
+	width: 930px;
+	margin-top: -30px;
+	border: none;
 }
 
 .block input {
@@ -145,7 +132,7 @@ label{
 
 #form-header{
 	position: relative;
-	top: 30px;
+	top: 20px;
 	padding-bottom: 20px;
 }
 
@@ -172,4 +159,15 @@ label{
 		margin-bottom: 20px;
 	}
 
+}
+
+.alert{
+	position: fixed;
+	top: 60px;
+	z-index: 999;
+	width: 100%;
+}
+
+#request-form-notif{
+	display: none;
 }
