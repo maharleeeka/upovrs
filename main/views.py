@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView, CreateView, FormView
-from main.models import Venue, Equipment, Request, RentedEquipment, RequestedDate
+from main.models import Venue, Equipment, Request, RentedEquipment, RequestedDate, OfficeStatus
 from main.forms import RequestForm
 from main import forms, views
 from django.db.models import Q
@@ -246,3 +246,17 @@ def listing(request):
 		requests = paginator.page(paginator.num_pages)
 
 	return render(request, 'osa.html', {'requests': requests})
+
+def requestlisting(request):
+	request_list = OfficeStatus.objects.all()
+	paginator = Paginator(request_list,10)
+	page = request.GET.get('page')
+
+	try:
+		requests = paginator.page(page)
+	except PageNotAnInteger:
+		requests = paginator.page(1)
+	except EmptyPage:
+		requests = paginator.page(paginator.num_pages)
+
+	return render(request, 'pending_requests.html', {'requests': requests})
