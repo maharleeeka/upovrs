@@ -1,9 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView, CreateView, FormView
-from main.models import Venue, Equipment, Request, RentedEquipment
+from main.models import Venue, Equipment, Request, RentedEquipment, RequestedDate, OfficeStatus
 from main.forms import RequestForm
 from main import forms, views
+from django.db.models import Q
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic.edit import ModelFormMixin
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
@@ -132,17 +133,15 @@ def listing(request):
 
 class RequestView(LoginRequiredMixin, FormView):
     login_url = 'login'
-    redirect_field_name = 'request_form'
+    # redirect_field_name = 'request_form'
     template_name = 'request_form.html'
     success_url = '/main/requestform'
     form_class = forms.RequestForm
 
-    def post(self, request, *args, **kwargs):
+	def post(self, request, *args, **kwargs):
 	    form = self.get_form()
 	    if form.is_valid():
 	    	self.object = form.save()
-	    	
-	    	RentedEquipmentView.getPK(self.object)
 	    	return self.form_valid(form)
 	    else:
 	        return self.form_invalid(form)
@@ -160,41 +159,118 @@ class RequestView(LoginRequiredMixin, FormView):
         
         return context
 
-class RentedEquipmentView(LoginRequiredMixin, FormView):
+class RentedEquipmentsView(LoginRequiredMixin, FormView):
 	template_name = 'request_form.html'
 	form_class = forms.RentedEqForm
-	pk = None
-
-	def getPK(object):
-		RentedEquipmentView.pk = object
-		print(RentedEquipmentView.pk)
-		re = RentedEquipment(request_id=object) 
-		re.save()
-		return super(RequestView)
 
 	def post(self, request, *args, **kwargs):
-		print('here')
-		form = RentedEquipment.get_form
-		for equipment in forms.cleaned_data.get('equipment_id'):
-			equipment = RentedEqForm({'equipment_id':equipment_id})
-			unit = form.cleaned_data.get('unit'+equipment)
-			r = RentedEquipment(request_id=pk, equipment_id=equipment, unit=unit)
-			r.save()
-		
-	def form_valid(self, form):
-		return super(RentedEquipmentView, self).form_valid(form)
+		form = self.get_form()
+		if form.is_valid():
+			print ('valid')
+			print (form)
+			self.object = form.save()
+			return self.form_valid(form)
+		else:
+			return self.form_invalid(form)
 
 	def get_success_url(self):
-		return reverse_lazy('success')
+		return reverse_lazy("requestform", kwargs={'pk':self.object.request_id.pk})
 
 	def get_context_data(self, **kwargs):
-		context = super(RentedEquipmentView, self).get_context_data(**kwargs)
+		context = super(RentedEquipmentsView, self).get_context_data(**kwargs)
+		context['venue_list'] = Venue.objects.all()
+		context['equipment_list'] = Equipment.objects.all()
+		pk = 0
+		if 'pk' in self.kwargs:
+			pk = self.kwargs['pk']
+			context['request'] = Request.objects.get(pk=pk)
+			request_id = Request.objects.get(pk=pk)
+			context['rented_equipments'] = RentedEquipment.objects.filter(request_id=request_id)
+			context['requested_dates'] = RequestedDate.objects.filter(request_id=request_id)
+		context['pk'] = pk
 		return context
 
-	def get_form(self, form_class=None):
-		if form_class is None: 
-			form_class = RentedEquipmentView.get_form_class()
-		return form_class(**RentedEquipmentView.get_form_kwargs())
+class DatesView(FormView):
+	template_name = 'rates.html'
+	form_class = forms.RequestDates
 
-	def get_form_class(self):
-		return self.form_class
+	def post(self, request, *args, **kwargs):
+		form = self.get_form()
+		if form.is_valid():
+			print ('valid')
+			print (form)
+			self.object = form.save()
+			return self.form_valid(form)
+		else:
+			return self.form_invalid(form)
+
+	def get_success_url(self):
+		return reverse_lazy("requestform", kwargs={'pk':self.object.request_id.pk})
+
+	def get_context_data(self, **kwargs):
+		context = super(DatesView, self).get_context_data(**kwargs)
+		context['venue_list'] = Venue.objects.all()
+		context['equipment_list'] = Equipment.objects.all()
+		pk = 0
+		if 'pk' in self.kwargs:
+			pk = self.kwargs['pk']
+			context['request'] = Request.objects.get(pk=pk)
+			request_id = Request.objects.get(pk=pk)
+			context['rented_equipments'] = RentedEquipment.objects.filter(request_id=request_id)
+			context['requested_dates'] = RequestedDate.objects.filter(request_id=request_id)
+		context['pk'] = pk
+		return context
+
+def requestViewing(request):
+	queryset_list = Request.objects.all()
+	# date_list = RequestedDate.objects.all()
+	# equipment_list = RentedEquipment.objects.all()
+
+	query = request.GET.get("q")
+	if query:
+		queryset_list = queryset_list.filter(Q(pk__icontains=query))
+		request_id = Request.objects.get(pk=query)
+		date_list = RequestedDate.objects.filter(request_id=request_id)
+		equipment_list = RentedEquipment.objects.filter(request_id=request_id)
+
+		paginator = Paginator(queryset_list, 10)
+		page = request.GET.get('page')
+
+		try:
+			requests = paginator.page(page)
+		except PageNotAnInteger:
+			requests = paginator.page(1)
+		except EmptyPage:
+			requests = paginator.page(paginator.num_pages)
+
+		return render(request, 'request_details.html', {'requests': requests, 'date_list': date_list, 'equipment_list': equipment_list})
+	else:
+		return render(request, 'request_details.html')
+
+def listing(request):
+	request_list = Request.objects.all()
+	paginator = Paginator(request_list,10)
+	page = request.GET.get('page')
+
+	try:
+		requests = paginator.page(page)
+	except PageNotAnInteger:
+		requests = paginator.page(1)
+	except EmptyPage:
+		requests = paginator.page(paginator.num_pages)
+
+	return render(request, 'osa.html', {'requests': requests})
+
+def requestlisting(request):
+	request_list = OfficeStatus.objects.all()
+	paginator = Paginator(request_list,10)
+	page = request.GET.get('page')
+
+	try:
+		requests = paginator.page(page)
+	except PageNotAnInteger:
+		requests = paginator.page(1)
+	except EmptyPage:
+		requests = paginator.page(paginator.num_pages)
+
+	return render(request, 'pending_requests.html', {'requests': requests})

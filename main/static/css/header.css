@@ -1,15 +1,17 @@
-img {
-    width:50px;
-    height:50px;
-    margin-top: 4px;
-}
-
 a:link, a:visited {
-    text-align: left; 
+    text-align: center; 
     text-decoration: none;
     display: inline-block;
 }
 
+#left-nav ul {
+    display: inline-flex;
+}
+#right-nav img{
+    width:50px;
+    height:50px;
+    margin-top: 4px;
+}
 .center {
     margin: auto;
     border: none;
@@ -42,7 +44,7 @@ a:link, a:visited {
     font-size: 20px;
     padding-left: 0;
     display: inline-block;
-    margin-top: 18px;
+    margin-top: 15px;
 }
 
 .form-inline {
@@ -57,8 +59,6 @@ a:link, a:visited {
 
 .navbar-default .navbar-nav>li>a {
     color: #fff;
-    /*margin-top: 0;*/
-    /*margin-top: 16px;*/
     margin-left: 4px;
     margin-bottom: 10px;
     margin-right: 10px;
@@ -67,20 +67,23 @@ a:link, a:visited {
     /*display: inline-block;*/
     margin: auto;
     margin-top: 15px;
-    margin-bottom: 10px;
+}
+
+.navbar-toogle:focus {
+    background-color: #4CAF50;
 }
 
 .nav>li{
     position: static;
     display: flex;
-    margin-left: 20px
+    margin-left: 10px
 }
 
 /*search field*/
 .search {
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: auto;
+    /*margin-bottom: auto;*/
 }
 
 .glyphicon{
@@ -89,6 +92,11 @@ a:link, a:visited {
 
 .navbar-toggle{
     margin-top: 12px;
+    padding: 5px 10px;
+}
+
+.navbar-default .navbar-toggle:hover {
+    background-color: transparent;
 }
 
 .navbar-default .navbar-collapse, .navbar-default .navbar-form {
@@ -140,4 +148,28 @@ a:link, a:visited {
     color: #3c763d;
     display: inline-block;
     margin-top: 14px;
+}
+
+span.glyphicon-menu-hamburger {
+    font-size: 1.5em;
+}
+
+@media (max-width: 991px){
+    .navbar-default .navbar-title {
+        margin-bottom: 10px;
+    }
+    .search {
+        margin-top: 10px;
+    }
+
+    .navbar-default .navbar-nav>li>a {
+        margin-top: 24px;
+    }
+}
+
+@media (max-width: 378px){
+    .navbar-default .navbar-title {
+        font-size: 18px;
+    }
+
 }

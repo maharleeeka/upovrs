@@ -48,9 +48,8 @@ class Request(models.Model):
 		return str(self.name)
 
 class RentedEquipment(models.Model):
-	request_id = models.ForeignKey(Request, models.DO_NOTHING, db_column='request_id')
-	#equipment_id = models.ForeignKey(Equipment, models.DO_NOTHING, db_column='equipment_id', null=True, blank=True)
-	equipment_id = models.DecimalField(max_digits = 4, decimal_places=0, null=True)
+	request_id = models.ForeignKey(Request, models.DO_NOTHING, db_column='request_id', null=True, blank=True)
+	equipment_id = models.ForeignKey(Equipment, models.DO_NOTHING, db_column='equipment_id', null=True, blank=True)
 	unit = models.DecimalField(max_digits = 4, decimal_places=0, null=True)
 
 	def __str__(self):
@@ -64,3 +63,19 @@ class RequestedDate(models.Model):
 
 	def __str__(self):
 		return str(self.pk)
+
+class OfficeStatus(models.Model):
+    OFFICE_STATUS = (
+        ('R','Rejected'),
+        ('A','Approved'),
+        ('P','Pending'),
+    )
+    request_id = models.ForeignKey(
+        Request, models.DO_NOTHING, db_column='request_id')
+    osa_status = models.CharField(max_length=8, choices=OFFICE_STATUS)
+    cdmo_status = models.CharField(max_length=8, choices=OFFICE_STATUS)
+    cashier_status = models.CharField(max_length=8, choices=OFFICE_STATUS)
+    ada_status = models.CharField(max_length=8, choices=OFFICE_STATUS)
+
+    def __str__(self):
+        return str(self.pk)
