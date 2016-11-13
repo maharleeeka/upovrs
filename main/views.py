@@ -9,7 +9,7 @@ from django.views.generic.edit import ModelFormMixin
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.decorators import permission_required
 from django.utils.http import is_safe_url
 from django.contrib.auth.forms import AuthenticationForm
@@ -20,14 +20,19 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView, RedirectView
 
+def group_check(user):
+    return user.groups.filter(name__in=['ADA Staff',
+                                        'CDMO Staff' 
+                                        'Cashier Staff'
+                                        'OSA Staff'])
+
 class LoginView(FormView):
-    """
-    Provides the ability to login as a user with a username and password
-    """
     success_url = '/main/requestform'
+    success_office = '/main/osa/requestlist'
     form_class = AuthenticationForm
     template_name = "login.html"
     redirect_field_name = '/templates/request_form'
+    redirect_field_name_office = '/templates/osa'
 
     @method_decorator(sensitive_post_parameters('password'))
     @method_decorator(csrf_protect)
@@ -39,7 +44,8 @@ class LoginView(FormView):
         return super(LoginView, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        print(form.get_user())
+        #print(form.get_user())
+        #print(form.get_user().groups.values_list('name', flat = True))
         auth_login(self.request, form.get_user())
 
         # If the test cookie worked, go ahead and
@@ -50,25 +56,26 @@ class LoginView(FormView):
         return super(LoginView, self).form_valid(form)
 
     def get_success_url(self):
-        redirect_to = self.request.POST.get(self.redirect_field_name)
-        if not is_safe_url(url=redirect_to, host=self.request.get_host()):
-            redirect_to = self.success_url
-        return redirect_to
+
+        if self.request.user.groups.filter(name="Approvers").exists():
+            redirect_to = self.request.POST.get(self.redirect_field_name_office)
+            if not is_safe_url(url=redirect_to, host=self.request.get_host()):
+                redirect_to = self.success_office
+            return redirect_to
+
+        elif self.request.user.groups.filter(name="Requesters").exists():
+            redirect_to = self.request.POST.get(self.redirect_field_name)
+            if not is_safe_url(url=redirect_to, host=self.request.get_host()):
+                redirect_to = self.success_url
+            return redirect_to
+
 
 class LogoutView(RedirectView):
-    """
-    Provides users the ability to logout
-    """
     url = '/templates/login/'
 
     def get(self, request, *args, **kwargs):
         auth_logout(request)
         return super(LogoutView, self).get(request, *args, **kwargs)
-
-
-# def login(request):
-# 	template = 'login.html'
-# 	return render(request,template)
 
 class SuccessView(TemplateView):
     template_name = "success.html"
@@ -101,7 +108,6 @@ class RateView(TemplateView):
 # 			requests = paginator.page(paginator.num_pages)
 # 		return context
 
-
 def listing(request):
 	request_list = Request.objects.all()
 	paginator = Paginator(request_list,10)
@@ -125,12 +131,13 @@ def listing(request):
 #  		return super(ModelFormMixin, self).form_valid(form)
 
 class RequestView(LoginRequiredMixin, FormView):
-	login_url = 'login'
-	#redirect_field_name = 'request_form'
-	template_name = 'request_form.html'
-	form_class = forms.RequestForm
+    login_url = 'login'
+    redirect_field_name = 'request_form'
+    template_name = 'request_form.html'
+    success_url = '/main/requestform'
+    form_class = forms.RequestForm
 
-	def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
 	    form = self.get_form()
 	    if form.is_valid():
 	    	self.object = form.save()
@@ -140,20 +147,20 @@ class RequestView(LoginRequiredMixin, FormView):
 	    else:
 	        return self.form_invalid(form)
 		
-	def form_valid(self, form):
-		return super(RequestView, self).form_valid(form)
+    def form_valid(self, form):
+        return super(RequestView, self).form_valid(form)
 
-	def get_success_url(self):
-		return reverse_lazy('success')
+    def get_success_url(self):
+        return reverse_lazy('success')
 
-	def get_context_data(self, **kwargs):
-		context = super(RequestView, self).get_context_data(**kwargs)
-		context['venue_list'] = Venue.objects.all()
-		context['equipment_list'] = Equipment.objects.all()
-		
-		return context
+    def get_context_data(self, **kwargs):
+        context = super(RequestView, self).get_context_data(**kwargs)
+        context['venue_list'] = Venue.objects.all()
+        context['equipment_list'] = Equipment.objects.all()
+        
+        return context
 
-class RentedEquipmentView(FormView):
+class RentedEquipmentView(LoginRequiredMixin, FormView):
 	template_name = 'request_form.html'
 	form_class = forms.RentedEqForm
 	pk = None
