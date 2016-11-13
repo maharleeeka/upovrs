@@ -48,7 +48,6 @@ class LoginView(FormView):
         #print(form.get_user())
         #print(form.get_user().groups.values_list('name', flat = True))
         auth_login(self.request, form.get_user())
-
         # If the test cookie worked, go ahead and
         # delete it since its no longer needed
         if self.request.session.test_cookie_worked():
@@ -156,7 +155,7 @@ class RequestView(LoginRequiredMixin, FormView):
         context = super(RequestView, self).get_context_data(**kwargs)
         context['venue_list'] = Venue.objects.all()
         context['equipment_list'] = Equipment.objects.all()
-        
+          
         return context
 
 class RentedEquipmentsView(LoginRequiredMixin, FormView):
