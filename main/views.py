@@ -138,13 +138,13 @@ class RequestView(LoginRequiredMixin, FormView):
     success_url = '/main/requestform'
     form_class = forms.RequestForm
 
-	def post(self, request, *args, **kwargs):
-	    form = self.get_form()
-	    if form.is_valid():
-	    	self.object = form.save()
-	    	return self.form_valid(form)
-	    else:
-	        return self.form_invalid(form)
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            self.object = form.save()
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
 		
     def form_valid(self, form):
         return super(RequestView, self).form_valid(form)
