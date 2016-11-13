@@ -69,6 +69,7 @@ class OfficeStatus(models.Model):
         ('R','Rejected'),
         ('A','Approved'),
         ('P','Pending'),
+        ('AC', 'Active'),
     )
     request_id = models.ForeignKey(
         Request, models.DO_NOTHING, db_column='request_id')
