@@ -197,12 +197,9 @@ function isInteger(x) {
         return x % 1 === 0;
 }
 
-function showDatePanel(){
-  div = document.getElementById('event_schedule');
-  div.style.display = "block";
-}
-
-function showEquipmentPanel(){
-  div = document.getElementById('event_equipments');
-  div.style.display = "block";
+function showNotif(){
+  if({{ request.pk is not null}}){
+    div = document.getElementById('request-form-notif');
+    div.style.display = "block";
+  }
 }
