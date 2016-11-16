@@ -15,6 +15,12 @@ urlpatterns = [
     url(r'^requestform/(?P<pk>\d+)/$', 
         user_passes_test(lambda u: Group.objects.get(name='Requesters') in u.groups.all())
         (views.RequestView.as_view()),name="requestform"),
+    url(r'^requestform/(?P<pk>\d+)/$', views.RequestView.as_view(), name='requestform'),
+    url(r'^submitEquipments/$', views.RentedEquipmentsView.as_view(), name='submitEquipments'),
+    url(r'^submitDates/$', views.DatesView.as_view(), name='submitDates'),
+    # url(r'^requestform/(?P<pk>\d+)/$', 
+    #     user_passes_test(lambda u: Group.objects.get(name='Requesters') in u.groups.all())
+    #     (views.RequestView.as_view()),name="requestform"),
     url(r'^guidelines/$', views.GuidelineView.as_view(), name='guidelines'),
     url(r'^rates/$', views.RateView.as_view(), name='rate'),
     url(r'^success/$', views.SuccessView.as_view(), name='success'),
