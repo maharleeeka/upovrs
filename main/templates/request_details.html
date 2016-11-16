@@ -72,7 +72,7 @@
 				    </tbody>
 				  </table>
 
-			<div class="form-group">
+			<!-- <div class="form-group">
 				<div class="col-md-12">
 					<label>Remarks</label>
 					{% if request.user|has_group:"OSA Staff" %} 
@@ -81,20 +81,61 @@
 						{% endfor %}
 					{% endif %}
 				</div>
-			</div>
+			</div> -->
 
-			<div id="submit_btn">
+			<form method="post" id="status_form" name="status_form" action="{% url 'addRemarks' %}">
+				{% csrf_token %}
 				<div class="form-group">
 					<div class="col-md-12">
-						<button class="submit-btn btn" aria-label="Add Remarks" title="Add Remarks" style="margin-bottom:20px;"><i class="glyphicon glyphicon-ok" aria-hidden="true" ></i> Add Remarks</button>
-						<button class="submit-btn btn pull-right" aria-label="Approve" title="Approve" style="margin-bottom:20px; margin-left: 10px"><i class="glyphicon glyphicon-ok" aria-hidden="true"></i> Approve</button>
-						<button class="submit-btn btn pull-right" aria-label="Disapprove" title="Disapprove" style="background: #ba2121; margin-bottom:20px;"><i class="glyphicon glyphicon-remove" aria-hidden="true"></i> Disapprove</button>
+						<label>OSA Remarks</label>
+						{% if request.user|has_group:"OSA Staff" %} 
+							<textarea rows="4" cols="40" id="ex11 comment" class="form-control" name="osa_remarks">{{ status.osa_remarks }}</textarea>
+						{% else %}
+							<textarea rows="4" cols="40" id="ex11 comment" class="form-control" name="osa_remarks" readonly>{{ status.osa_remarks }}</textarea>
+						{% endif %}
+
 					</div>
 				</div>
-			</div>
-			<!-- #submit_btn -->
-			
+				<div class="form-group">
+					<div class="col-md-12">
+						<label>Cashier Remarks</label>
+						{% if request.user|has_group:"Cashier Staff" %} 
+						<textarea rows="4" cols="40" id="ex11 comment" class="form-control" name="cashier_remarks">{{ status.cashier_remarks }}</textarea>
+						{% else %}
+						<textarea rows="4" cols="40" id="ex11 comment" class="form-control" name="cashier_remarks" readonly>{{ status.cashier_remarks }}</textarea>
+						{% endif %}
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-12">
+						<label>ADA Remarks</label>
+						{% if request.user|has_group:"ADA Staff" %} 
+						<textarea rows="4" cols="40" id="ex11 comment" class="form-control" name="ada_remarks">{{ status.ada_remarks }}</textarea>
+						{% else %}
+						<textarea rows="4" cols="40" id="ex11 comment" class="form-control" name="ada_remarks" readonly>{{ status.ada_remarks }}</textarea>
+						{% endif %}
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-12">
+						<label>CDMO Remarks</label>
+						{% if request.user|has_group:"CDMO Staff" %} 
+						<textarea rows="4" cols="40" id="ex11 comment" class="form-control" name="cdmo_remarks">{{ status.cdmo_remarks }}</textarea>
+						{% else %}
+						<textarea rows="4" cols="40" id="ex11 comment" class="form-control" name="cdmo_remarks" readonly="">{{ status.cdmo_remarks }}</textarea>
+						{% endif %}
+					</div>
+				</div>
+				<div id="submit_btn">
+					<div class="form-group">
+						<div class="col-md-12">
+							<button class="submit-btn btn" aria-label="Add Remarks" title="Add Remarks" style="margin-bottom:20px;"><i class="glyphicon glyphicon-ok" aria-hidden="true" onclick=submit()></i> Add Remarks</button>
+							<button class="submit-btn btn pull-right" aria-label="Approve" title="Approve" style="margin-bottom:20px; margin-left: 10px"><i class="glyphicon glyphicon-ok" aria-hidden="true"></i> Approve</button>
+							<button class="submit-btn btn pull-right" aria-label="Disapprove" title="Disapprove" style="background: #ba2121; margin-bottom:20px;"><i class="glyphicon glyphicon-remove" aria-hidden="true"></i> Disapprove</button>
+						</div>
+					</div>
+				</div>
+			</form>
 		</div>
 	</div>
-	<!-- #content -->
 {% endblock %}

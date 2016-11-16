@@ -249,7 +249,7 @@ def requestViewing(request):
 		request_id = Request.objects.get(pk=query)
 		date_list = RequestedDate.objects.filter(request_id=request_id)
 		equipment_list = RentedEquipment.objects.filter(request_id=request_id)
-		office_status = OfficeStatus.objects.filter(request_id=request_id)
+		office_status = OfficeStatus.objects.filter(request_id=request_id)[0:1]
 		print(office_status)
 
 		paginator = Paginator(queryset_list, 10)
@@ -293,3 +293,4 @@ def requestlisting(request):
 		requests = paginator.page(paginator.num_pages)
 
 	return render(request, 'pending_requests.html', {'requests': requests})
+
