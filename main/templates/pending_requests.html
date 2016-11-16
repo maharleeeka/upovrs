@@ -3,7 +3,7 @@
 
 
 <div id="pending">
-	<div class="container">
+	<div class="container" style="max-width: 1000px">
 		<div class="text-center">
 			<h2>LIST OF PENDING REQUESTS</h2>
 		</div>
@@ -20,7 +20,6 @@
 			</thead>
 
 			<tbody>
-				
 				{% for request in requests %}
 				<tr>
 			     	<th class="col-md-1 text-center"><a href="{% url 'viewrequestdetails' %}?q={{ request.request_id.pk }}">{{request.pk}}</a></th>

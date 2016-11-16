@@ -217,3 +217,9 @@ function submitDateFields(){
   var form = document.getElementById("requestDates_form");
   form.submit();
 }
+
+function submitForm(x){
+  console.log(x);
+  var form = document.getElementById("submit_form");
+  form.submit();
+}

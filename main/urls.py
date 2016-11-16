@@ -8,7 +8,7 @@ urlpatterns = [
     url(r'^$', views.MainView.as_view(), name='index'),
     # url(r'^$', views.HomepageView.as_view(), name='index'),
     # url(r'^requestform/$', views.RequestView.as_view(), name='requestform'),
-    # url(r'^requestform/$', views.RequestView.as_view(), name='requestform'),
+    url(r'^requestform/$', views.RequestView.as_view(), name='requestform'),
     # url(r'^requestform/(?P<pk>\d+)/$', views.RequestView.as_view(), name='requestform'),
     url(r'^submitEquipments/$', views.RentedEquipmentsView.as_view(), name='submitEquipments'),
     url(r'^submitDates/$', views.DatesView.as_view(), name='submitDates'),
@@ -22,12 +22,15 @@ urlpatterns = [
     url(r'^logout/$', views.LogoutView.as_view(), name='logout'),
     # url(r'^osa/requestlist$', views.RequestListView.as_view(), name='requestlist'),
     #url(r'^osa/requestlist$', views.listing, name='requestlist'),
-    url(r'^osa/requestlist$', 
-        user_passes_test(lambda u: Group.objects.get(name='Approvers') in u.groups.all())
-        (views.listing),name="requestlist"),
+    # url(r'^osa/requestlist$', 
+    #     user_passes_test(lambda u: Group.objects.get(name='Approvers') in u.groups.all())
+    #     (views.requestlisting),name="requestlist"),
     url(r'^viewrequestdetails/', views.requestViewing, name='viewrequestdetails'),
     url(r'^osaview/', views.listing, name='osaview'),
-    url(r'^requestlist/$', views.requestlisting, name='requestlist')
+    url(r'^requestlist/$', 
+        user_passes_test(lambda u: Group.objects.get(name='Approvers') in u.groups.all()) 
+        (views.requestlisting), name="requeslist"),
+    url(r'^submitForm/$', views.SubmitForm.as_view(), name='submitForm')
 ]
 
 
