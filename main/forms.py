@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from django.forms.models import inlineformset_factory
-from main.models import Request, RentedEquipment
+from main.models import Request, RentedEquipment, RequestedDate
 
 class RequestForm(forms.ModelForm):
 	class Meta:
@@ -11,4 +11,9 @@ class RequestForm(forms.ModelForm):
 class RentedEqForm(forms.ModelForm):
 	class Meta:
 		model = RentedEquipment
-		fields = '__all__'
+		fields = ['request_id', 'equipment_id', 'unit']
+
+class RequestDates(forms.ModelForm):
+	class Meta:
+		model = RequestedDate
+		fields = ['request_id', 'date_needed', 'time_from', 'time_to']
