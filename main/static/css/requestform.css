@@ -30,7 +30,7 @@ textarea {
 	width: 100%;
 }
 
-#basic_info, #event_schedule, #event_equipments{
+.form_panel{
 	width: 900px;
 	margin: auto;
 	border: 1px solid #d3d3d3;
@@ -43,6 +43,7 @@ textarea {
 }
 
 #event_equipments, #event_schedule{
+	padding-bottom: 30px;
 	display: block;
 	overflow: auto;
 }
@@ -67,6 +68,12 @@ textarea {
 	margin: auto;
 }
 
+#form-final-button{
+	width: 930px;
+	margin-top: -30px;
+	border: none;
+}
+
 .block input {
 	border: 0px;
 	pointer-events: none;
@@ -83,6 +90,10 @@ textarea {
 }
 
 /***********SCHEDULE DIV***********/
+/*#schedule{
+	background: red;
+	border: 5px solid black;
+}*/
 #schedule .btn{
 	margin-top:  45px;
 	width: 100%;
@@ -121,7 +132,7 @@ label{
 
 #form-header{
 	position: relative;
-	top: 30px;
+	top: 20px;
 	padding-bottom: 20px;
 }
 
@@ -151,6 +162,17 @@ label{
 }
 
 .alert{
-	position: relative;
+	position: fixed;
 	top: 60px;
+	z-index: 999;
+	width: 100%;
+}
+
+#request-form-notif{
+	display: none;
+}
+img {
+    width:50px;
+    height:50px;
+    margin-top: 4px;
 }

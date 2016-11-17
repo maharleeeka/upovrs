@@ -1,15 +1,16 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView, CreateView, FormView
-from main.models import Venue, Equipment, Request, RentedEquipment
+from main.models import Venue, Equipment, Request, RentedEquipment, RequestedDate, OfficeStatus
 from main.forms import RequestForm
 from main import forms, views
+from django.db.models import Q
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic.edit import ModelFormMixin
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.decorators import permission_required
 from django.utils.http import is_safe_url
 from django.contrib.auth.forms import AuthenticationForm
@@ -20,14 +21,19 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView, RedirectView
 
+def group_check(user):
+    return user.groups.filter(name__in=['ADA Staff',
+                                        'CDMO Staff' 
+                                        'Cashier Staff'
+                                        'OSA Staff'])
+
 class LoginView(FormView):
-    """
-    Provides the ability to login as a user with a username and password
-    """
     success_url = '/main/requestform'
+    success_office = '/main/requestlist'
     form_class = AuthenticationForm
     template_name = "login.html"
     redirect_field_name = '/templates/request_form'
+    redirect_field_name_office = '/templates/osa'
 
     @method_decorator(sensitive_post_parameters('password'))
     @method_decorator(csrf_protect)
@@ -39,9 +45,9 @@ class LoginView(FormView):
         return super(LoginView, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        print(form.get_user())
+        #print(form.get_user())
+        #print(form.get_user().groups.values_list('name', flat = True))
         auth_login(self.request, form.get_user())
-
         # If the test cookie worked, go ahead and
         # delete it since its no longer needed
         if self.request.session.test_cookie_worked():
@@ -50,25 +56,26 @@ class LoginView(FormView):
         return super(LoginView, self).form_valid(form)
 
     def get_success_url(self):
-        redirect_to = self.request.POST.get(self.redirect_field_name)
-        if not is_safe_url(url=redirect_to, host=self.request.get_host()):
-            redirect_to = self.success_url
-        return redirect_to
+
+        if self.request.user.groups.filter(name="Approvers").exists():
+            redirect_to = self.request.POST.get(self.redirect_field_name_office)
+            if not is_safe_url(url=redirect_to, host=self.request.get_host()):
+                redirect_to = self.success_office
+            return redirect_to
+
+        elif self.request.user.groups.filter(name="Requesters").exists():
+            redirect_to = self.request.POST.get(self.redirect_field_name)
+            if not is_safe_url(url=redirect_to, host=self.request.get_host()):
+                redirect_to = self.success_url
+            return redirect_to
+
 
 class LogoutView(RedirectView):
-    """
-    Provides users the ability to logout
-    """
     url = '/templates/login/'
 
     def get(self, request, *args, **kwargs):
         auth_logout(request)
         return super(LogoutView, self).get(request, *args, **kwargs)
-
-
-# def login(request):
-# 	template = 'login.html'
-# 	return render(request,template)
 
 class SuccessView(TemplateView):
     template_name = "success.html"
@@ -101,6 +108,163 @@ class RateView(TemplateView):
 # 			requests = paginator.page(paginator.num_pages)
 # 		return context
 
+def listing(request):
+	request_list = Request.objects.all()
+	paginator = Paginator(request_list,10)
+	page = request.GET.get('page')
+
+	try:
+		requests = paginator.page(page)
+	except PageNotAnInteger:
+		requests = paginator.page(1)
+	except EmptyPage:
+		requests = paginator.page(paginator.num_pages)
+
+	return render(request, 'osa.html', {'requests': requests})
+
+class RequestView(LoginRequiredMixin, FormView):
+    login_url = 'login'
+    # redirect_field_name = 'request_form'
+    template_name = 'request_form.html'
+    success_url = '/main/requestform'
+    form_class = forms.RequestForm
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            self.object = form.save()
+            o = OfficeStatus(request_id=self.object, osa_status='P', ada_status='P', cashier_status='P', cdmo_status='P')
+            o.save()
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+		
+    def form_valid(self, form):
+        return super(RequestView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy("requestform", kwargs={'pk':self.object.pk})
+        
+    def get_context_data(self, **kwargs):
+        context = super(RequestView, self).get_context_data(**kwargs)
+        context['venue_list'] = Venue.objects.all()
+        context['equipment_list'] = Equipment.objects.all()
+        pk = 0
+        if 'pk' in self.kwargs:
+        	pk = self.kwargs['pk']
+        	context['request'] = Request.objects.get(pk=pk)
+        	request_id = Request.objects.get(pk=pk)
+        	context['rented_equipments'] = RentedEquipment.objects.filter(request_id=request_id)
+        	context['requested_dates'] = RequestedDate.objects.filter(request_id=request_id)
+       	context['pk'] = pk
+
+        return context
+
+class RentedEquipmentsView(LoginRequiredMixin, FormView):
+	template_name = 'request_form.html'
+	form_class = forms.RentedEqForm
+
+	def post(self, request, *args, **kwargs):
+		form = self.get_form()
+		if form.is_valid():
+			print ('valid')
+			print (form)
+			self.object = form.save()
+			return self.form_valid(form)
+		else:
+			return self.form_invalid(form)
+
+	def get_success_url(self):
+		return reverse_lazy("requestform", kwargs={'pk':self.object.request_id.pk})
+
+	def get_context_data(self, **kwargs):
+		context = super(RentedEquipmentsView, self).get_context_data(**kwargs)
+		context['venue_list'] = Venue.objects.all()
+		context['equipment_list'] = Equipment.objects.all()
+		pk = 0
+		if 'pk' in self.kwargs:
+			pk = self.kwargs['pk']
+			context['request'] = Request.objects.get(pk=pk)
+			request_id = Request.objects.get(pk=pk)
+			context['rented_equipments'] = RentedEquipment.objects.filter(request_id=request_id)
+			context['requested_dates'] = RequestedDate.objects.filter(request_id=request_id)
+		context['pk'] = pk
+		return context
+
+class DatesView(FormView):
+	template_name = 'rates.html'
+	form_class = forms.RequestDates
+
+	def post(self, request, *args, **kwargs):
+		form = self.get_form()
+		if form.is_valid():
+			print ('valid')
+			print (form)
+			self.object = form.save()
+			return self.form_valid(form)
+		else:
+			return self.form_invalid(form)
+
+	def get_success_url(self):
+		return reverse_lazy("requestform", kwargs={'pk':self.object.request_id.pk})
+
+	def get_context_data(self, **kwargs):
+		context = super(DatesView, self).get_context_data(**kwargs)
+		context['venue_list'] = Venue.objects.all()
+		context['equipment_list'] = Equipment.objects.all()
+		pk = 0
+		if 'pk' in self.kwargs:
+			pk = self.kwargs['pk']
+			context['request'] = Request.objects.get(pk=pk)
+			request_id = Request.objects.get(pk=pk)
+			context['rented_equipments'] = RentedEquipment.objects.filter(request_id=request_id)
+			context['requested_dates'] = RequestedDate.objects.filter(request_id=request_id)
+		context['pk'] = pk
+		return context
+
+class SubmitForm(FormView):
+	template_name = 'success.html'
+	form_class = forms.RequestStatus
+
+	def post(self, request, *args, **kwargs):
+		form - self.get_form()
+		if form.is_valid():
+			print (form)
+			self.object = form.save()
+			return self.form_valid(form)
+		else:
+			return self.form_invalid(form)
+
+	def get_success_url(self):
+		return reverse_lazy("sucess")
+
+def requestViewing(request):
+	queryset_list = Request.objects.all()
+	# date_list = RequestedDate.objects.all()
+	# equipment_list = RentedEquipment.objects.all()
+
+	query = request.GET.get("q")
+	if query:
+		queryset_list = queryset_list.filter(Q(pk__icontains=query))
+		request_id = Request.objects.get(pk=query)
+		date_list = RequestedDate.objects.filter(request_id=request_id)
+		equipment_list = RentedEquipment.objects.filter(request_id=request_id)
+		office_status = OfficeStatus.objects.filter(request_id=request_id)[0:1]
+		print(office_status)
+
+		paginator = Paginator(queryset_list, 10)
+		page = request.GET.get('page')
+
+		try:
+			requests = paginator.page(page)
+		except PageNotAnInteger:
+			requests = paginator.page(1)
+		except EmptyPage:
+			requests = paginator.page(paginator.num_pages)
+
+		return render(request, 'request_details.html', {'requests': requests, 'date_list': date_list, 'equipment_list': equipment_list, 'office_status': office_status})
+	else:
+		return render(request, 'request_details.html')
 
 def listing(request):
 	request_list = Request.objects.all()
@@ -116,54 +280,17 @@ def listing(request):
 
 	return render(request, 'osa.html', {'requests': requests})
 
+def requestlisting(request):
+	request_list = OfficeStatus.objects.all()
+	paginator = Paginator(request_list,10)
+	page = request.GET.get('page')
 
-# class LoginView(TemplateView):
-# 	template_name = "login.html"
+	try:
+		requests = paginator.page(page)
+	except PageNotAnInteger:
+		requests = paginator.page(1)
+	except EmptyPage:
+		requests = paginator.page(paginator.num_pages)
 
-# 	def form_valid(self, form):
-#  		self.object = form.save()
-#  		return super(ModelFormMixin, self).form_valid(form)
+	return render(request, 'pending_requests.html', {'requests': requests})
 
-class RequestView(LoginRequiredMixin, FormView):
-	login_url = 'login'
-	#redirect_field_name = 'request_form'
-	template_name = 'request_form.html'
-	form_class = forms.RequestForm
-
-
-	def post(self, request, *args, **kwargs):
-	    form = self.get_form()
-	    if form.is_valid():
-	    	self.object = form.save()
-	    	return self.form_valid(form)
-	    else:
-	        return self.form_invalid(form)
-
-	def get_success_url(self):
-		#return reverse_lazy('success')
-		return reverse_lazy("requestform", kwargs={'pk':self.object.pk})
-
-	def get_context_data(self, **kwargs):
-		context = super(RequestView, self).get_context_data(**kwargs)
-		context['venue_list'] = Venue.objects.all()
-		context['equipment_list'] = Equipment.objects.all()
-		pk = 0
-		if 'pk' in self.kwargs:
-			pk = self.kwargs['pk']
-			context['request'] = Request.objects.get(pk=pk)
-		context['pk'] = pk	
-		return context
-
-class RentedEquipmentsView(TemplateView):
-	template_name = 'request_form.html'
-	form_class = forms.RentedEqForm
-
-	def post(self, request, *args, **kwargs):
-		form = self.get_form()
-		if form.is_valid():
-			return self.form_valid(form)
-		else:
-			return self.form_invalid(form)
-
-	def get_success_url(self):
-		return reverse_lazy("requestform")

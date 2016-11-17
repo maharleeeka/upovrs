@@ -111,7 +111,8 @@ function checkDuplicateDates(){
   }
 }
 
-function checkDate() {
+/**function checkDate() {
+    console.log('checking date')
     var EnteredDate = document.getElementById("date_needed").value; //for javascript
 
     var EnteredDate = $("#date_needed").val(); // For JQuery
@@ -130,10 +131,10 @@ function checkDate() {
         return false;
     }
 }
+**/
 
-
-function validateForm(){
-	console.log('ja');
+function validateForm(clicked_id){
+  console.log(clicked_id);
 	var valid = true;
 	var required = document.getElementsByClassName("required");
 	for (var i=0; i < required.length; i++){
@@ -145,37 +146,35 @@ function validateForm(){
 	}
 
   //for equipment
- //  var x = document.getElementsByClassName("check");
- //  var y = document.getElementsByClassName("unit_field");
+  var x = document.getElementsByClassName("check");
+  var y = document.getElementsByClassName("unit_field");
 
- //  for (var i=0; i < x.length; i++){
- //    if (x[i].checked == true && y[i].value == ''){
- //      alert("Please provide number of units for equipment to be rented.");
- //      valid = false;
- //      break;
- //    }
- //    if (!isInteger(y[i].value)) {
- //      alert("Must input integer only for the units.");
- //      valid = false;
- //      break;
- //    }
- //  }
-
-	if (valid){
-    //valid = checkDate();
-
-  	if(valid){
-  		var form = document.getElementById("request_form");
-  		form.submit();
-      var form2 = document.getElementById("rentedequipments_form");
-      //form2.submit();
-  	}
+  for (var i=0; i < x.length; i++){
+    if (x[i].checked == true && y[i].value == ''){
+      alert("Please provide number of units for equipment to be rented.");
+      valid = false;
+      break;
+    }
+    if (!isInteger(y[i].value)) {
+      alert("Must input integer only for the units.");
+      valid = false;
+      break;
+    }
   }
 
-  //showDatePanel();
-  //showEquipmentPanel();
+  if(valid){
+    if (clicked_id == "part1"){
+  		var form = document.getElementById("request_form");
+  		form.submit();
+    }
+    else if (clicked_id == "part3"){
+      var pk = document.getElementById("pk");
+      var form = document.getElementById("rentedequipments_form");
+      console.log('here')
+      form.submit();
+    }
+  }
 }
-
 
 function enable() {
   var x = document.getElementsByClassName("unit_field");
@@ -193,13 +192,34 @@ function enable() {
     
 }
 
-function isInteger(x) {
+function isInteger(x) { 
         return x % 1 === 0;
 }
 
-function showNotif(){
-  if({{ request.pk is not null}}){
-    div = document.getElementById('request-form-notif');
-    div.style.display = "block";
+function showNotif(x){
+  if(x > 0){
+    document.getElementById('request-form-notif').style.display = "block";
+    scrollTo();
+    setTimeout();
   }
+}
+
+setTimeout(function() {
+    $('#request-form-notif').fadeOut('fast');
+}, 3000);
+
+function scrollTo() {
+  $('html, body').animate({ scrollTop: $('#event_schedule').offset().top }, 'slow');
+  return false;
+}
+
+function submitDateFields(){
+  var form = document.getElementById("requestDates_form");
+  form.submit();
+}
+
+function submitForm(x){
+  console.log(x);
+  var form = document.getElementById("submit_form");
+  form.submit();
 }

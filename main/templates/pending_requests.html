@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div id="pending">
+	<div class="container" style="max-width: 1000px">
+		<div class="text-center">
+			<h2>LIST OF PENDING REQUESTS</h2>
+		</div>
+		<br>
+
+		<table class="table">
+			<thead class="highlight">
+				<th class="text-center">No.</th>
+				<th class="text-center">PURPOSE</th>
+				<th class="text-center">OSA</th>
+				<th class="text-center">CASHIER</th>
+				<th class="text-center">ADA</th>
+				<th class="text-center">CDMO</th>
+			</thead>
+
+			<tbody>
+				{% for request in requests %}
+				<tr>
+			     	<th class="col-md-1 text-center"><a href="{% url 'viewrequestdetails' %}?q={{ request.request_id.pk }}">{{request.pk}}</a></th>
+			    	<th class="col-md-3">{{ request.request_id.purpose }}</td>	
+			     	<td class="col-md-1 text-center">
+				      	{% if request.osa_status == 'A' %}
+			    			<span class="glyphicon glyphicon-ok"></span>
+			    		{% endif %}
+			    		{% if request.osa_status == 'R' %}
+			    			<span class="glyphicon glyphicon-remove"></span>
+			    		{% endif %}
+			    		{% if request.osa_status == 'P' %}
+			    			<span class="glyphicon glyphicon-unchecked"></span>
+			    		{% endif %}
+			      	</td>
+			    	<td class="col-md-1 text-center">
+			    		{% if request.cashier_status == 'A' %}
+			    			<span class="glyphicon glyphicon-ok"></span>
+			    		{% endif %}
+			    		{% if request.cashier_status == 'R' %}
+			    			<span class="glyphicon glyphicon-remove"></span>
+			    		{% endif %}
+			    		{% if request.cashier_status == 'P' %}
+			    			<span class="glyphicon glyphicon-unchecked"></span>
+			    		{% endif %}
+			      	</td>
+			      	<td class="col-md-1 text-center">
+			      		{% if request.ada_status == 'A' %}
+			    			<span class="glyphicon glyphicon-ok"></span>
+			    		{% endif %}
+			    		{% if request.ada_status == 'R' %}
+			    			<span class="glyphicon glyphicon-remove"></span>
+			    		{% endif %}
+			    		{% if request.ada_status == 'P' %}
+			    			<span class="glyphicon glyphicon-unchecked"></span>
+			    		{% endif %}
+			      	</td>
+			      	<td class="col-md-1 text-center">
+			      		{% if request.cdmo_status == 'A' %}
+			    			<span class="glyphicon glyphicon-ok"></span>
+			    		{% endif %}
+			    		{% if request.cdmo_status == 'R' %}
+			    			<span class="glyphicon glyphicon-remove"></span>
+			    		{% endif %}
+			    		{% if request.cdmo_status == 'P' %}
+			    			<span class="glyphicon glyphicon-unchecked"></span>
+			    		{% endif %}
+			      	</td>
+			    </tr>
+			    {% endfor %}
+			    <tr>
+			    	
+			    </tr>
+			    
+			</tbody>
+		</table>
+
+		<div class="pagination">
+	    <span class="step-links">
+	        {% if requests.has_previous %}
+	            <a href="?page={{ requests.previous_page_number }}">previous</a>
+	        {% endif %}
+
+	        <span class="current">
+	            Page {{ requests.number }} of {{ requests.paginator.num_pages }}.
+	        </span>
+
+	        {% if requests.has_next %}
+	            <a href="?page={{ requests.next_page_number }}">next</a>
+	        {% endif %}
+	    </span>
+	</div>
+		
+	</div>
+	<!-- .container -->
+	
+
+</div>
+<!-- #pending-request -->
+
+{% endblock %}

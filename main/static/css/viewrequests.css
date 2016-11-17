@@ -1,0 +1,36 @@
+#osa-home{
+	position: relative;
+	top: 100px;
+	width: 1000px;
+	height: 500px;
+	
+	margin: auto;
+}
+
+#pending{
+	position: relative;
+	top: 100px;
+	width: auto;
+	height: 500px;
+	
+	margin: auto;
+}
+
+#pending h1 {
+	max-width: 100%;
+
+}
+
+#pending td, th {
+	/*background:*/ 
+	border: solid 1px #d3d3d3;
+}
+
+.highlight {
+	box-shadow: 2px 0px 5px 0px rgba(0,0,0,0.20);
+	margin: 5px;	
+}
+
+
+
+
