@@ -41,6 +41,7 @@ urlpatterns = [
     #url(r'^addRemarks/$', views.AddRemarksView.as_view(), name='addRemarks')
 
     url(r'^requester/$', views.RequesterView.as_view(), name='requester'),
+    url(r'^cashier/$', views.CashierView.as_view(), name='cashier'),
 ]
 
 
