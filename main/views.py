@@ -294,3 +294,5 @@ def requestlisting(request):
 
 	return render(request, 'pending_requests.html', {'requests': requests})
 
+class RequesterView(TemplateView):
+	template_name = 'requester-view.html'
