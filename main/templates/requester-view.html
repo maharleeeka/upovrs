@@ -1,58 +1,79 @@
 {% extends 'base.html' %}
 {% block content %}
-
-<div id="container">
+<div class="container">
 	<div id="requester-view">
-		<h1>Insert organization name here</h1>
-		<h2>Request Status</h2>
-		<table>
-			<thead>
-				<th class="text-center">No.</th>
-				<th class="text-center">PURPOSE</th>
-				<th class="text-center">OSA</th>
-				<th class="text-center">CASHIER</th>
-				<th class="text-center">ADA</th>
-				<th class="text-center">CDMO</th>
-			</thead>
+		<div id="requester-header"><h1>Insert organization name here</h1></div>
+		<div id="requester_view_status" class="requester_panel">
+			<div class="requester_panel_header">
+				<div class="requester_panel_title">
+					Request Status
+				</div>
+			</div>
 
-			<tbody>
-				<tr>
-			     	<td class="col-md-1 text-center">A</th>
-			     	<td class="col-md-1 text-center">B</th>
-			     	<td class="col-md-1 text-center">C</td>
-			    	<td class="col-md-1 text-center">D</td>
-			      	<td class="col-md-1 text-center">E</td>
-			      	<td class="col-md-1 text-center">F</td>
-			    </tr>
-			    <tr>
-			    	
-			    </tr>
-			</tbody>
-		</table>
-		
-		<h2>Request Remarks</h2>
-		<h3>Insert office name here</h3>
-		<p>
-			*insert remarks here*
-		</p>
+			<div class="requester_view_body">
+				<table class="table">
+				<thead>
+					<th class="text-center">No.</th>
+					<th class="text-center">PURPOSE</th>
+					<th class="text-center">OSA</th>
+					<th class="text-center">CASHIER</th>
+					<th class="text-center">ADA</th>
+					<th class="text-center">CDMO</th>
+				</thead>
 
+				<tbody>
+					<tr>
+				     	<td class="col-md-1 text-center">A</th>
+				     	<td class="col-md-1 text-center">B</th>
+				     	<td class="col-md-1 text-center">C</td>
+				    	<td class="col-md-1 text-center">D</td>
+				      	<td class="col-md-1 text-center">E</td>
+				      	<td class="col-md-1 text-center">F</td>
+				    </tr>
+				    <tr>
+				    	
+				    </tr>
+				</tbody>
+			</table>
+				
+			</div>
+		</div>
 
-		<h2>Request Form</h2>
-		<form action="">
-			<label for="">Name</label><input type="text"><br>
-			<label for="">Organization</label><input type="text"><br>
-			<label for="">Purpose</label><input type="text"><br>
-			<label for="">Participants</label><input type="text"><br>
-			<label for="">Speakers</label><input type="text"><br>
-			<label for="">Venue</label><input type="text"><br>
-			<label for="">Date</label><input type="date"> <label for="">Time</label> <input type="time"><br>
-			<label for="">Equipments</label>
+		<div id="requester_view_remarks" class="requester_panel">
+			<div class="requester_panel_header">
+				<div class="requester_panel_title">
+					Request Remarks
+				</div>
+			</div>
+			<div class="requester_view_body">
+				<h3>Office of Student Affairs</h3>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					</p>
+			</div>
+		</div>
 
-
-		</form>
-
+		<div id="requester_view_form" class="requester_panel">
+			<div class="requester_panel_header">
+				<div class="requester_panel_title">
+					Request Form
+				</div>
+			</div>
+			
+			<div class="requester_view_body">
+				<form action="">
+					<div class="col-md-6"><label>Name</label><input type="text" class="form-control"></div>
+					<div class="col-md-6"><label>Organization</label><input type="text" class="form-control"></div>
+					<div class="col-md-6"><label>Purpose</label><input type="text" class="form-control"></div>
+					<div class="col-md-6"><label>Participants</label><input type="text" class="form-control"></div>
+					<div class="col-md-6"><label>Speakers</label><input type="text" class="form-control"></div>
+					<div class="col-md-6"><label>Venue</label><input type="text" class="form-control"></div>
+					<label for="">Date</label><input type="date" class="form-control"> <label for="">Time</label> <input type="time" class="form-control"><br>
+					<label for="">Equipments</label>
+				</form>
+			</div>
+		</div>
 	</div>
 </div>
-
 
 {% endblock %}
