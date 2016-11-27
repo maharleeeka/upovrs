@@ -48,6 +48,7 @@ class LoginView(FormView):
         #print(form.get_user())
         #print(form.get_user().groups.values_list('name', flat = True))
         auth_login(self.request, form.get_user())
+        #print(auth_login(self.request, form.get_user()))
         # If the test cookie worked, go ahead and
         # delete it since its no longer needed
         if self.request.session.test_cookie_worked():
@@ -146,7 +147,7 @@ class RequestView(LoginRequiredMixin, FormView):
             return self.form_invalid(form)
 		
     def form_valid(self, form):
-        return super(RequestView, self).form_valid(form)
+        return super(RequestView,    self).form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy('success')
