@@ -233,9 +233,10 @@ function approveRequest(clicked_id){
     office = document.getElementById("osa_status");
     office.value = 'A';
   }
-  else if (clicked_id == "cdmo_approve"){
+  else if (clicked_id == "cdmo_aprrove"){
     office = document.getElementById("cdmo_status");
     office.value = 'A';
+    console.log(office.value);
   }
   else if (clicked_id == "ada_aprrove"){
     office = document.getElementById("ada_status");
@@ -244,6 +245,7 @@ function approveRequest(clicked_id){
   else if (clicked_id == "cashier_approve"){
     office = document.getElementById("cashier_status");
     office.value = 'A';
+
   }
   else
     console.log("wala");
