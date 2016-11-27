@@ -29,7 +29,7 @@ def group_check(user):
 
 class LoginView(FormView):
     success_url = '/main/requestform'
-    success_office = '/main/osa/requestlist'
+    success_office = '/main/requestlist'
     form_class = AuthenticationForm
     template_name = "login.html"
     redirect_field_name = '/templates/request_form'
@@ -45,14 +45,12 @@ class LoginView(FormView):
         return super(LoginView, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        #print(form.get_user())
         #print(form.get_user().groups.values_list('name', flat = True))
         auth_login(self.request, form.get_user())
-        #print(auth_login(self.request, form.get_user()))
         # If the test cookie worked, go ahead and
         # delete it since its no longer needed
         if self.request.session.test_cookie_worked():
-            self.request.session.delete_test_cookie()
+        	self.request.session.delete_test_cookie()
 
         return super(LoginView, self).form_valid(form)
 
@@ -72,7 +70,7 @@ class LoginView(FormView):
 
 
 class LogoutView(RedirectView):
-    url = '/templates/login/'
+    url = '/main/requestform'
 
     def get(self, request, *args, **kwargs):
         auth_logout(request)
