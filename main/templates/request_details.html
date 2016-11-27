@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load widget %}
 
 	<div id="content">
 		<div class="container" style="max-width: 1000px;">
@@ -14,40 +15,39 @@
 						</tr>
 					</thead>
 				    <tbody>
-					    {% for request in requests %}
 						<tr>
 							<td>Tracking Number: </td>
-					        <td>{{request.pk}}</td>
+					        <td>{{req.pk}}</td>
 					    </tr>
 					    <tr>
 							<td>Date Filed: </td>
-					        <td>{{request.date_filed}}</td>
+					        <td>{{req.date_filed}}</td>
 					    </tr>
 					    	
 						<tr>
 					    	<td>Name: </td>
-					        <td>{{request.name}}</td>
+					        <td>{{req.name}}</td>
 					    </tr>
 					    <tr>
 					        <td>Organization: </td>
-					        <td>{{request.organization}}</td>
+					        <td>{{req.organization}}</td>
 					    </tr>
 					    <tr>
 					        <td>Purpose: </td>
-					        <td>{{request.purpose}}</td>
+					        <td>{{req.purpose}}</td>
 					    </tr>
 					    <tr>
 					        <td>Participants: </td>
-					        <td>{{request.participants}}</td>
+					        <td>{{req.participants}}</td>
 					    </tr>
 					    <tr>
 					        <td>Speakers: </td>
-					        <td>{{request.speakers}}</td>
+					        <td>{{req.speakers}}</td>
 					    </tr>
 					    <tr>
 					        <td>Venue: </td>
 					        <td>
-								{{request.venue_id.name}}
+								{{req.venue_id.name}}
 							</td>
 					        
 					    </tr>
@@ -55,7 +55,7 @@
 					        <td>Dates: </td> 
 					        <td>
 					        	{% for date in date_list %}
-					        		{{ date.date_needed }} <br>
+					        		{{ date.date_needed }} ({{ date.time_from }} - {{ date.time_to }}) <br>
 					        	{% endfor %}
 					        </td>
 					    </tr>
@@ -67,28 +67,98 @@
 								{% endfor %}
 							</td>
 					    </tr>
-				    	{% endfor %}
 				    </tbody>
 				  </table>
-			
-			<div class="form-group">
+
+			<!-- <div class="form-group">
 				<div class="col-md-12">
 					<label>Remarks</label>
-					<textarea rows="4" cols="40" id="ex11 comment" class="form-control"></textarea>
+					{% if request.user|has_group:"OSA Staff" %} 
+						{% for status in office_status %}
+						<textarea rows="4" cols="40" id="ex11 comment" class="form-control" name="osa_remarks">{{ status.osa_remarks }}</textarea>
+						{% endfor %}
+					{% endif %}
 				</div>
-			</div>
+			</div> -->
 
-			<div id="submit_btn">
+			<form method="post" id="status_form" name="remarks_form" action="{% url 'viewrequestdetails' %}?q={{ req.pk }}">
+				{% csrf_token %}
+				<input type="text" class="form-control hidden" name="request_id" id="request_id" value="{{ req.pk }}">
 				<div class="form-group">
 					<div class="col-md-12">
-						<button class="submit-btn btn" aria-label="Approve" title="Approve" style="margin-bottom:20px;"><i class="glyphicon glyphicon-ok" aria-hidden="true" ></i> Approve</button>
-						<button class="submit-btn btn" aria-label="Disapprove" title="Disapprove" style="background: #ba2121; margin-bottom:20px;"><i class="glyphicon glyphicon-remove" aria-hidden="true"></i> Disapprove</button>
+						<label>OSA Remarks</label>
+						{% if request.user|has_group:"OSA Staff" %} 
+							<textarea rows="4" cols="40" id="ex11 comment" class="form-control" name="osa_remarks">{{ status.osa_remarks }}</textarea>
+						{% else %}
+							<textarea rows="4" cols="40" id="ex11 comment" class="form-control" name="osa_remarks" readonly>{{ status.osa_remarks }}</textarea>
+						{% endif %}
+
 					</div>
 				</div>
-			</div>
-			<!-- #submit_btn -->
-			
+				<div class="form-group">
+					<div class="col-md-12">
+						<label>Cashier Remarks</label>
+						{% if request.user|has_group:"Cashier Staff" %} 
+						<textarea rows="4" cols="40" id="ex11 comment" class="form-control" name="cashier_remarks">{{ status.cashier_remarks }}</textarea>
+						{% else %}
+						<textarea rows="4" cols="40" id="ex11 comment" class="form-control" name="cashier_remarks" readonly>{{ status.cashier_remarks }}</textarea>
+						{% endif %}
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-12">
+						<label>ADA Remarks</label>
+						{% if request.user|has_group:"ADA Staff" %} 
+						<textarea rows="4" cols="40" id="ex11 comment" class="form-control" name="ada_remarks">{{ status.ada_remarks }}</textarea>
+						{% else %}
+						<textarea rows="4" cols="40" id="ex11 comment" class="form-control" name="ada_remarks" readonly>{{ status.ada_remarks }}</textarea>
+						{% endif %}
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-12">
+						<label>CDMO Remarks</label>
+						{% if request.user|has_group:"CDMO Staff" %} 
+						<textarea rows="4" cols="40" id="ex11 comment" class="form-control" name="cdmo_remarks">{{ status.cdmo_remarks }}</textarea>
+						{% else %}
+						<textarea rows="4" cols="40" id="ex11 comment" class="form-control" name="cdmo_remarks" readonly="">{{ status.cdmo_remarks }}</textarea>
+						{% endif %}
+					</div>
+				</div>
+				<div id="submit_btn">
+					<div class="form-group">
+						<div class="col-md-12">
+							<input type="text" class="form-control hidden" name="osa_status" id="osa_status" value="P">
+							<input type="text" class="form-control hidden" name="cdmo_status" id="cdmo_status" value="P">
+							<input type="text" class="form-control hidden" name="ada_status" id="ada_status" value="P">
+							<input type="text" class="form-control hidden" name="cashier_status" id="cashier_status" value="P">
+
+							<input type="submit" class="submit-btn btn pull-right" value="Add Remarks" style="background: #ba2121; margin-bottom:20px; margin-left: 10px">
+							{% if request.user|has_group:"OSA Staff" %} 
+								<input type="button" class="submit-btn btn pull-right" aria-label="Approve" id=osa_aprrove value="Approve" onclick="approveRequest(this.id);">
+							{% elif request.user|has_group:"Cashier Staff" %}
+								{% if status.osa_status != 'A' %}
+								<input type="button" class="submit-btn btn pull-right" aria-label="Approve" value="Approve" disabled>
+								{% else %}
+								<input type="button" class="submit-btn btn pull-right" aria-label="Approve" id=cashier_approve value="Approve" onclick="approveRequest(this.id);"">
+								{% endif %}
+							{% elif request.user|has_group:"ADA Staff" %}
+								{% if status.cashier_status != 'A' %}
+								<input type="button" class="submit-btn btn pull-right" aria-label="Approve" value="Approve" disabled>
+								{% else %}
+								<input type="button" class="submit-btn btn pull-right" aria-label="Approve" id=ada_aprrove value="Approve" onclick="approveRequest(this.id);">
+								{% endif %}
+							{% elif request.user|has_group:"CDMO Staff" %}
+								{% if status.ada_status != 'A' %}
+								<input type="button" class="submit-btn btn pull-right" aria-label="Approve" value="Approve" disabled>
+								{% else %}
+								<input type="button" class="submit-btn btn pull-right" aria-label="Approve" id=cdmo_aprrove value="Approve" onclick="approveRequest(this.id);">
+								{% endif %}
+							{% endif %}	
+						</div>
+					</div>
+				</div>
+			</form>
 		</div>
 	</div>
-	<!-- #content -->
 {% endblock %}

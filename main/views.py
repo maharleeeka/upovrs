@@ -1,8 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView, FormView
+from django.views.generic import TemplateView, CreateView, FormView, UpdateView
 from main.models import Venue, Equipment, Request, RentedEquipment, RequestedDate, OfficeStatus
-from main.forms import RequestForm
+from main.forms import RequestForm, RemarksForm
 from main import forms, views
 from django.db.models import Q
 from django.core.urlresolvers import reverse_lazy
@@ -20,6 +20,7 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView, RedirectView
+from django.contrib.auth.models import Group
 
 def group_check(user):
     return user.groups.filter(name__in=['ADA Staff',
@@ -29,6 +30,7 @@ def group_check(user):
 
 class LoginView(FormView):
     success_url = '/main/requestform'
+    success_url = '/main/requestlist'
     success_office = '/main/requestlist'
     form_class = AuthenticationForm
     template_name = "login.html"
@@ -88,25 +90,6 @@ class MainView(TemplateView):
 class RateView(TemplateView):
     template_name = "rates.html"
 
-# class RequestListView(TemplateView):
-# 	login_url = "login.html"
-# 	template_name = "osa.html"
-
-
-# 	def get_context_data(self, **kwargs):
-# 		context = super(RequestListView, self).get_context_data(**kwargs)
-# 		context['request_list'] = Request.objects.all()
-# 		paginator = Paginator(context['request_list'],20)
-		
-# 		page = request.GET.get('page')
-# 		try:
-# 			requests = paginator.page(page)
-# 		except PageNotAnInteger:
-# 			requests = paginator.page(1)
-# 		except EmptyPage:
-# 			requests = paginator.page(paginator.num_pages)
-# 		return context
-
 def listing(request):
 	request_list = Request.objects.all()
 	paginator = Paginator(request_list,10)
@@ -121,14 +104,6 @@ def listing(request):
 
 	return render(request, 'osa.html', {'requests': requests})
 
-
-# class LoginView(TemplateView):
-# 	template_name = "login.html"
-
-# 	def form_valid(self, form):
-#  		self.object = form.save()
-#  		return super(ModelFormMixin, self).form_valid(form)
-
 class RequestView(LoginRequiredMixin, FormView):
     login_url = 'login'
     # redirect_field_name = 'request_form'
@@ -140,6 +115,12 @@ class RequestView(LoginRequiredMixin, FormView):
         form = self.get_form()
         if form.is_valid():
             self.object = form.save()
+            r = Request.objects.get(pk=self.object.pk)
+            r.requested_by = request.user
+            r.save()
+            print (r.requested_by)
+            o = OfficeStatus(request_id=self.object, osa_status='P', ada_status='P', cashier_status='P', cdmo_status='P')
+            o.save()
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
@@ -148,13 +129,21 @@ class RequestView(LoginRequiredMixin, FormView):
         return super(RequestView,    self).form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('success')
-
+        return reverse_lazy("requestform", kwargs={'pk':self.object.pk})
+        
     def get_context_data(self, **kwargs):
         context = super(RequestView, self).get_context_data(**kwargs)
         context['venue_list'] = Venue.objects.all()
         context['equipment_list'] = Equipment.objects.all()
-          
+        pk = 0
+        if 'pk' in self.kwargs:
+        	pk = self.kwargs['pk']
+        	context['request'] = Request.objects.get(pk=pk)
+        	request_id = Request.objects.get(pk=pk)
+        	context['rented_equipments'] = RentedEquipment.objects.filter(request_id=request_id)
+        	context['requested_dates'] = RequestedDate.objects.filter(request_id=request_id)
+       	context['pk'] = pk
+
         return context
 
 class RentedEquipmentsView(LoginRequiredMixin, FormView):
@@ -219,45 +208,65 @@ class DatesView(FormView):
 		context['pk'] = pk
 		return context
 
-def requestViewing(request):
-	queryset_list = Request.objects.all()
-	# date_list = RequestedDate.objects.all()
-	# equipment_list = RentedEquipment.objects.all()
+class SubmitForm(FormView):
+	template_name = 'success.html'
+	form_class = forms.RequestStatus
 
+	def post(self, request, *args, **kwargs):
+		form = self.get_form()
+		if form.is_valid():
+			print (form)
+			self.object = form.save()
+			return self.form_valid(form)
+		else:
+			return self.form_invalid(form)
+
+	def get_success_url(self):
+		return reverse_lazy("sucess")
+
+def requestViewing(request):
 	query = request.GET.get("q")
+	aprroved = request.GET.get("a")
+	user = request.user
+
 	if query:
-		queryset_list = queryset_list.filter(Q(pk__icontains=query))
+		queryset_list = Request.objects.get(pk=query)
 		request_id = Request.objects.get(pk=query)
 		date_list = RequestedDate.objects.filter(request_id=request_id)
 		equipment_list = RentedEquipment.objects.filter(request_id=request_id)
+		# office_status = OfficeStatus.objects.filter(request_id=request_id)[0:1]
+		office_status = OfficeStatus.objects.get(request_id=request_id)
 
-		paginator = Paginator(queryset_list, 10)
-		page = request.GET.get('page')
+		if request.method == 'POST':
+			form = RemarksForm(request.POST)
+			if form.is_valid():
+				group = Group.objects.get(name="OSA Staff")
+				if group in user.groups.all():
+					office_status.osa_remarks = form.cleaned_data['osa_remarks']
+					office_status.osa_status = form.cleaned_data['osa_status']
+					print (form.cleaned_data['osa_status'])
 
-		try:
-			requests = paginator.page(page)
-		except PageNotAnInteger:
-			requests = paginator.page(1)
-		except EmptyPage:
-			requests = paginator.page(paginator.num_pages)
+				group = Group.objects.get(name="CDMO Staff")
+				if group in user.groups.all():
+					office_status.cdmo_remarks = form.cleaned_data['cdmo_remarks']
+					office_status.cdmo_status = form.cleaned_data['cdmo_status']
 
-		return render(request, 'request_details.html', {'requests': requests, 'date_list': date_list, 'equipment_list': equipment_list})
+				group = Group.objects.get(name="ADA Staff")
+				if group in user.groups.all():
+					office_status.ada_remarks = form.cleaned_data['ada_remarks']
+					office_status.ada_status = form.cleaned_data['ada_status']
+					print (form.cleaned_data['ada_status'])
+
+				group = Group.objects.get(name="Cashier Staff")
+				if group in user.groups.all():
+					office_status.cashier_remarks = form.cleaned_data['cashier_remarks']
+					office_status.cashier_status = form.cleaned_data['cashier_status']
+
+				office_status.save()
+
+		return render(request, 'request_details.html', {'req': queryset_list, 'date_list': date_list, 'equipment_list': equipment_list, 'status': office_status})
 	else:
 		return render(request, 'request_details.html')
-
-def listing(request):
-	request_list = Request.objects.all()
-	paginator = Paginator(request_list,10)
-	page = request.GET.get('page')
-
-	try:
-		requests = paginator.page(page)
-	except PageNotAnInteger:
-		requests = paginator.page(1)
-	except EmptyPage:
-		requests = paginator.page(paginator.num_pages)
-
-	return render(request, 'osa.html', {'requests': requests})
 
 def requestlisting(request):
 	request_list = OfficeStatus.objects.all()
@@ -272,3 +281,42 @@ def requestlisting(request):
 		requests = paginator.page(paginator.num_pages)
 
 	return render(request, 'pending_requests.html', {'requests': requests})
+
+class RequesterView(TemplateView):
+	template_name = 'requester-view.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(RequesterView, self).get_context_data(**kwargs)
+		user = 	self.request.user
+		rid = Request.objects.filter(requested_by=user)[0:1]
+		request_id = Request.objects.get(pk=rid)
+		print(request_id)
+		context['request'] = Request.objects.get(pk=request_id.pk)
+		context['date_list'] = RequestedDate.objects.filter(request_id=request_id)
+		context['equipment_list'] = RentedEquipment.objects.filter(request_id=request_id)
+		context['office_status'] = OfficeStatus.objects.get(request_id=request_id)
+		print(context['date_list'])
+		return context
+
+def invoiceViewing(request):
+	queryset_requestlist = Request.objects.all()
+
+	q = request.GET.get("quer")
+	if q:
+		queryset_requestlist = queryset_requestlist.filter(Q(pk__icontains=q))
+		request_id = Request.objects.get(pk=q)
+		equipment_list = RentedEquipment.objects.filter(request_id=request_id)
+
+		paginator = Paginator(queryset_requestlist, 10)
+		page = request.GET.get('page')
+
+		try:
+			requests = paginator.page(page)
+		except PageNotAnInteger:
+			requests = paginator.page(1)
+		except EmptyPage:
+			requests = paginator.page(paginator.num_pages)
+
+		return render(request, 'payment_invoice.html', {'requests': requests, 'equipment_list': equipment_list})
+	else:
+		return render(request, 'payment_invoice.html')
