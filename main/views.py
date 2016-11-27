@@ -29,8 +29,7 @@ def group_check(user):
                                         'OSA Staff'])
 
 class LoginView(FormView):
-    success_url = '/main/requestform'
-    success_url = '/main/requestlist'
+    success_url = '/main/requester'
     success_office = '/main/requestlist'
     form_class = AuthenticationForm
     template_name = "login.html"
