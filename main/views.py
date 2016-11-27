@@ -252,7 +252,7 @@ def requestViewing(request):
 
 				group = Group.objects.get(name="ADA Staff")
 				if group in user.groups.all():
-					office_status.osa_status = form.cleaned_data['asa_status']
+					office_status.osa_status = form.cleaned_data['ada_status']
 
 				group = Group.objects.get(name="Cashier Staff")
 				if group in user.groups.all():
