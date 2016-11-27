@@ -295,6 +295,7 @@ class RequesterView(TemplateView):
 		context['date_list'] = RequestedDate.objects.filter(request_id=request_id)
 		context['equipment_list'] = RentedEquipment.objects.filter(request_id=request_id)
 		context['office_status'] = OfficeStatus.objects.get(request_id=request_id)
+		context['user'] = user
 		print(context['date_list'])
 		return context
 
