@@ -37,7 +37,6 @@ urlpatterns = [
         user_passes_test(lambda u: Group.objects.get(name='Approvers') in u.groups.all()) 
         (views.requestlisting), name="requeslist"),
     url(r'^submitForm/$', views.SubmitForm.as_view(), name='submitForm'),
-    # url(r'^addremarks/(?P<pk>\d+)/$', views.AddRemarks.as_view(), name='addremarks')
 ]
 
 

@@ -117,11 +117,21 @@
 				<div id="submit_btn">
 					<div class="form-group">
 						<div class="col-md-12">
-							<!-- <a class="submit-btn btn" method="post" style="margin-bottom:20px;" href="{% url 'viewrequestdetails' %}?q={{ req.pk }}" method="post">Add Remarks</a> -->
+							<input type="text" class="form-control hidden" name="osa_status" id="osa_status" value="P">
+							<input type="text" class="form-control hidden" name="cdmo_status" id="cdmo_status" value="P">
+							<input type="text" class="form-control hidden" name="ada_status" id="ada_status" value="P">
+							<input type="text" class="form-control hidden" name="cashier_status" id="cashier_status" value="P">
+
 							<input type="submit" class="submit-btn btn pull-right" value="Add Remarks" style="background: #ba2121; margin-bottom:20px; margin-left: 10px">
-							<a class="submit-btn btn pull-right" method="post" style="margin-bottom:20px;" href="{% url 'viewrequestdetails' %}?q={{ req.pk }}&a=1">Approve</a>
-							<!-- <button class="submit-btn btn pull-right" aria-label="Approve" title="Approve" style="margin-bottom:20px;"><i class="glyphicon glyphicon-ok" aria-hidden="true"></i> Approve</button> -->
-							<!-- <button class="submit-btn btn pull-right" aria-label="Disapprove" title="Disapprove" style="background: #ba2121; margin-bottom:20px;"><i class="glyphicon glyphicon-remove" aria-hidden="true"></i> Disapprove</button> -->
+							{% if request.user|has_group:"OSA Staff" %} 
+							<input type="button" class="submit-btn btn pull-right" aria-label="Approve" id=osa_aprrove value="Approve" onclick="approveRequest(this.id);">
+							{% elif request.user|has_group:"Cashier Staff" %}
+							<input type="button" class="submit-btn btn pull-right" aria-label="Approve" id=cashier_aprrove value="Approve" onclick="approveRequest(this.id);">
+							{% elif request.user|has_group:"CDMO Staff" %}
+							<input type="button" class="submit-btn btn pull-right" aria-label="Approve" id=cdmo_aprrove value="Approve" onclick="approveRequest(this.id);">
+							{% elif request.user|has_group:"ADA Staff" %}
+							<input type="button" class="submit-btn btn pull-right" aria-label="Approve" id=ada_aprrove value="Approve" onclick="approveRequest(this.id);">
+							{% endif %}	
 						</div>
 					</div>
 				</div>
