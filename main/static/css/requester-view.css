@@ -1,0 +1,38 @@
+#requester-view{
+	position: relative;
+	top: 100px;
+	width: 950px;
+	margin: auto;
+}
+
+.requester_panel{
+	width: 900px;
+	margin: auto;
+	border: 1px solid #d3d3d3;
+	border-radius: 5px;
+	margin-bottom: 55px;
+	height: 200px;
+}
+
+#requester_view_form{
+	overflow: auto;
+}
+
+.requester_panel_header{
+	height: 50px;
+	background: #7c0f0e;
+}
+.requester_panel_title{
+	padding-left: 20px;
+	padding-top: 5px;
+	color: #FFF;
+	font-size: 30px;
+	margin: auto;
+}
+
+.requester_view_body{
+	position: relative;
+	top: 30px;
+	margin: auto;
+	width: 800px;
+}

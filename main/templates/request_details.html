@@ -70,6 +70,17 @@
 				    </tbody>
 				  </table>
 
+			<!-- <div class="form-group">
+				<div class="col-md-12">
+					<label>Remarks</label>
+					{% if request.user|has_group:"OSA Staff" %} 
+						{% for status in office_status %}
+						<textarea rows="4" cols="40" id="ex11 comment" class="form-control" name="osa_remarks">{{ status.osa_remarks }}</textarea>
+						{% endfor %}
+					{% endif %}
+				</div>
+			</div> -->
+
 			<form method="post" id="status_form" name="remarks_form" action="{% url 'viewrequestdetails' %}?q={{ req.pk }}">
 				{% csrf_token %}
 				<input type="text" class="form-control hidden" name="request_id" id="request_id" value="{{ req.pk }}">
