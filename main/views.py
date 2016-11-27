@@ -236,30 +236,29 @@ def requestViewing(request):
 		if request.method == 'POST':
 			form = RemarksForm(request.POST)
 			if form.is_valid():
-				office_status.osa_remarks = form.cleaned_data['osa_remarks']
-				office_status.cdmo_remarks = form.cleaned_data['cdmo_remarks']
-				office_status.cashier_remarks = form.cleaned_data['cashier_remarks']
-				office_status.ada_remarks = form.cleaned_data['ada_remarks']
-
 				group = Group.objects.get(name="OSA Staff")
 				if group in user.groups.all():
+					office_status.osa_remarks = form.cleaned_data['osa_remarks']
 					office_status.osa_status = form.cleaned_data['osa_status']
 					print (form.cleaned_data['osa_status'])
 
 				group = Group.objects.get(name="CDMO Staff")
 				if group in user.groups.all():
-					office_status.osa_status = form.cleaned_data['cdmo_status']
+					office_status.cdmo_remarks = form.cleaned_data['cdmo_remarks']
+					office_status.cdmo_status = form.cleaned_data['cdmo_status']
 
 				group = Group.objects.get(name="ADA Staff")
 				if group in user.groups.all():
-					office_status.osa_status = form.cleaned_data['ada_status']
+					office_status.ada_remarks = form.cleaned_data['ada_remarks']
+					office_status.ada_status = form.cleaned_data['ada_status']
+					print (form.cleaned_data['ada_status'])
 
 				group = Group.objects.get(name="Cashier Staff")
 				if group in user.groups.all():
-					office_status.osa_status = form.cleaned_data['cashier_status']
+					office_status.cashier_remarks = form.cleaned_data['cashier_remarks']
+					office_status.cashier_status = form.cleaned_data['cashier_status']
 
 				office_status.save()
-				print("here")
 
 		return render(request, 'request_details.html', {'req': queryset_list, 'date_list': date_list, 'equipment_list': equipment_list, 'status': office_status})
 	else:
