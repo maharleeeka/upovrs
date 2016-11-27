@@ -1,8 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView, FormView
+from django.views.generic import TemplateView, CreateView, FormView, UpdateView
 from main.models import Venue, Equipment, Request, RentedEquipment, RequestedDate, OfficeStatus
-from main.forms import RequestForm
+from main.forms import RequestForm, RemarksForm
 from main import forms, views
 from django.db.models import Q
 from django.core.urlresolvers import reverse_lazy
@@ -88,25 +88,6 @@ class MainView(TemplateView):
 
 class RateView(TemplateView):
     template_name = "rates.html"
-
-# class RequestListView(TemplateView):
-# 	login_url = "login.html"
-# 	template_name = "osa.html"
-
-
-# 	def get_context_data(self, **kwargs):
-# 		context = super(RequestListView, self).get_context_data(**kwargs)
-# 		context['request_list'] = Request.objects.all()
-# 		paginator = Paginator(context['request_list'],20)
-		
-# 		page = request.GET.get('page')
-# 		try:
-# 			requests = paginator.page(page)
-# 		except PageNotAnInteger:
-# 			requests = paginator.page(1)
-# 		except EmptyPage:
-# 			requests = paginator.page(paginator.num_pages)
-# 		return context
 
 def listing(request):
 	request_list = Request.objects.all()
@@ -227,7 +208,7 @@ class SubmitForm(FormView):
 	form_class = forms.RequestStatus
 
 	def post(self, request, *args, **kwargs):
-		form - self.get_form()
+		form = self.get_form()
 		if form.is_valid():
 			print (form)
 			self.object = form.save()
@@ -239,46 +220,49 @@ class SubmitForm(FormView):
 		return reverse_lazy("sucess")
 
 def requestViewing(request):
-	queryset_list = Request.objects.all()
-	# date_list = RequestedDate.objects.all()
-	# equipment_list = RentedEquipment.objects.all()
-
 	query = request.GET.get("q")
+	print (request.user.username)	
+
 	if query:
-		queryset_list = queryset_list.filter(Q(pk__icontains=query))
+		queryset_list = Request.objects.get(pk=query)
 		request_id = Request.objects.get(pk=query)
 		date_list = RequestedDate.objects.filter(request_id=request_id)
 		equipment_list = RentedEquipment.objects.filter(request_id=request_id)
-		office_status = OfficeStatus.objects.filter(request_id=request_id)[0:1]
-		print(office_status)
+		# office_status = OfficeStatus.objects.filter(request_id=request_id)[0:1]
+		office_status = OfficeStatus.objects.get(request_id=request_id)
 
-		paginator = Paginator(queryset_list, 10)
-		page = request.GET.get('page')
+		if request.method == 'POST':
+			form = RemarksForm(request.POST)
+			if form.is_valid():
+				office_status.osa_remarks = form.cleaned_data['osa_remarks']
+				office_status.cdmo_remarks = form.cleaned_data['cdmo_remarks']
+				office_status.cashier_remarks = form.cleaned_data['cashier_remarks']
+				office_status.ada_remarks = form.cleaned_data['ada_remarks']
+				office_status.save()
+				print("here")
 
-		try:
-			requests = paginator.page(page)
-		except PageNotAnInteger:
-			requests = paginator.page(1)
-		except EmptyPage:
-			requests = paginator.page(paginator.num_pages)
-
-		return render(request, 'request_details.html', {'requests': requests, 'date_list': date_list, 'equipment_list': equipment_list, 'office_status': office_status})
+		return render(request, 'request_details.html', {'req': queryset_list, 'date_list': date_list, 'equipment_list': equipment_list, 'status': office_status})
 	else:
 		return render(request, 'request_details.html')
 
-def listing(request):
-	request_list = Request.objects.all()
-	paginator = Paginator(request_list,10)
-	page = request.GET.get('page')
+def approveview(request):
+	query = request.GET.get("q")
+	print (request.user.username)	
 
-	try:
-		requests = paginator.page(page)
-	except PageNotAnInteger:
-		requests = paginator.page(1)
-	except EmptyPage:
-		requests = paginator.page(paginator.num_pages)
+	if query:
+		queryset_list = Request.objects.get(pk=query)
+		request_id = Request.objects.get(pk=query)
+		date_list = RequestedDate.objects.filter(request_id=request_id)
+		equipment_list = RentedEquipment.objects.filter(request_id=request_id)
+		# office_status = OfficeStatus.objects.filter(request_id=request_id)[0:1]
+		office_status = OfficeStatus.objects.get(request_id=request_id)
 
-	return render(request, 'osa.html', {'requests': requests})
+				
+
+		return render(request, 'request_details.html', {'req': queryset_list, 'date_list': date_list, 'equipment_list': equipment_list, 'status': office_status})
+	else:
+		return render(request, 'request_details.html')
+
 
 def requestlisting(request):
 	request_list = OfficeStatus.objects.all()
@@ -293,4 +277,6 @@ def requestlisting(request):
 		requests = paginator.page(paginator.num_pages)
 
 	return render(request, 'pending_requests.html', {'requests': requests})
+
+	
 

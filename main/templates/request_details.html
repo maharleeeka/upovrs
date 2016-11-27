@@ -15,40 +15,39 @@
 						</tr>
 					</thead>
 				    <tbody>
-					    {% for request in requests %}
 						<tr>
 							<td>Tracking Number: </td>
-					        <td>{{request.pk}}</td>
+					        <td>{{req.pk}}</td>
 					    </tr>
 					    <tr>
 							<td>Date Filed: </td>
-					        <td>{{request.date_filed}}</td>
+					        <td>{{req.date_filed}}</td>
 					    </tr>
 					    	
 						<tr>
 					    	<td>Name: </td>
-					        <td>{{request.name}}</td>
+					        <td>{{req.name}}</td>
 					    </tr>
 					    <tr>
 					        <td>Organization: </td>
-					        <td>{{request.organization}}</td>
+					        <td>{{req.organization}}</td>
 					    </tr>
 					    <tr>
 					        <td>Purpose: </td>
-					        <td>{{request.purpose}}</td>
+					        <td>{{req.purpose}}</td>
 					    </tr>
 					    <tr>
 					        <td>Participants: </td>
-					        <td>{{request.participants}}</td>
+					        <td>{{req.participants}}</td>
 					    </tr>
 					    <tr>
 					        <td>Speakers: </td>
-					        <td>{{request.speakers}}</td>
+					        <td>{{req.speakers}}</td>
 					    </tr>
 					    <tr>
 					        <td>Venue: </td>
 					        <td>
-								{{request.venue_id.name}}
+								{{req.venue_id.name}}
 							</td>
 					        
 					    </tr>
@@ -68,23 +67,12 @@
 								{% endfor %}
 							</td>
 					    </tr>
-				    	{% endfor %}
 				    </tbody>
 				  </table>
 
-			<!-- <div class="form-group">
-				<div class="col-md-12">
-					<label>Remarks</label>
-					{% if request.user|has_group:"OSA Staff" %} 
-						{% for status in office_status %}
-						<textarea rows="4" cols="40" id="ex11 comment" class="form-control" name="osa_remarks">{{ status.osa_remarks }}</textarea>
-						{% endfor %}
-					{% endif %}
-				</div>
-			</div> -->
-
-			<form method="post" id="status_form" name="status_form" action="{% url 'addRemarks' %}">
+			<form method="post" id="status_form" name="remarks_form" action="{% url 'viewrequestdetails' %}?q={{ req.pk }}">
 				{% csrf_token %}
+				<input type="text" class="form-control hidden" name="request_id" id="request_id" value="{{ req.pk }}">
 				<div class="form-group">
 					<div class="col-md-12">
 						<label>OSA Remarks</label>
@@ -129,9 +117,11 @@
 				<div id="submit_btn">
 					<div class="form-group">
 						<div class="col-md-12">
-							<button class="submit-btn btn" aria-label="Add Remarks" title="Add Remarks" style="margin-bottom:20px;"><i class="glyphicon glyphicon-ok" aria-hidden="true" onclick=submit()></i> Add Remarks</button>
-							<button class="submit-btn btn pull-right" aria-label="Approve" title="Approve" style="margin-bottom:20px; margin-left: 10px"><i class="glyphicon glyphicon-ok" aria-hidden="true"></i> Approve</button>
-							<button class="submit-btn btn pull-right" aria-label="Disapprove" title="Disapprove" style="background: #ba2121; margin-bottom:20px;"><i class="glyphicon glyphicon-remove" aria-hidden="true"></i> Disapprove</button>
+							<!-- <a class="submit-btn btn" method="post" style="margin-bottom:20px;" href="{% url 'viewrequestdetails' %}?q={{ req.pk }}" method="post">Add Remarks</a> -->
+							<input type="submit" class="submit-btn btn pull-right" value="Add Remarks" style="background: #ba2121; margin-bottom:20px; margin-left: 10px">
+							<a class="submit-btn btn pull-right" method="post" style="margin-bottom:20px;" href="{% url 'viewrequestdetails' %}?q={{ req.pk }}&a=1">Approve</a>
+							<!-- <button class="submit-btn btn pull-right" aria-label="Approve" title="Approve" style="margin-bottom:20px;"><i class="glyphicon glyphicon-ok" aria-hidden="true"></i> Approve</button> -->
+							<!-- <button class="submit-btn btn pull-right" aria-label="Disapprove" title="Disapprove" style="background: #ba2121; margin-bottom:20px;"><i class="glyphicon glyphicon-remove" aria-hidden="true"></i> Disapprove</button> -->
 						</div>
 					</div>
 				</div>

@@ -170,7 +170,6 @@ function validateForm(clicked_id){
     else if (clicked_id == "part3"){
       var pk = document.getElementById("pk");
       var form = document.getElementById("rentedequipments_form");
-      console.log('here')
       form.submit();
     }
   }
@@ -221,5 +220,10 @@ function submitDateFields(){
 function submitForm(x){
   console.log(x);
   var form = document.getElementById("submit_form");
+  form.submit();
+}
+
+function submitRemarks(){
+  var form = document.getElementById("remarks_form");
   form.submit();
 }
