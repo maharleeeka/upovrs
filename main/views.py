@@ -29,7 +29,7 @@ def group_check(user):
                                         'OSA Staff'])
 
 class LoginView(FormView):
-    success_url = '/main/requestform'
+    success_url = '/main/requester'
     success_office = '/main/requestlist'
     form_class = AuthenticationForm
     template_name = "login.html"
@@ -115,6 +115,10 @@ class RequestView(LoginRequiredMixin, FormView):
         form = self.get_form()
         if form.is_valid():
             self.object = form.save()
+            r = Request.objects.get(pk=self.object.pk)
+            r.requested_by = request.user
+            r.save()
+            print (r.requested_by)
             o = OfficeStatus(request_id=self.object, osa_status='P', ada_status='P', cashier_status='P', cdmo_status='P')
             o.save()
             return self.form_valid(form)
@@ -280,6 +284,19 @@ def requestlisting(request):
 
 class RequesterView(TemplateView):
 	template_name = 'requester-view.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(RequesterView, self).get_context_data(**kwargs)
+		user = 	self.request.user
+		rid = Request.objects.filter(requested_by=user)[0:1]
+		request_id = Request.objects.get(pk=rid)
+		print(request_id)
+		context['request'] = Request.objects.get(pk=request_id.pk)
+		context['date_list'] = RequestedDate.objects.filter(request_id=request_id)
+		context['equipment_list'] = RentedEquipment.objects.filter(request_id=request_id)
+		context['office_status'] = OfficeStatus.objects.get(request_id=request_id)
+		print(context['date_list'])
+		return context
 
 def invoiceViewing(request):
 	queryset_requestlist = Request.objects.all()

@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Equipment(models.Model):
@@ -41,6 +42,7 @@ class Request(models.Model):
 	speakers = models.CharField(max_length=200, blank=True)
 	status = models.BooleanField(blank=True)
 	venue_id = models.ForeignKey(Venue, models.DO_NOTHING, db_column='venue_id', blank=True, null=True)
+	requested_by = models.ForeignKey(User, blank=True, null=True)
 	
 	
 	def __str__(self):
