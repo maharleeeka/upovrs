@@ -60,8 +60,8 @@
 				</div>
 			</div>
 			
-			<div class="requester_view_body">
-				<form action="">
+			<div class="requester_view_body" id="hideThisBody">
+				<!-- <form action="">
 					<div class="col-md-6"><label>Name</label><input type="text" class="form-control"></div>
 					<div class="col-md-6"><label>Organization</label><input type="text" class="form-control"></div>
 					<div class="col-md-6"><label>Purpose</label><input type="text" class="form-control"></div>
@@ -70,7 +70,70 @@
 					<div class="col-md-6"><label>Venue</label><input type="text" class="form-control"></div>
 					<label for="">Date</label><input type="date" class="form-control"> <label for="">Time</label> <input type="time" class="form-control"><br>
 					<label for="">Equipments</label>
-				</form>
+				</form> -->
+				<div class="table-responsive" >
+					<table class="table">
+						<thead>
+							<tr>
+								<th colspan=2>Request Details</th>
+							</tr>
+						</thead>
+					    <tbody>
+							<tr>
+								<td>Tracking Number: </td>
+						        <td>{{req.pk}}</td>
+						    </tr>
+						    <tr>
+								<td>Date Filed: </td>
+						        <td>{{req.date_filed}}</td>
+						    </tr>
+						    	
+							<tr>
+						    	<td>Name: </td>
+						        <td>{{req.name}}</td>
+						    </tr>
+						    <tr>
+						        <td>Organization: </td>
+						        <td>{{req.organization}}</td>
+						    </tr>
+						    <tr>
+						        <td>Purpose: </td>
+						        <td>{{req.purpose}}</td>
+						    </tr>
+						    <tr>
+						        <td>Participants: </td>
+						        <td>{{req.participants}}</td>
+						    </tr>
+						    <tr>
+						        <td>Speakers: </td>
+						        <td>{{req.speakers}}</td>
+						    </tr>
+						    <tr>
+						        <td>Venue: </td>
+						        <td>
+									{{req.venue_id.name}}
+								</td>
+						        
+						    </tr>
+						    <tr>
+						        <td>Dates: </td> 
+						        <td>
+						        	{% for date in date_list %}
+						        		{{ date.date_needed }} ({{ date.time_from }} - {{ date.time_to }}) <br>
+						        	{% endfor %}
+						        </td>
+						    </tr>
+						    <tr>
+						      	<td>Equipment Rented: </td>
+						      	<td>
+									{% for equipment in equipment_list %}
+										{{ equipment.equipment_id }} = {{ equipment.unit }} units <br>
+									{% endfor %}
+								</td>
+						    </tr>
+					    </tbody>
+					  </table>
+				</div>
 			</div>
 		</div>
 	</div>

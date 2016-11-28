@@ -4,7 +4,7 @@
 			<div class="alert alert-success" id="request-form-notif" >
 				<strong>Success!</strong>
 			</div>
-			<div class="container">
+			<div class="container" id="requestform">
 				<div id="form-header">
 					<div class="col-sm-12">
 						<h2 class="text-center">University of the Philippines Cebu</h2>
@@ -81,9 +81,9 @@
 
 						<div id="submit_btn">
 							<div class="form-group">
-								<div class="col-md-12">
+								<!-- <div class="col-md-12"> -->
 									<input type="button" class="submit-btn form-control btn-default btn" id="part1" value="SUBMIT" onclick="validateForm(this.id)">
-								</div>
+								<!-- </div> -->
 							</div>
 						</div>
 					</form>
@@ -96,6 +96,7 @@
 						</div>
 					</div>
 					<form action="{% url 'submitDates' %}" method=post id=requestDates_form name=requestDates_form>
+
 						{% csrf_token %}
 						<div id="schedule">
 							<div class="form-group">
@@ -197,5 +198,6 @@
 				</div>
 			</div>
 		</div>
+		<hr>
 		<!-- #content -->
 {% endblock %}
