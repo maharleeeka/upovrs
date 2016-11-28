@@ -1,0 +1,41 @@
+
+
+#calendar{
+	position: relative;
+	top: 100px;
+}
+
+/*#calendar table{
+	width: 100%;
+}*/
+
+/*#calendar td {
+	border: solid 1px #d3d3d3;
+}*/
+
+
+.index-wrapper{
+	padding-top: 100px;
+}
+
+
+/* CALENDAR CLASSES*/
+
+.cal-body .highlight{
+	background: #4CAF50;
+}
+
+.cal-header.btn{
+	background: #d3d3d3;
+}
+
+.cal-day {
+	min-height: 60px;
+}
+.cal-header .glyphicon-menu-left{
+	float: left;
+}
+
+.cal-header .glyphicon-menu-right{
+	float: right;
+}
