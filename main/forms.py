@@ -23,3 +23,8 @@ class RequestStatus(forms.ModelForm):
 		model = OfficeStatus
 		fields = ['request_id', 'osa_status', 'cdmo_status', 'cashier_status', 'ada_status']
 
+class RemarksForm(forms.ModelForm):
+	class Meta:
+		model = OfficeStatus
+		fields = ['request_id', 'osa_remarks', 'cdmo_remarks', 'cashier_remarks', 'ada_remarks', 'osa_status', 'cdmo_status', 'cashier_status', 'ada_status']
+

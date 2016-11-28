@@ -170,7 +170,6 @@ function validateForm(clicked_id){
     else if (clicked_id == "part3"){
       var pk = document.getElementById("pk");
       var form = document.getElementById("rentedequipments_form");
-      console.log('here')
       form.submit();
     }
   }
@@ -222,4 +221,31 @@ function submitForm(x){
   console.log(x);
   var form = document.getElementById("submit_form");
   form.submit();
+}
+
+function submitRemarks(){
+  var form = document.getElementById("remarks_form");
+  form.submit();
+}
+
+function approveRequest(clicked_id){
+  if (clicked_id == "osa_aprrove"){
+    office = document.getElementById("osa_status")
+    office.value = 'A'
+  }
+  else if (clicked_id == "cdmo_approve"){
+    office = document.getElementById("cdmo_status")
+    office.value = 'A'
+  }
+  else if (clicked_id == "ada_approve"){
+    office = document.getElementById("ada_status")
+    office.value = 'A'
+  }
+  else if (clicked_id == "cashier_approve"){
+    office = document.getElementById("cashier_status")
+    office.value = 'A'
+  }
+
+  var form = document.getElementById("status_form")
+  form.submit(); 
 }
