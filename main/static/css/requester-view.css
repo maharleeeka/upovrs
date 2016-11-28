@@ -36,6 +36,7 @@
 
 #requester_view_form{
 	overflow: hidden;
+	height: 200px;
 }
 
 #requester_form_viewAll{
@@ -48,10 +49,24 @@
 	margin-left: 20px;
 }
 
+/*#requester_form_hideAll{
+	position: relative;
+	top: 200px;
+	height: 50px;
+	width: 50px;
+	float: right;
+	margin-right: -20px;
+	margin-left: 20px;
+}*/
+
 #request_form{
 	width: 700px;
 }
 
 #requester_view_remarks{
 	min-height: 300px;
+}
+
+#request_form .table tbody tr td{
+	border-top: none;
 }
