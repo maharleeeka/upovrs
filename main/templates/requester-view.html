@@ -23,15 +23,44 @@
 
 				<tbody>
 					<tr>
-				     	<td class="col-md-1 text-center">A</th>
-				     	<td class="col-md-1 text-center">B</th>
-				     	<td class="col-md-1 text-center">C</td>
-				    	<td class="col-md-1 text-center">D</td>
-				      	<td class="col-md-1 text-center">E</td>
-				      	<td class="col-md-1 text-center">F</td>
-				    </tr>
-				    <tr>
-				    	
+				     	<td class="col-md-1 text-center">{{ request.pk }}</th>
+				     	<td class="col-md-1 text-center">{{ request.purpose }}</th>
+				     	<td class="col-md-1 text-center">
+				     		{% if office_status.osa_status == 'A' %}
+				     		<span class="glyphicon glyphicon-ok"></span>
+				     		{% elif office_status.osa_status == 'R' %}
+				     		<span class="glyphicon glyphicon-remove"></span>
+				     		{% elif office_status.osa_status == 'P' %}
+				     		<span class="glyphicon glyphicon-unchecked"></span>
+				     		{% endif %}
+				     	</td>
+				    	<td class="col-md-1 text-center">
+				    		{% if office_status.cashier_status == 'A' %}
+				     		<span class="glyphicon glyphicon-ok"></span>
+				     		{% elif office_status.cashier_status == 'R' %}
+				     		<span class="glyphicon glyphicon-remove"></span>
+				     		{% elif office_status.cashier_status == 'P' %}
+				     		<span class="glyphicon glyphicon-unchecked"></span>
+				     		{% endif %}
+				    	</td>
+				      	<td class="col-md-1 text-center">
+				      		{% if office_status.ada_status == 'A' %}
+				     		<span class="glyphicon glyphicon-ok"></span>
+				     		{% elif office_status.ada_status == 'R' %}
+				     		<span class="glyphicon glyphicon-remove"></span>
+				     		{% elif office_status.ada_status == 'P' %}
+				     		<span class="glyphicon glyphicon-unchecked"></span>
+				     		{% endif %}
+				      	</td>
+				      	<td class="col-md-1 text-center">
+				      		{% if office_status.cdmo_status == 'A' %}
+				     		<span class="glyphicon glyphicon-ok"></span>
+				     		{% elif office_status.cdmo_status == 'R' %}
+				     		<span class="glyphicon glyphicon-remove"></span>
+				     		{% elif office_status.cdmo_status == 'P' %}
+				     		<span class="glyphicon glyphicon-unchecked"></span>
+				     		{% endif %}
+				      	</td>
 				    </tr>
 				</tbody>
 			</table>
@@ -46,10 +75,25 @@
 				</div>
 			</div>
 			<div class="requester_view_body">
-				<h3>Office of Student Affairs</h3>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-					</p>
+				<div id="request_remarks">
+					<h3>OSA</h3>
+						<p>
+							{{ office_status.osa_remarks }}
+						</p>
+					<h3>Cashier </h3>
+						<p>
+							{{ office_status.cashier_remarks }}
+						</p>
+					<h3>ADA </h3>
+						<p>
+							{{ office_status.ada_remarks }}
+						</p>
+					<h3>CDMO </h3>
+						<p>
+							{{ office_status.cdmo_remarks }}
+						</p>
+					
+				</div>
 			</div>
 		</div>
 
@@ -59,59 +103,49 @@
 					Request Form
 				</div>
 			</div>
-			
-			<div class="requester_view_body" id="hideThisBody">
-				<!-- <form action="">
-					<div class="col-md-6"><label>Name</label><input type="text" class="form-control"></div>
-					<div class="col-md-6"><label>Organization</label><input type="text" class="form-control"></div>
-					<div class="col-md-6"><label>Purpose</label><input type="text" class="form-control"></div>
-					<div class="col-md-6"><label>Participants</label><input type="text" class="form-control"></div>
-					<div class="col-md-6"><label>Speakers</label><input type="text" class="form-control"></div>
-					<div class="col-md-6"><label>Venue</label><input type="text" class="form-control"></div>
-					<label for="">Date</label><input type="date" class="form-control"> <label for="">Time</label> <input type="time" class="form-control"><br>
-					<label for="">Equipments</label>
-				</form> -->
-				<div class="table-responsive" >
+			<a class="btn btn-default" id="requester_form_viewAll" onclick="showAll()"><span class="glyphicons glyphicons-circle-arrow-down"></span></a> 
+			<div class="requester_view_body" >
+				 <div id="request_form">
+				 	<div class="table-responsive" >
 					<table class="table">
 						<thead>
 							<tr>
-								<th colspan=2>Request Details</th>
 							</tr>
 						</thead>
 					    <tbody>
 							<tr>
 								<td>Tracking Number: </td>
-						        <td>{{req.pk}}</td>
+						        <td>{{request.pk}}</td>
 						    </tr>
 						    <tr>
 								<td>Date Filed: </td>
-						        <td>{{req.date_filed}}</td>
+						        <td>{{request.date_filed}}</td>
 						    </tr>
 						    	
 							<tr>
 						    	<td>Name: </td>
-						        <td>{{req.name}}</td>
+						        <td>{{request.name}}</td>
 						    </tr>
 						    <tr>
 						        <td>Organization: </td>
-						        <td>{{req.organization}}</td>
+						        <td>{{request.organization}}</td>
 						    </tr>
 						    <tr>
 						        <td>Purpose: </td>
-						        <td>{{req.purpose}}</td>
+						        <td>{{request.purpose}}</td>
 						    </tr>
 						    <tr>
 						        <td>Participants: </td>
-						        <td>{{req.participants}}</td>
+						        <td>{{request.participants}}</td>
 						    </tr>
 						    <tr>
 						        <td>Speakers: </td>
-						        <td>{{req.speakers}}</td>
+						        <td>{{request.speakers}}</td>
 						    </tr>
 						    <tr>
 						        <td>Venue: </td>
 						        <td>
-									{{req.venue_id.name}}
+									{{request.venue_id.name}}
 								</td>
 						        
 						    </tr>
@@ -134,7 +168,11 @@
 					    </tbody>
 					  </table>
 				</div>
+				 </div>
 			</div>
+
+
+
 		</div>
 	</div>
 </div>

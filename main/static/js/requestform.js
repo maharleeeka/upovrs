@@ -249,3 +249,8 @@ function approveRequest(clicked_id){
   var form = document.getElementById("status_form")
   form.submit(); 
 }
+
+function showAll () {
+  document.getElementById('requester_view_form').style.height = "100%";v
+}
+
