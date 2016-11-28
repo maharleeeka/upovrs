@@ -282,9 +282,6 @@ def requestlisting(request):
 class RequesterView(TemplateView):
 	template_name = 'requester-view.html'
 
-class CashierView(TemplateView):
-	template_name = 'cashier-view.html'
-
 def invoiceViewing(request):
 	queryset_requestlist = Request.objects.all()
 
