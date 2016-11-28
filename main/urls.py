@@ -39,6 +39,9 @@ urlpatterns = [
     url(r'^submitForm/$', views.SubmitForm.as_view(), name='submitForm'),
     url(r'^submitDates/$', views.DatesView.as_view(), name='submitDates'),
     #url(r'^addRemarks/$', views.AddRemarksView.as_view(), name='addRemarks')
+
+    url(r'^requester/$', views.RequesterView.as_view(), name='requester'),
+    url(r'^invoice/$', views.invoiceViewing, name='invoice'),
 ]
 
 
