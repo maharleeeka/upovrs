@@ -324,9 +324,19 @@ class SubmitForm(FormView):
 
 		#get dates
 		dates = RequestedDate.objects.filter(request_id=r)
+		for date in dates:
+			print(date.date_needed)
+			print(date.time_from)
+			print(date.time_to)
 
 		#get equipments
 		equipments = RentedEquipment.objects.filter(request_id=r)
+		for equipment in equipments:
+			print(equipment.equipment_id)
+			print(equipment.unit)
+			price = equipment.equipment_id.price
+			print(price)
+
 
 		print(o.pk)
 		print(pk)
