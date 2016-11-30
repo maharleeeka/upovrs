@@ -118,14 +118,12 @@ class RequestView(LoginRequiredMixin, FormView):
             r.requested_by = request.user
             r.save()
             print (r.requested_by)
-            o = OfficeStatus(request_id=self.object, osa_status='P', ada_status='P', cashier_status='P', cdmo_status='P')
-            o.save()
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
 		
     def form_valid(self, form):
-        return super(RequestView,    self).form_valid(form)
+        return super(RequestView, self).form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy("requestform", kwargs={'pk':self.object.pk})
@@ -206,22 +204,6 @@ class DatesView(FormView):
 			context['requested_dates'] = RequestedDate.objects.filter(request_id=request_id)
 		context['pk'] = pk
 		return context
-
-class SubmitForm(FormView):
-	template_name = 'success.html'
-	form_class = forms.RequestStatus
-
-	def post(self, request, *args, **kwargs):
-		form = self.get_form()
-		if form.is_valid():
-			print (form)
-			self.object = form.save()
-			return self.form_valid(form)
-		else:
-			return self.form_invalid(form)
-
-	def get_success_url(self):
-		return reverse_lazy("sucess")
 
 def requestViewing(request):
 	query = request.GET.get("q")
@@ -323,3 +305,32 @@ def invoiceViewing(request):
 		return render(request, 'payment_invoice.html', {'requests': requests, 'equipment_list': equipment_list})
 	else:
 		return render(request, 'payment_invoice.html')
+
+class SubmitForm(FormView):
+	template_name = 'success.html'
+	form_class = forms.RequestStatus
+
+	def get_success_url(self):
+		return reverse_lazy("sucess")
+
+	def get_context_data(self, **kwargs):
+		context = super(SubmitForm, self).get_context_data(**kwargs)
+		pk = self.request.GET.get("request_id")
+		r = Request.objects.get(pk=pk)
+
+		#saving to Office Status
+		o = OfficeStatus(request_id=r, osa_status='P', ada_status='P', cashier_status='P', cdmo_status='P')
+		o.save()
+
+		#get dates
+		dates = RequestedDate.objects.filter(request_id=r)
+
+		#get equipments
+		equipments = RentedEquipment.objects.filter(request_id=r)
+
+		print(o.pk)
+		print(pk)
+		print(dates)
+		print(equipments)
+		
+		return context
