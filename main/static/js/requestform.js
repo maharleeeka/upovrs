@@ -242,14 +242,22 @@ function approveRequest(clicked_id){
     office = document.getElementById("ada_status");
     office.value = 'A';
   }
-  else if (clicked_id == "cashier_approve"){
-    office = document.getElementById("cashier_status");
-    office.value = 'A';
-
+  else if (clicked_id == "osa_reject"){
+    office = document.getElementById("osa_status");
+    office.value = 'R';
+  }
+  else if (clicked_id == "cdmo_reject"){
+    office = document.getElementById("cdmo_status");
+    office.value = 'R';
+  }
+  else if (clicked_id == "ada_reject"){
+    office = document.getElementById("ada_status");
+    office.value = 'R';
   }
   else
     console.log("wala");
 
-  var form = document.getElementById("status_form")
+  console.log(clicked_id);
+  var form = document.getElementById("status_form");
   form.submit(); 
 }

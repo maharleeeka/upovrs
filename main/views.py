@@ -245,8 +245,9 @@ def requestViewing(request):
 					office_status.cashier_status = form.cleaned_data['cashier_status']
 
 				office_status.save()
-
-		return render(request, 'request_details.html', {'req': queryset_list, 'date_list': date_list, 'equipment_list': equipment_list, 'status': office_status})
+			return requestlisting(request)
+		else:
+			return render(request, 'request_details.html', {'req': queryset_list, 'date_list': date_list, 'equipment_list': equipment_list, 'status': office_status})
 	else:
 		return render(request, 'request_details.html')
 
@@ -357,7 +358,8 @@ class SubmitForm(FormView):
 		if venue.unit == "hour":
 			total = total + (venue.price_general*hours)
 		elif venue.unit == "package":
-			total = total + venue.price
+			print("package hours: ", venue.hours)
+			total = total + venue.price_general
 
 		print("total: ", total)
 
@@ -368,4 +370,6 @@ class SubmitForm(FormView):
 		context['pk'] = pk
 		context['equipment_list'] = equipments
 		context['request'] = r
+		context['total'] = total
+		context['hours'] = hours
 		return context

@@ -25,13 +25,11 @@
 							<tr>
 								<td><center><strong>Name</td>
 								<td><center><strong>Rate</td>
-								<td><center><strong>Total</td>
 							</tr>
 							<tr>
 								
 								<td><center>{{ request.venue_id }}</td>
 								<td><center>{{ request.venue_id.price_general }}</td>
-								<td><center>Total</td>
 							</tr>
 						</tbody>
 					</table>
@@ -42,6 +40,7 @@
 								<td><center><strong>Name</td>
 								<td><center><strong>Rate</td>
 								<td><center><strong>Unit</td>
+								<td><center><strong>Hours</td>
 								<td><center><strong>Total</td>
 							</tr>
 							{% for equipment in equipment_list %}
@@ -49,14 +48,17 @@
 								<td><center>{{ equipment.equipment_id }}</td>
 								<td><center>{{ equipment.equipment_id.price }}</td>
 								<td><center>{{ equipment.unit }}</td>
-								<td><center>TOTAL</td>
+								<td><center>{{ hours }}</td>
+								{%  widthratio equipment.equipment_id.price 1 equipment.unit as subtotal %}
+								{% widthratio hours 1 subtotal as subtotal %}
+								<td><center>{{ subtotal }}</td>
 							</tr>
 							{% endfor %}
 							
 						</tbody>
 					</table>
 					<div id="total" class="col-md-4">
-						<p><strong>Total: <u>$ 123455</u></p>
+						<p><strong>Total: <u>Php {{ total }}</u></p>
 					</div>
 					<!-- total -->
 				</div>
