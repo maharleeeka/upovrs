@@ -136,23 +136,30 @@
 							<input type="submit" class="submit-btn btn pull-right" value="Add Remarks" style="background: #ba2121; margin-bottom:20px; margin-left: 10px">
 							{% if request.user|has_group:"OSA Staff" %} 
 								<input type="button" class="submit-btn btn pull-right" aria-label="Approve" id=osa_aprrove value="Approve" onclick="approveRequest(this.id);">
+								<input type="button" class="submit-btn btn pull-right" aria-label="Reject" id=reject value="Reject" onclick="approveRequest(this.id);">
 							{% elif request.user|has_group:"Cashier Staff" %}
 								{% if status.osa_status != 'A' %}
 								<input type="button" class="submit-btn btn pull-right" aria-label="Approve" value="Approve" disabled>
+								<input type="button" class="submit-btn btn pull-right" aria-label="Reject" value="Reject" disabled>
 								{% else %}
 								<input type="button" class="submit-btn btn pull-right" aria-label="Approve" id=cashier_approve value="Approve" onclick="approveRequest(this.id);"">
+								<input type="button" class="submit-btn btn pull-right" aria-label="Reject" id=reject value="Reject" onclick="approveRequest(this.id);">
 								{% endif %}
 							{% elif request.user|has_group:"ADA Staff" %}
 								{% if status.cashier_status != 'A' %}
 								<input type="button" class="submit-btn btn pull-right" aria-label="Approve" value="Approve" disabled>
+								<input type="button" class="submit-btn btn pull-right" aria-label="Reject" value="Reject" disabled>
 								{% else %}
 								<input type="button" class="submit-btn btn pull-right" aria-label="Approve" id=ada_aprrove value="Approve" onclick="approveRequest(this.id);">
+								<input type="button" class="submit-btn btn pull-right" aria-label="Reject" id=reject value="Reject" onclick="approveRequest(this.id);">
 								{% endif %}
 							{% elif request.user|has_group:"CDMO Staff" %}
 								{% if status.ada_status != 'A' %}
 								<input type="button" class="submit-btn btn pull-right" aria-label="Approve" value="Approve" disabled>
+								<input type="button" class="submit-btn btn pull-right" aria-label="Reject" value="Reject" disabled>
 								{% else %}
 								<input type="button" class="submit-btn btn pull-right" aria-label="Approve" id=cdmo_aprrove value="Approve" onclick="approveRequest(this.id);">
+								<input type="button" class="submit-btn btn pull-right" aria-label="Reject" id=reject value="Reject" onclick="approveRequest(this.id);">
 								{% endif %}
 							{% endif %}	
 						</div>
