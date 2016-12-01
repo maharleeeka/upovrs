@@ -28,6 +28,8 @@ class Venue(models.Model):
 	price_general = models.DecimalField(max_digits=10, decimal_places=2)
 	price_student = models.DecimalField(max_digits=10, decimal_places=2)
 	price_alumni = models.DecimalField(max_digits=10, decimal_places=2)
+	hours = models.DecimalField(max_digits=5, decimal_places=0, blank=True, null=True)
+	description = models.CharField(max_length=500, blank=True)
 
 	def __str__(self):
 		return str(self.name)

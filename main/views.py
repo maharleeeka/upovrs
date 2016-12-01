@@ -21,6 +21,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView, RedirectView
 from django.contrib.auth.models import Group
+import datetime, math
 
 def group_check(user):
     return user.groups.filter(name__in=['ADA Staff',
@@ -29,7 +30,7 @@ def group_check(user):
                                         'OSA Staff'])
 
 class LoginView(FormView):
-    success_url = '/main/requester'
+    success_url = '/main/requestform'
     success_office = '/main/requestlist'
     form_class = AuthenticationForm
     template_name = "login.html"
@@ -306,6 +307,12 @@ def invoiceViewing(request):
 	else:
 		return render(request, 'payment_invoice.html')
 
+def todatetime(time):
+	return datetime.datetime.today().replace(hour=time.hour, minute=time.minute, second=time.second, microsecond=time.microsecond, tzinfo=time.tzinfo)
+
+def timestodelta(starttime, endtime):
+	return todatetime(endtime) - todatetime(starttime)
+
 class SubmitForm(FormView):
 	template_name = 'success.html'
 	form_class = forms.RequestStatus
@@ -314,33 +321,51 @@ class SubmitForm(FormView):
 		return reverse_lazy("sucess")
 
 	def get_context_data(self, **kwargs):
+		total = 0
 		context = super(SubmitForm, self).get_context_data(**kwargs)
 		pk = self.request.GET.get("request_id")
 		r = Request.objects.get(pk=pk)
+
+		#get dates
+		dates = RequestedDate.objects.filter(request_id=r)
+		for date in dates:
+			timedif = timestodelta(date.time_from, date.time_to)
+			print(timedif)
+
+			#get equipments
+			equipments = RentedEquipment.objects.filter(request_id=r)
+			for equipment in equipments:
+				e = equipment.equipment_id
+				price = e.price
+				unit = equipment.unit
+
+				hours, remainder = divmod(timedif.seconds, 3600)
+				minutes, seconds = divmod(remainder, 60)
+				minutes = hours*60 + minutes
+				print("minutes: ",  minutes)
+
+				hours = math.ceil(minutes/60)
+				print("hours: ", hours)
+				print("name: ", e.name)
+				print("price: ", e.price)
+
+				total = unit * price * hours + total
+				print("total: ", total)
+
+		#get venue
+		venue = Venue.objects.get(pk=r.venue_id.pk)
+		if venue.unit == "hour":
+			total = total + (venue.price_general*hours)
+		elif venue.unit == "package":
+			total = total + venue.price
+
+		print("total: ", total)
 
 		#saving to Office Status
 		o = OfficeStatus(request_id=r, osa_status='P', ada_status='P', cashier_status='P', cdmo_status='P')
 		o.save()
 
-		#get dates
-		dates = RequestedDate.objects.filter(request_id=r)
-		for date in dates:
-			print(date.date_needed)
-			print(date.time_from)
-			print(date.time_to)
-
-		#get equipments
-		equipments = RentedEquipment.objects.filter(request_id=r)
-		for equipment in equipments:
-			print(equipment.equipment_id)
-			print(equipment.unit)
-			price = equipment.equipment_id.price
-			print(price)
-
-
-		print(o.pk)
-		print(pk)
-		print(dates)
-		print(equipments)
-		
+		context['pk'] = pk
+		context['equipment_list'] = equipments
+		context['request'] = r
 		return context
