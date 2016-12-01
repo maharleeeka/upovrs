@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container">
 	<div id="requester-view">
-		<div id="requester-header"><h1>Insert organization name here</h1></div>
+		<div id="requester-header"><h1>{{ user }}</h1></div>
 		<div id="requester_view_status" class="requester_panel">
 			<div class="requester_panel_header">
 				<div class="requester_panel_title">
@@ -12,62 +12,60 @@
 
 			<div class="requester_view_body">
 				<table class="table">
-				<thead>
-					<th class="text-center">No.</th>
-					<th class="text-center">PURPOSE</th>
-					<th class="text-center">OSA</th>
-					<th class="text-center">CASHIER</th>
-					<th class="text-center">ADA</th>
-					<th class="text-center">CDMO</th>
-				</thead>
+					<thead>
+						<th class="text-center">No.</th>
+						<th class="text-center">PURPOSE</th>
+						<th class="text-center">OSA</th>
+						<th class="text-center">CASHIER</th>
+						<th class="text-center">ADA</th>
+						<th class="text-center">CDMO</th>
+					</thead>
 
-				<tbody>
-					<tr>
-				     	<td class="col-md-1 text-center">{{ request.pk }}</th>
-				     	<td class="col-md-1 text-center">{{ request.purpose }}</th>
-				     	<td class="col-md-1 text-center">
-				     		{% if office_status.osa_status == 'A' %}
-				     		<span class="glyphicon glyphicon-ok"></span>
-				     		{% elif office_status.osa_status == 'R' %}
-				     		<span class="glyphicon glyphicon-remove"></span>
-				     		{% elif office_status.osa_status == 'P' %}
-				     		<span class="glyphicon glyphicon-unchecked"></span>
-				     		{% endif %}
-				     	</td>
-				    	<td class="col-md-1 text-center">
-				    		{% if office_status.cashier_status == 'A' %}
-				     		<span class="glyphicon glyphicon-ok"></span>
-				     		{% elif office_status.cashier_status == 'R' %}
-				     		<span class="glyphicon glyphicon-remove"></span>
-				     		{% elif office_status.cashier_status == 'P' %}
-				     		<span class="glyphicon glyphicon-unchecked"></span>
-				     		{% endif %}
-				    	</td>
-				      	<td class="col-md-1 text-center">
-				      		{% if office_status.ada_status == 'A' %}
-				     		<span class="glyphicon glyphicon-ok"></span>
-				     		{% elif office_status.ada_status == 'R' %}
-				     		<span class="glyphicon glyphicon-remove"></span>
-				     		{% elif office_status.ada_status == 'P' %}
-				     		<span class="glyphicon glyphicon-unchecked"></span>
-				     		{% endif %}
-				      	</td>
-				      	<td class="col-md-1 text-center">
-				      		{% if office_status.cdmo_status == 'A' %}
-				     		<span class="glyphicon glyphicon-ok"></span>
-				     		{% elif office_status.cdmo_status == 'R' %}
-				     		<span class="glyphicon glyphicon-remove"></span>
-				     		{% elif office_status.cdmo_status == 'P' %}
-				     		<span class="glyphicon glyphicon-unchecked"></span>
-				     		{% endif %}
-				      	</td>
-				    </tr>
-				</tbody>
-			</table>
-				
+					<tbody>
+						<tr>
+					     	<td class="col-md-1 text-center">{{ request.pk }}</th>
+					     	<td class="col-md-1 text-center">{{ request.purpose }}</th>
+					     	<td class="col-md-1 text-center">
+					     		{% if office_status.osa_status == 'A' %}
+					     		<span class="glyphicon glyphicon-ok"></span>
+					     		{% elif office_status.osa_status == 'R' %}
+					     		<span class="glyphicon glyphicon-remove"></span>
+					     		{% elif office_status.osa_status == 'P' %}
+					     		<span class="glyphicon glyphicon-unchecked"></span>
+					     		{% endif %}
+					     	</td>
+					    	<td class="col-md-1 text-center">
+					    		{% if office_status.cashier_status == 'A' %}
+					     		<span class="glyphicon glyphicon-ok"></span>
+					     		{% elif office_status.cashier_status == 'R' %}
+					     		<span class="glyphicon glyphicon-remove"></span>
+					     		{% elif office_status.cashier_status == 'P' %}
+					     		<span class="glyphicon glyphicon-unchecked"></span>
+					     		{% endif %}
+					    	</td>
+					      	<td class="col-md-1 text-center">
+					      		{% if office_status.ada_status == 'A' %}
+					     		<span class="glyphicon glyphicon-ok"></span>
+					     		{% elif office_status.ada_status == 'R' %}
+					     		<span class="glyphicon glyphicon-remove"></span>
+					     		{% elif office_status.ada_status == 'P' %}
+					     		<span class="glyphicon glyphicon-unchecked"></span>
+					     		{% endif %}
+					      	</td>
+					      	<td class="col-md-1 text-center">
+					      		{% if office_status.cdmo_status == 'A' %}
+					     		<span class="glyphicon glyphicon-ok"></span>
+					     		{% elif office_status.cdmo_status == 'R' %}
+					     		<span class="glyphicon glyphicon-remove"></span>
+					     		{% elif office_status.cdmo_status == 'P' %}
+					     		<span class="glyphicon glyphicon-unchecked"></span>
+					     		{% endif %}
+					     	</td>
+					    </tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
-
 		<div id="requester_view_remarks" class="requester_panel">
 			<div class="requester_panel_header">
 				<div class="requester_panel_title">
@@ -76,36 +74,38 @@
 			</div>
 			<div class="requester_view_body">
 				<div id="request_remarks">
-					<h3>OSA</h3>
-						<p>
-							{{ office_status.osa_remarks }}
-						</p>
-					<h3>Cashier </h3>
-						<p>
-							{{ office_status.cashier_remarks }}
-						</p>
-					<h3>ADA </h3>
-						<p>
-							{{ office_status.ada_remarks }}
-						</p>
-					<h3>CDMO </h3>
-						<p>
-							{{ office_status.cdmo_remarks }}
-						</p>
-					
+					{% if office_status.osa_remarks != "" %}
+						<h3>Office of Student Affairs</h3>
+						<p>{{ office_status.osa_remarks }}</p>
+					{% endif %}
+
+					{% if office_status.cashier_remarks != "" %}
+						<h3>Cashier</h3>
+						<p>{{ office_status.cashier_remarks }}</p>
+					{% endif %}
+
+					{% if office_status.ada_remarks != "" %}
+						<h3>Associate Dean of Administration</h3>
+						<p>{{ office_status.ada_remarks }}</p>
+					{% endif %}
+
+					{% if office_status.cdmo_remarks != "" %}
+						<h3>CDMO</h3>
+						<p>{{ office_status.cdmo_remarks }}</p>
+					{% endif %}
 				</div>
 			</div>
 		</div>
-
 		<div id="requester_view_form" class="requester_panel">
 			<div class="requester_panel_header">
 				<div class="requester_panel_title">
 					Request Form
 				</div>
 			</div>
+
 			<a class="btn btn-default" id="requester_form_viewAll" onclick="showAll()"><span class="glyphicons glyphicons-circle-arrow-down"></span></a> 
 			<!-- <a class="btn btn-default" id="requester_form_hideAll" onclick="showAll()"><span class="glyphicons glyphicons-circle-arrow-down"></span></a>  -->
-			<div class="requester_view_body" >
+			<div class="requester_view_body" id="hideThisBody">
 				<div id="request_form">
 				 	<div class="table-responsive" >
 						<table class="table">
@@ -169,11 +169,7 @@
 						    </tbody>
 						 </table>
 					</div>
-				</div>
 			</div>
-
-
-
 		</div>
 	</div>
 </div>

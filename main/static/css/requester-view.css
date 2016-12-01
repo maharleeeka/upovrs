@@ -12,7 +12,6 @@
 	border-radius: 5px;
 	margin-bottom: 55px;
 	min-height: 200px;
-	height: 100%;
 }
 
 .requester_panel_header{
@@ -32,6 +31,7 @@
 	top: 30px;
 	margin: auto;
 	width: 800px;
+	min-height: 200px;
 }
 
 #requester_view_form{
@@ -49,22 +49,8 @@
 	margin-left: 20px;
 }
 
-/*#requester_form_hideAll{
-	position: relative;
-	top: 200px;
-	height: 50px;
-	width: 50px;
-	float: right;
-	margin-right: -20px;
-	margin-left: 20px;
-}*/
-
 #request_form{
 	width: 700px;
-}
-
-#requester_view_remarks{
-	min-height: 300px;
 }
 
 #request_form .table tbody tr td{

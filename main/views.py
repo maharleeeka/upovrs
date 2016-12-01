@@ -21,7 +21,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView, RedirectView
 from django.contrib.auth.models import Group
-
+import datetime
 def group_check(user):
     return user.groups.filter(name__in=['ADA Staff',
                                         'CDMO Staff' 
@@ -29,7 +29,7 @@ def group_check(user):
                                         'OSA Staff'])
 
 class LoginView(FormView):
-    success_url = '/main/requestform'
+    success_url = '/main/requester'
     success_office = '/main/requestlist'
     form_class = AuthenticationForm
     template_name = "login.html"
@@ -46,13 +46,12 @@ class LoginView(FormView):
         return super(LoginView, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        #print(form.get_user())
         #print(form.get_user().groups.values_list('name', flat = True))
         auth_login(self.request, form.get_user())
         # If the test cookie worked, go ahead and
         # delete it since its no longer needed
         if self.request.session.test_cookie_worked():
-            self.request.session.delete_test_cookie()
+        	self.request.session.delete_test_cookie()
 
         return super(LoginView, self).form_valid(form)
 
@@ -72,7 +71,7 @@ class LoginView(FormView):
 
 
 class LogoutView(RedirectView):
-    url = '/templates/login/'
+    url = '/main/requestform'
 
     def get(self, request, *args, **kwargs):
         auth_logout(request)
@@ -115,8 +114,10 @@ class RequestView(LoginRequiredMixin, FormView):
         form = self.get_form()
         if form.is_valid():
             self.object = form.save()
-            o = OfficeStatus(request_id=self.object, osa_status='P', ada_status='P', cashier_status='P', cdmo_status='P')
-            o.save()
+            r = Request.objects.get(pk=self.object.pk)
+            r.requested_by = request.user
+            r.save()
+            print (r.requested_by)
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
@@ -204,22 +205,6 @@ class DatesView(FormView):
 		context['pk'] = pk
 		return context
 
-class SubmitForm(FormView):
-	template_name = 'success.html'
-	form_class = forms.RequestStatus
-
-	def post(self, request, *args, **kwargs):
-		form = self.get_form()
-		if form.is_valid():
-			print (form)
-			self.object = form.save()
-			return self.form_valid(form)
-		else:
-			return self.form_invalid(form)
-
-	def get_success_url(self):
-		return reverse_lazy("sucess")
-
 def requestViewing(request):
 	query = request.GET.get("q")
 	aprroved = request.GET.get("a")
@@ -236,30 +221,29 @@ def requestViewing(request):
 		if request.method == 'POST':
 			form = RemarksForm(request.POST)
 			if form.is_valid():
-				office_status.osa_remarks = form.cleaned_data['osa_remarks']
-				office_status.cdmo_remarks = form.cleaned_data['cdmo_remarks']
-				office_status.cashier_remarks = form.cleaned_data['cashier_remarks']
-				office_status.ada_remarks = form.cleaned_data['ada_remarks']
-
 				group = Group.objects.get(name="OSA Staff")
 				if group in user.groups.all():
+					office_status.osa_remarks = form.cleaned_data['osa_remarks']
 					office_status.osa_status = form.cleaned_data['osa_status']
 					print (form.cleaned_data['osa_status'])
 
 				group = Group.objects.get(name="CDMO Staff")
 				if group in user.groups.all():
-					office_status.osa_status = form.cleaned_data['cdmo_status']
+					office_status.cdmo_remarks = form.cleaned_data['cdmo_remarks']
+					office_status.cdmo_status = form.cleaned_data['cdmo_status']
 
 				group = Group.objects.get(name="ADA Staff")
 				if group in user.groups.all():
-					office_status.osa_status = form.cleaned_data['asa_status']
+					office_status.ada_remarks = form.cleaned_data['ada_remarks']
+					office_status.ada_status = form.cleaned_data['ada_status']
+					print (form.cleaned_data['ada_status'])
 
 				group = Group.objects.get(name="Cashier Staff")
 				if group in user.groups.all():
-					office_status.osa_status = form.cleaned_data['cashier_status']
+					office_status.cashier_remarks = form.cleaned_data['cashier_remarks']
+					office_status.cashier_status = form.cleaned_data['cashier_status']
 
 				office_status.save()
-				print("here")
 
 		return render(request, 'request_details.html', {'req': queryset_list, 'date_list': date_list, 'equipment_list': equipment_list, 'status': office_status})
 	else:
@@ -281,6 +265,23 @@ def requestlisting(request):
 
 class RequesterView(TemplateView):
 	template_name = 'requester-view.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(RequesterView, self).get_context_data(**kwargs)
+		user = 	self.request.user
+		rid = Request.objects.filter(requested_by=user)
+		if rid.count() > 0:
+			request_id = Request.objects.get(pk=rid)
+			print(request_id)
+			context['request'] = Request.objects.get(pk=request_id.pk)
+			context['date_list'] = RequestedDate.objects.filter(request_id=request_id)
+			context['equipment_list'] = RentedEquipment.objects.filter(request_id=request_id)
+			context['office_status'] = OfficeStatus.objects.get(request_id=request_id)
+			context['user'] = user
+			print(context['date_list'])
+			return context
+		else:
+			return reverse_lazy("requestform")
 
 def invoiceViewing(request):
 	queryset_requestlist = Request.objects.all()
@@ -304,3 +305,48 @@ def invoiceViewing(request):
 		return render(request, 'payment_invoice.html', {'requests': requests, 'equipment_list': equipment_list})
 	else:
 		return render(request, 'payment_invoice.html')
+
+def todatetime(time):
+	return datetime.datetime.today().replace(hour=time.hour, minute=time.minute, second=time.second, microsecond=time.microsecond, tzinfo=time.tzinfo)
+
+def timestodelta(starttime, endtime):
+	return todatetime(endtime) - todatetime(starttime)
+
+class SubmitForm(FormView):
+	template_name = 'success.html'
+	form_class = forms.RequestStatus
+
+	def get_success_url(self):
+		return reverse_lazy("sucess")
+
+	def get_context_data(self, **kwargs):
+		context = super(SubmitForm, self).get_context_data(**kwargs)
+		pk = self.request.GET.get("request_id")
+		r = Request.objects.get(pk=pk)
+
+		#get dates
+		dates = RequestedDate.objects.filter(request_id=r)
+		for date in dates:
+			timedif = timestodelta(date.time_from, date.time_to)
+			print (timedif)
+
+		#get equipments
+		equipments = RentedEquipment.objects.filter(request_id=r)
+		for equipment in equipments:
+			print(equipment.equipment_id)
+			print(equipment.unit)
+			price = equipment.equipment_id.price
+			print(price)
+
+		#saving to Office Status
+		o = OfficeStatus(request_id=r, osa_status='P', ada_status='P', cashier_status='P', cdmo_status='P')
+		o.save()
+
+		context['pk'] = pk
+
+		print(o.pk)
+		print(pk)
+		print(dates)
+		print(equipments)
+		
+		return context

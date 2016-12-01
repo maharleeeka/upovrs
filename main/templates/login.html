@@ -1,18 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
-
-<div id="">
-	<div id="loginbx" class="form-signin">
-		<div id="login-header">
-			<h2 class="form-signin-heading">Sign In</h2>
+	<div id="">
+		<div id="loginbx" class="form-signin">
+			<div id="login-header">
+				<h2 class="form-signin-heading">Sign In</h2>
+			</div>
+			<form action="" id="login" action="{% url 'login' %}" method="post">
+				{% csrf_token %}
+				<input type="text" class="form-control" placeholder="Username" required="" autofocus="" id="username" name="username">
+				<input type="password" class="form-control" placeholder="Password" required="" autofocus="" id="password" name="password">
+				<button class="btn btn-lg btn-default btn-block" type="submit">Sign in</button>
+			</form>
 		</div>
-		<form action="" id="login" action="{% url 'login' %}" method="post">
-			{% csrf_token %}
-			<input type="text" class="form-control" placeholder="Username" required="" autofocus="" id="username" name="username">
-			<input type="password" class="form-control" placeholder="Password" required="" autofocus="" id="password" name="password">
-			<button class="btn btn-lg btn-default btn-block" type="submit">Sign in</button>
-		</form>
+		{% if form.errors %}
+			<div class="alert alert-danger" role="alert">
+				<p><strong><center>Username or Password is invalid.</center></strong></p>
+			</div>
+		{% endif %}
 	</div>
-</div>
-
 {% endblock %}
