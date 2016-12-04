@@ -226,18 +226,28 @@ def requestViewing(request):
 				if group in user.groups.all():
 					office_status.osa_remarks = form.cleaned_data['osa_remarks']
 					office_status.osa_status = form.cleaned_data['osa_status']
-					print (form.cleaned_data['osa_status'])
+
+					if office_status.osa_status == "R":
+						request_id.status = False
+						request_id.save()
 
 				group = Group.objects.get(name="CDMO Staff")
 				if group in user.groups.all():
 					office_status.cdmo_remarks = form.cleaned_data['cdmo_remarks']
 					office_status.cdmo_status = form.cleaned_data['cdmo_status']
 
+					if office_status.cdmo_status == "R":
+						request_id.status = False
+						request_id.save()
+
 				group = Group.objects.get(name="ADA Staff")
 				if group in user.groups.all():
 					office_status.ada_remarks = form.cleaned_data['ada_remarks']
 					office_status.ada_status = form.cleaned_data['ada_status']
-					print (form.cleaned_data['ada_status'])
+
+					if office_status.ada_status == "R":
+						request_id.status = False
+						request_id.save()
 
 				group = Group.objects.get(name="Cashier Staff")
 				if group in user.groups.all():

@@ -146,21 +146,21 @@ function validateForm(clicked_id){
 	}
 
   //for equipment
-  var x = document.getElementsByClassName("check");
-  var y = document.getElementsByClassName("unit_field");
+  // var x = document.getElementsByClassName("check");
+  // var y = document.getElementsByClassName("unit_field");
 
-  for (var i=0; i < x.length; i++){
-    if (x[i].checked == true && y[i].value == ''){
-      alert("Please provide number of units for equipment to be rented.");
-      valid = false;
-      break;
-    }
-    if (!isInteger(y[i].value)) {
-      alert("Must input integer only for the units.");
-      valid = false;
-      break;
-    }
-  }
+  // for (var i=0; i < x.length; i++){
+  //   if (x[i].checked == true && y[i].value == ''){
+  //     alert("Please provide number of units for equipment to be rented.");
+  //     valid = false;
+  //     break;
+  //   }
+  //   if (!isInteger(y[i].value)) {
+  //     alert("Must input integer only for the units.");
+  //     valid = false;
+  //     break;
+  //   }
+  // }
 
   if(valid){
     if (clicked_id == "part1"){
