@@ -21,7 +21,8 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView, RedirectView
 from django.contrib.auth.models import Group
-import datetime
+import datetime, math
+
 def group_check(user):
     return user.groups.filter(name__in=['ADA Staff',
                                         'CDMO Staff' 
@@ -29,7 +30,7 @@ def group_check(user):
                                         'OSA Staff'])
 
 class LoginView(FormView):
-    success_url = '/main/requester'
+    success_url = '/main/requestform'
     success_office = '/main/requestlist'
     form_class = AuthenticationForm
     template_name = "login.html"
@@ -225,18 +226,28 @@ def requestViewing(request):
 				if group in user.groups.all():
 					office_status.osa_remarks = form.cleaned_data['osa_remarks']
 					office_status.osa_status = form.cleaned_data['osa_status']
-					print (form.cleaned_data['osa_status'])
+
+					if office_status.osa_status == "R":
+						request_id.status = False
+						request_id.save()
 
 				group = Group.objects.get(name="CDMO Staff")
 				if group in user.groups.all():
 					office_status.cdmo_remarks = form.cleaned_data['cdmo_remarks']
 					office_status.cdmo_status = form.cleaned_data['cdmo_status']
 
+					if office_status.cdmo_status == "R":
+						request_id.status = False
+						request_id.save()
+
 				group = Group.objects.get(name="ADA Staff")
 				if group in user.groups.all():
 					office_status.ada_remarks = form.cleaned_data['ada_remarks']
 					office_status.ada_status = form.cleaned_data['ada_status']
-					print (form.cleaned_data['ada_status'])
+
+					if office_status.ada_status == "R":
+						request_id.status = False
+						request_id.save()
 
 				group = Group.objects.get(name="Cashier Staff")
 				if group in user.groups.all():
@@ -244,8 +255,9 @@ def requestViewing(request):
 					office_status.cashier_status = form.cleaned_data['cashier_status']
 
 				office_status.save()
-
-		return render(request, 'request_details.html', {'req': queryset_list, 'date_list': date_list, 'equipment_list': equipment_list, 'status': office_status})
+			return requestlisting(request)
+		else:
+			return render(request, 'request_details.html', {'req': queryset_list, 'date_list': date_list, 'equipment_list': equipment_list, 'status': office_status})
 	else:
 		return render(request, 'request_details.html')
 
@@ -320,6 +332,7 @@ class SubmitForm(FormView):
 		return reverse_lazy("sucess")
 
 	def get_context_data(self, **kwargs):
+		total = 0
 		context = super(SubmitForm, self).get_context_data(**kwargs)
 		pk = self.request.GET.get("request_id")
 		r = Request.objects.get(pk=pk)
@@ -328,25 +341,45 @@ class SubmitForm(FormView):
 		dates = RequestedDate.objects.filter(request_id=r)
 		for date in dates:
 			timedif = timestodelta(date.time_from, date.time_to)
-			print (timedif)
+			print(timedif)
 
-		#get equipments
-		equipments = RentedEquipment.objects.filter(request_id=r)
-		for equipment in equipments:
-			print(equipment.equipment_id)
-			print(equipment.unit)
-			price = equipment.equipment_id.price
-			print(price)
+			#get equipments
+			equipments = RentedEquipment.objects.filter(request_id=r)
+			for equipment in equipments:
+				e = equipment.equipment_id
+				price = e.price
+				unit = equipment.unit
+
+				hours, remainder = divmod(timedif.seconds, 3600)
+				minutes, seconds = divmod(remainder, 60)
+				minutes = hours*60 + minutes
+				print("minutes: ",  minutes)
+
+				hours = math.ceil(minutes/60)
+				print("hours: ", hours)
+				print("name: ", e.name)
+				print("price: ", e.price)
+
+				total = unit * price * hours + total
+				print("total: ", total)
+
+		#get venue
+		venue = Venue.objects.get(pk=r.venue_id.pk)
+		if venue.unit == "hour":
+			total = total + (venue.price_general*hours)
+		elif venue.unit == "package":
+			print("package hours: ", venue.hours)
+			total = total + venue.price_general
+
+		print("total: ", total)
 
 		#saving to Office Status
 		o = OfficeStatus(request_id=r, osa_status='P', ada_status='P', cashier_status='P', cdmo_status='P')
 		o.save()
 
 		context['pk'] = pk
-
-		print(o.pk)
-		print(pk)
-		print(dates)
-		print(equipments)
-		
+		context['equipment_list'] = equipments
+		context['request'] = r
+		context['total'] = total
+		context['hours'] = hours
 		return context
