@@ -122,19 +122,27 @@
 							</div>
 							<div class="col-md-3">
 								<!-- <a class="btn btn-default" href="#schedule" onclick="checkDateFields();">Add Date</a> -->
-								<a class="btn btn-default" onclick="submitDateFields();">Add Date</a> 
+								<a class="btn btn-default" onclick="checkDateFields();">Add Date</a> 
 							</div>
 						</div>
 						
-						{% for date in requested_dates %}
+						<!-- {% for date in requested_dates %}
 							<div class="form-group">
 								<div class="col-md-12">
 									<p>{{ date.date_needed }} , {{ date.time_from }}, {{ date.time_to }}</p>	
 								</div>
 							</div>
-						{% endfor %}
+						{% endfor %} -->
 					</form>
 					<div id="added_date">
+						{% for date in requested_dates %}
+						<div id="added_date1" class = "col-md-12 block">
+							<input name="date_needed" class="col-md-3" value="{{ date.date_needed }}">
+							<input name="time_from" class="col-md-3" value="{{ date.time_from }}">
+							<input name="time_to" class="col-md-3" value="{{ date.time_to }}">
+							<span onclick="this.parentNode.remove();" role="button" class="glyphicon glyphicon-remove"></span>
+						</div>
+						{% endfor %}
 					</div>
 				</div>
 				<div id="event_equipments" class="form_panel">

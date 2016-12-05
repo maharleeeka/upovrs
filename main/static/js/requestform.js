@@ -66,6 +66,8 @@ function dateAdded() {
    document.getElementById('added_date').appendChild(iDiv);
    i++;
 
+  var form = document.getElementById("requestDates_form");
+  form.submit();
 }
 
 function checkDateFields() {
@@ -111,7 +113,7 @@ function checkDuplicateDates(){
   }
 }
 
-/**function checkDate() {
+function checkDate() {
     console.log('checking date')
     var EnteredDate = document.getElementById("date_needed").value; //for javascript
 
@@ -131,7 +133,6 @@ function checkDuplicateDates(){
         return false;
     }
 }
-**/
 
 function validateForm(clicked_id){
   console.log(clicked_id);
@@ -192,7 +193,7 @@ function enable() {
 }
 
 function isInteger(x) { 
-        return x % 1 === 0;
+  return x % 1 === 0;
 }
 
 function showNotif(x){
