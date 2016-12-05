@@ -1,15 +1,62 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="container">
-	<div class="col-sm-8">
-		<div id="calendar" class="fc-unthemed"></div>
-		<!-- #calendar -->
+<div class="index-wrapper">
+	<div class="container">
+		<div class="col-sm-8">
+			<div id="calendar" class="fc-unthemed"></div>
+			<!-- #calendar -->
+			<div class="panel panel-default hidden-xs">
+				<div class="panel-heading">
+					<h4>GUIDELINE</h4>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-4">
+			<div class="panel-group side-panel">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4>NOTICE</h4>
+					</div>
+					<div class="panel-body">
+						<p class="panel-notice">Sembreak will start on December 20</p>
+					</div>
+					<div class="nav navbar-default sidebar">
+						<ul class="nav">
+							<li><a href="{% url 'requestform' %}">REQUEST FORM</a></li>
+							<li><a href="{% url 'requester' %}">VIEW STATUS</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4>EVENTS</h4>
+					</div>
+					<ul class="list-group">
+						{% for event in events %}
+						<li class="list-group-item">
+							<span class="event-name">{{event.purpose}}</span><br>
+							<span class="event-details">Organizer: {{event.organization}}</span><br>
+							<span class="event-details">Where: {{event.venue_id}}</span>
+						</li>
+						{% endfor %}
+						
+					</ul>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4>FAQ</h4>
+					</div>
+				</div>
+			</div>
+			<!-- .side-panel -->
+		</div>	
 	</div>
-	<div class="col-sm-4">
-	</div>	
+	<!-- .container -->
+	
 </div>
-<!-- .container -->
+<!-- .index-wrapper -->
 
 
 {% endblock %}
