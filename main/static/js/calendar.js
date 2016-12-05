@@ -22,7 +22,7 @@
       businessHours: true, // display business hours
       editable: true,
 
-      events: JSON.parse({{ events_list}}),
+      // events: JSON.parse({{ events_list}}),
      // console.log(events[0]),
       // events: [
       //     // {

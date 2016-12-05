@@ -79,11 +79,12 @@
 							</div>
 						</div>
 
-						<div id="submit_btn">
-							<div class="form-group">
+						<div class="form-group">
+							<div id="submit_btn" class="submit_btn">
 								<!-- <div class="col-md-12"> -->
-									<input type="button" class="submit-btn form-control btn-default btn" id="part1" value="SUBMIT" onclick="validateForm(this.id)">
-								<!-- </div> -->
+									<a href="#event_schedule"><input type="button" class="submit-btn form-control btn-default btn" id="part1" value="NEXT" onclick="validateForm(this.id)"></a>
+									<!-- <input type="button" class="submit-btn form-control btn-default btn" id="part1" value="SUBMIT" onclick="validateForm(this.id)"> -->
+								<!-- </div> -->	
 							</div>
 						</div>
 					</form>
@@ -121,18 +122,11 @@
 								</div>
 							</div>
 							<div class="col-md-3">
-								<!-- <a class="btn btn-default" href="#schedule" onclick="checkDateFields();">Add Date</a> -->
-								<a class="btn btn-default" onclick="checkDateFields();">Add Date</a> 
+								<a class="btn btn-default" href="#schedule"onclick="checkDateFields();">Add Date</a> 
 							</div>
 						</div>
+						<!-- #schedule -->
 						
-						<!-- {% for date in requested_dates %}
-							<div class="form-group">
-								<div class="col-md-12">
-									<p>{{ date.date_needed }} , {{ date.time_from }}, {{ date.time_to }}</p>	
-								</div>
-							</div>
-						{% endfor %} -->
 					</form>
 					<div id="added_date">
 						{% for date in requested_dates %}
@@ -172,11 +166,11 @@
 									<input type="text" class="form-control" name="unit">
 								</div>
 							</div>
-							<div class="form-group">
+							<!-- <div class="form-group"> -->
 								<div class="col-md-4">
 									<a class="btn btn-default" onclick="validateForm(this.id);" id="part3">Add Equipments</a>
 								</div>
-							</div>
+							<!-- </div> -->
 						</div>	
 						<div class="form-group">
 							<div class="col-md-12">
@@ -190,7 +184,7 @@
 				
 				<div class="form_panel" id="form-final-button">
 					<form action="{% url 'submitForm' %}" id="submit_form">
-						<div id="submit_btn">
+						<div class="submit_btn">
 							<div class="form-group">
 								<div class="col-md-12">
 									<input type="text" class="hidden" name="request_id" value="{{request.pk}}">
