@@ -263,6 +263,19 @@ function approveRequest(clicked_id){
 }
 
 function showAll () {
-  document.getElementById('requester_view_form').style.height = "100%";v
+  document.getElementById('requester_view_form').style.height = "100%";
+}
+
+function formpanel (x) {
+  if(x == 1){
+    document.getElementById('basic_info').style.display = "none";
+    document.getElementById('event_schedule').style.display = "block";
+
+  }else if(x == 2){
+
+  }else if(x == 3){
+
+  }
+  
 }
 

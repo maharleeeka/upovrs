@@ -37,12 +37,13 @@ textarea {
 
 #basic_info{
 	height: 420px;
+	display: block;
 }
 
 #event_equipments, #event_schedule{
 	padding-bottom: 20px;
-	display: block;
 	overflow: auto;
+	display: none;
 }
 
 
