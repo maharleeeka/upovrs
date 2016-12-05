@@ -266,3 +266,10 @@ function showAll () {
   document.getElementById('requester_view_form').style.height = "100%";v
 }
 
+function slide(){
+  
+}
+
+function panelTransition () {
+  
+}
