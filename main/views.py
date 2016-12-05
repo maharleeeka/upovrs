@@ -20,7 +20,7 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView, RedirectView
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 import datetime, math
 
 def group_check(user):
@@ -114,12 +114,28 @@ class RequestView(LoginRequiredMixin, FormView):
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         if form.is_valid():
-            self.object = form.save()
-            r = Request.objects.get(pk=self.object.pk)
-            r.requested_by = request.user
-            r.save()
-            print (r.requested_by)
-            return self.form_valid(form)
+        	if 'pk' not in self.kwargs:
+	            self.object = form.save()            
+	        else:
+        		pk = self.kwargs['pk']
+	        	self.object = Request.objects.get(pk=pk)
+	        	name = form.cleaned_data['name']
+	        	organization = form.cleaned_data['organization']
+	        	purpose = form.cleaned_data['purpose']
+	        	participants = form.cleaned_data['participants']
+	        	speakers = form.cleaned_data['speakers']
+	        	venue = form.cleaned_data['venue_id']
+	        	self.object.name = name
+	        	self.object.organization = organization
+	        	self.object.purpose = purpose
+	        	self.object.participants = participants
+	        	self.object.speakers = speakers
+	        	self.object.venue_id = venue
+	        	self.object.save()
+	        	print ("name: ", name)
+	        	print (self.object)
+
+        	return self.form_valid(form)
         else:
             return self.form_invalid(form)
 		
@@ -336,6 +352,8 @@ class SubmitForm(FormView):
 		context = super(SubmitForm, self).get_context_data(**kwargs)
 		pk = self.request.GET.get("request_id")
 		r = Request.objects.get(pk=pk)
+		user = User.objects.get(pk=r.requested_by.pk)
+		print("user: ", user);
 
 		#get dates
 		dates = RequestedDate.objects.filter(request_id=r)
@@ -359,23 +377,35 @@ class SubmitForm(FormView):
 				print("hours: ", hours)
 				print("name: ", e.name)
 				print("price: ", e.price)
-
 				total = unit * price * hours + total
 				print("total: ", total)
 
 		#get venue
 		venue = Venue.objects.get(pk=r.venue_id.pk)
 		if venue.unit == "hour":
-			total = total + (venue.price_general*hours)
+			if user.groups.filter(name="Outsiders").count():
+				total = total + (venue.price_general*hours)
+			elif user.groups.filter(name="Alumni").count():
+				total = total + (venue.price_alumni*hours)
+			else: 
+				total = total + (venue.price_student*hours)
 		elif venue.unit == "package":
 			print("package hours: ", venue.hours)
-			total = total + venue.price_general
+			if user.groups.filter(name="Outsiders").count():
+				total = total + venue.price_general
+			elif user.groups.filter(name="Alumni").count():
+				total = total + venue.price_alumni
+			else: 
+				total = total + venue.price_student
 
 		print("total: ", total)
 
-		#saving to Office Status
-		o = OfficeStatus(request_id=r, osa_status='P', ada_status='P', cashier_status='P', cdmo_status='P')
-		o.save()
+		if OfficeStatus.objects.filter(request_id=r).exists():
+			print("request is already in officestatus model")
+		else:
+			# saving to Office Status
+			o = OfficeStatus(request_id=r, osa_status='P', ada_status='P', cashier_status='P', cdmo_status='P')
+			o.save()
 
 		context['pk'] = pk
 		context['equipment_list'] = equipments
