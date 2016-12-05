@@ -77,4 +77,6 @@ function getEventDate(){
 
 }
 
-function get
+function get () {
+    
+}
