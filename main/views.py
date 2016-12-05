@@ -175,6 +175,15 @@ class RentedEquipmentsView(LoginRequiredMixin, FormView):
 		context['pk'] = pk
 		return context
 
+class EventLists(FormView):
+	template_name = 'index.html'
+	form_class = forms.RequestForm
+
+	def get_context_data(self, **kwargs):
+		context = super(EventLists, self).get_context_data(**kwargs)
+		context['events'] = Request.objects.all()[0:5]
+		return context
+
 class DatesView(FormView):
 	template_name = 'rates.html'
 	form_class = forms.RequestDates
