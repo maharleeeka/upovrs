@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import Group
+from django_pdfkit import PDFView
 
 from . import views
 
@@ -38,12 +39,10 @@ urlpatterns = [
         (views.requestlisting), name="requeslist"),
     url(r'^submitForm/$', views.SubmitForm.as_view(), name='submitForm'),
     url(r'^submitDates/$', views.DatesView.as_view(), name='submitDates'),
+    url(r'^chargeslip/$', views.chargeslip, name='chargeslip'),
     #url(r'^addRemarks/$', views.AddRemarksView.as_view(), name='addRemarks')
-
     url(r'^requester/$',
         user_passes_test(lambda u: Group.objects.get(name='Requesters') in u.groups.all()) 
         (views.requestlisting), name='requester'),
     url(r'^invoice/$', views.invoiceViewing, name='invoice'),
 ]
-
-
