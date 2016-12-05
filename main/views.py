@@ -22,6 +22,10 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView, RedirectView
 from django.contrib.auth.models import Group
 import datetime, math
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.units import inch
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 
 def group_check(user):
     return user.groups.filter(name__in=['ADA Staff',
@@ -382,4 +386,73 @@ class SubmitForm(FormView):
 		context['request'] = r
 		context['total'] = total
 		context['hours'] = hours
+
+		#generate pdf
+		# path_wkthmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
+		# config = pdfkit.configuration(wkhtmltopdf=path_wkthmltopdf)
+		# pdfkit.from_url('submitForm', 'star.pdf', configuration=config)
+		# template = 'success.html'
+		# #context = Context 
+		# html = template.render(context)
+		# pdfkit.from_string(html, 'out.pdf')
+		# pdf = open("out.pdf")
+		# response = HttpResponse(pdf.read(), content_type='application/pdf')  # Generates the response as pdf response.
+		# response['Content-Disposition'] = 'attachment; filename=output.pdf'
+		# pdf.close()
+		# pdfkit.from_string(context, 'out.pdf')
+
 		return context
+
+def chargeslip(request):
+	# path_wkthmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
+	# config = pdfkit.configuration(wkhtmltopdf=path_wkthmltopdf)
+	# pdfkit.from_url('main/templates/success.html', '2.pdf', configuration=config)
+	# template = get_template("success.html")
+	# #context = Context({"data": SubmitForm.get_context_data})  # data is the context data that is sent to the html file to render the output. 
+	# html = template.render(context)  # Renders the template with the context data.
+	# pdfkit.from_string(html, 'out.pdf')
+	# pdf = open("out.pdf")
+	# response = HttpResponse(pdf.read(), content_type='application/pdf')  # Generates the response as pdf response.
+	# response['Content-Disposition'] = 'attachment; filename=output.pdf'
+	# pdf.close()
+	# #os.remove("out.pdf")  # remove the locally created pdf file.
+	# return response  # returns the response.
+	# Create the HttpResponse object with the appropriate PDF headers.
+	#context = super(SubmitForm, self).get_context_data(**kwargs)	
+	logo1 = 'main/static/images/UP_logo.png'
+	logo2 = 'main/static/images/UPC_logo.png'
+
+	response = HttpResponse(content_type='application/pdf')
+	response['Content-Disposition'] = 'attachment; filename="chargeslip.pdf"'
+
+	# Create the PDF object, using the response object as its "file."
+	p = canvas.Canvas(response)
+
+	# Draw things on the PDF. Here's where the PDF generation happens.
+	# See the ReportLab documentation for the full list of functionality.
+	#canvas = canvas.Canvas("form.pdf", pagesize=letter)
+	p.setLineWidth(.3)
+	p.setFont('Helvetica', 12)
+	p.drawImage(logo1, 270, 750, 0.5*inch, 0.5*inch, mask='auto')
+	p.drawImage(logo2, 310, 750, 0.55*inch, 0.55*inch, mask='auto')
+	p.drawString(230,730,'University of the Philippines')
+	p.drawString(220,710,'Gorordo Avenue, Lahug, Cebu City')
+	p.drawString(1*inch,690,'OR Number:')
+	p.line(140,690,250,690)
+	p.drawString(1*inch,670,'Name:')
+	p.drawString(300,670,'Organization:')
+	p.drawString(1*inch,650,'James Reid')
+	p.drawString(300,650,'ABS-CBN Station/Star Magic')
+
+	# p.drawString(275,725,'AMOUNT OWED:')
+	# p.drawString(500,725,"$1,000.00")
+	# p.line(378,723,580,723)
+
+	# p.drawString(30,703,'RECEIVED BY:')
+	# p.line(120,700,580,700)
+	# p.drawString(120,703,"JOHN DOE")
+
+	# Close the PDF object cleanly, and we're done.
+	p.showPage()
+	p.save()
+	return response
