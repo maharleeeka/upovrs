@@ -8,9 +8,13 @@ label{
 	margin-top: 20px;
 }
 
+#added_date, #equipments  {
+	width: 97%;
+}
+
 #event_equipments, #event_schedule{
 	padding-bottom: 20px;
-/*	overflow: auto;*/
+	overflow: auto;
 	min-height: 200px;
 }
 
@@ -22,7 +26,7 @@ label{
 
 .btn-margin-bottom {
 	margin: auto;
-	margin-bottom: 55px;;
+	margin-bottom: 20px;;
 }
 
 
@@ -200,6 +204,9 @@ label{
 /** MEDIA **/
 
 @media (max-width: 991px){
+	#added_date, #equipments {
+		width: 100%;
+	}
 	#schedule .btn, #add_equipments .btn {
 		margin-top: 5px;
 		margin-bottom: 20px;
@@ -209,3 +216,22 @@ label{
 		height: 750px;
 	}
 }
+
+@media (max-width: 716px){
+	#added_date .block .glyphicon{
+		margin-top: -10px;
+	}
+
+}
+
+@media (max-width: 509px){
+	#added_date .block .glyphicon{
+		margin-top: -20px;
+	}
+
+	#equipments .block .glyphicon {
+		margin-top: -4px;
+	}
+
+}
+

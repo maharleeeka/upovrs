@@ -27,7 +27,6 @@
 								<label>Name: </label>
 								<input type="text" class="form-control" name="name" value="{{ request.name }}" required>
 								<input type="text" class="form-control hidden" name="pk" id="pk" value="{{ request.pk }}" required>
-								<!-- <input type="text" class="form-control hidden" name="pk"> -->
 							</div>
 						</div>
 						<div class="form-group">
@@ -166,16 +165,20 @@
 								</div>
 							</div>
 							<div class="col-md-4 sub-btn">
-								<a class="btn btn-default" onclick="validateForm(this.id);" id="part3">Add Equipments</a>
+								<a class="btn btn-default" href="#add_equipments" onclick="checkUnitField();" id="part3">Add Equipments</a>
 							</div>
 						</div>	
 						<!-- #add-equipments -->
 					</form>	
-					<div class="col-md-12">
-								{% for equipment in rented_equipments %}
-									<p>{{ equipment.equipment_id }} , {{ equipment.unit }}</p>
-								{% endfor %}
+					<div id="equipments">
+						{% for equipment in rented_equipments %}
+							<div id="added_eq" class="col-md-12 block">
+								<input value="{{ equipment.equipment_id }}" class="col-md-5">
+								<input value="Unit: {{ equipment.unit }}" class="col-md-5">
+								<span onclick="this.parentNode.remove();" class="glyphicon glyphicon-remove" role="button"></span>
 							</div>
+						{% endfor %}
+					</div>
 				</div>
 				
 				<div class="btn-margin-bottom" id="form-final-button">
