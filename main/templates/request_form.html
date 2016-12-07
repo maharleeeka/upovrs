@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 		<div id="content">
-			{% if request.pk != %}
 			<div class="alert alert-success" id="request-form-notif" >
 				<strong>Success!</strong>
 			</div>
@@ -90,7 +89,9 @@
 					</form>
 				</div>
 					
-				<div id="event_schedule" class="form_panel">
+				{% if request.pk != null %}
+					
+					<div id="event_schedule" class="form_panel" onload="scrollTo()">
 					<div class="form_panel_header">
 						<div class="form_panel_title">
 							Event Schedule
@@ -198,6 +199,7 @@
 						</div>
 					</form>
 				</div>
+				{% endif %}
 			</div>
 		</div>
 		<hr>

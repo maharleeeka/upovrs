@@ -25,8 +25,11 @@
     <link rel="stylesheet" href="{% static "css/index.css" %}"/> 
 
   </head>
-
-  <body class="body">
+{% if request.pk != null %}
+<body class="body" onload="scrollTo()">
+{% else %}
+<body class="body">
+{%  endif%}
   	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
