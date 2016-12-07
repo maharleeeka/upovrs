@@ -1,3 +1,9 @@
+img{
+    width: 50px;
+    height: 50px;
+    margin-top: 4px;
+}
+
 a:link, a:visited {
     text-align: center; 
     text-decoration: none;
