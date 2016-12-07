@@ -73,13 +73,13 @@ class LoginView(FormView):
 
 
 class LogoutView(RedirectView):
-    url = '/main/requestform'
+    url = '/main/'
 
     def get(self, request, *args, **kwargs):
         auth_logout(request)
         return super(LogoutView, self).get(request, *args, **kwargs)
 
-class SuccessView(TemplateView):
+class SuccessView(LoginRequiredMixin, TemplateView):
     template_name = "success.html"
 
 class GuidelineView(TemplateView):
@@ -315,10 +315,11 @@ class RequesterView(TemplateView):
 def invoiceViewing(request):
 	queryset_requestlist = Request.objects.all()
 
-	q = request.GET.get("quer")
+	q = request.GET.get("q")
 	if q:
 		queryset_requestlist = queryset_requestlist.filter(Q(pk__icontains=q))
 		request_id = Request.objects.get(pk=q)
+		date_list = RequestedDate.objects.filter(request_id=request_id)
 		equipment_list = RentedEquipment.objects.filter(request_id=request_id)
 
 		paginator = Paginator(queryset_requestlist, 10)
@@ -331,7 +332,7 @@ def invoiceViewing(request):
 		except EmptyPage:
 			requests = paginator.page(paginator.num_pages)
 
-		return render(request, 'payment_invoice.html', {'requests': requests, 'equipment_list': equipment_list})
+		return render(request, 'payment_invoice.html', {'requests': requests, 'equipment_list': equipment_list, 'date_list': date_list})
 	else:
 		return render(request, 'payment_invoice.html')
 
