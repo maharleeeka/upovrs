@@ -22,10 +22,10 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView, RedirectView
 from django.contrib.auth.models import Group, User
 import datetime, math
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter
-from reportlab.lib.units import inch
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
+# from reportlab.pdfgen import canvas
+# from reportlab.lib.pagesizes import letter
+# from reportlab.lib.units import inch
+# from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 
 def group_check(user):
     return user.groups.filter(name__in=['ADA Staff',

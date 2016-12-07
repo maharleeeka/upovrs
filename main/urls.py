@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import Group
-from django_pdfkit import PDFView
+# from django_pdfkit import PDFView
 
 from . import views
 
