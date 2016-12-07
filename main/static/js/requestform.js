@@ -264,7 +264,20 @@ function approveRequest(clicked_id){
 }
 
 function showAll () {
-  document.getElementById('requester_view_form').style.height = "100%";v
+  document.getElementById('requester_view_form').style.height = "100%";
+}
+
+function formpanel (x) {
+  if(x == 1){
+    document.getElementById('event_schedule').style.display = "block";
+    document.getElementById('basic_info').style.display = "none";
+    document.getElementById('basic_info').style.visibility = "hidden";
+  }else if(x == 2){
+
+  }else if(x == 3){
+
+  }
+  
 }
 
 function slide(){

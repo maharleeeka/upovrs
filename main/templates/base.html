@@ -20,19 +20,18 @@
     <link rel="stylesheet" href="{% static "css/login.css" %}"/>
     <link rel="stylesheet" href="{% static "css/osa.css" %}"/>
     <link rel="stylesheet" href="{% static "css/viewrequests.css" %}"/>
-<<<<<<< HEAD
     <link rel="stylesheet" href="{% static "css/requester.css" %}"/>
     <link rel="stylesheet" href="{% static "css/invoice.css" %}"/>
-=======
-    <link rel="stylesheet" href="{% static "css/requester-view.css" %}"/>
     <link rel="stylesheet" href="{% static "css/cashier.css" %}"/>
->>>>>>> 1443b9cc324dfb6d75003f4d2d88c106b642fad0
     <link rel="stylesheet" href="{% static "css/requester-view.css" %}"/>
     <link rel="stylesheet" href="{% static "css/index.css" %}"/> 
 
   </head>
-
-  <body class="body">
+{% if request.pk != null %}
+<body class="body" onload="scrollTo()">
+{% else %}
+<body class="body">
+{%  endif%}
   	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">

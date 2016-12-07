@@ -36,13 +36,11 @@ textarea {
 }
 
 #basic_info{
-	/*height: 420px;*/
 	min-height: 420px;
 }
 
 #event_equipments, #event_schedule{
 	padding-bottom: 20px;
-	display: block;
 	overflow: auto;
 	min-height: 200px;
 }
