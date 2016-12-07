@@ -20,14 +20,16 @@
 						<h4>NOTICE</h4>
 					</div>
 					<div class="panel-body">
-						<p class="panel-notice">Sembreak will start on December 20</p>
+						<!-- <p class="panel-notice">Sembreak will start on December 20</p> -->
 					</div>
 					<div class="nav navbar-default sidebar">
 						<ul class="nav">
-							<li><a href="{% url 'requestform' %}">REQUEST FORM</a></li>
 							{% if user.is_authenticated %}
 								{%	if user.get_username != "osa_maria" and user.get_username != "cdmo_juan" and user.get_username != "ada_adelfa"%}
-								<li><a href="{% url 'requester' %}">VIEW STATUS</a></li>
+								<li><a href="{% url 'requestform' %}">ADD REQUEST</a></li>
+								<li><a href="{% url 'requester' %}">MY REQUESTS</a></li>
+								{% else %}
+								<li><a href="{% url 'requestlist' %}">VIEW ALL REQUESTS</a></li>
 								{% endif %}
 							{% endif %}
 						</ul>
