@@ -122,7 +122,9 @@ class RequestView(LoginRequiredMixin, FormView):
         form = self.get_form()
         if form.is_valid():
         	if 'pk' not in self.kwargs:
-	            self.object = form.save()            
+	            self.object = form.save()
+	            self.object.requested_by = request.user
+	            self.object.save()            
 	        else:
         		pk = self.kwargs['pk']
 	        	self.object = Request.objects.get(pk=pk)
@@ -374,6 +376,10 @@ class SubmitForm(FormView):
 		context = super(SubmitForm, self).get_context_data(**kwargs)
 		pk = self.request.GET.get("request_id")
 		r = Request.objects.get(pk=pk)
+		print (r);
+		print (r.requested_by)
+		upk = r.requested_by
+		print(upk)
 		user = User.objects.get(pk=r.requested_by.pk)
 		print("user: ", user);
 
