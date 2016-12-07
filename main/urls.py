@@ -5,7 +5,7 @@ from django.contrib.auth.models import Group
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.MainView.as_view(), name='index'),
+    url(r'^$', views.EventLists.as_view(), name='index'),
     # url(r'^$', views.HomepageView.as_view(), name='index'),
     # url(r'^requestform/$', views.RequestView.as_view(), name='requestform'),
     url(r'^requestform/$', views.RequestView.as_view(), name='requestform'),

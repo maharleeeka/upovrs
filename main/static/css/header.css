@@ -79,7 +79,7 @@ a:link, a:visited {
     background-color: #4CAF50;
 }
 
-.nav>li{
+#left-nav .nav>li{
     position: static;
     display: flex;
     margin-left: 10px

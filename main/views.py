@@ -21,7 +21,8 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView, RedirectView
 from django.contrib.auth.models import Group
-import datetime, math
+from django.core.serializers.json import DjangoJSONEncoder
+import datetime, math, json
 
 def group_check(user):
     return user.groups.filter(name__in=['ADA Staff',
@@ -175,6 +176,22 @@ class RentedEquipmentsView(LoginRequiredMixin, FormView):
 		context['pk'] = pk
 		return context
 
+class EventLists(FormView):
+	template_name = 'index.html'
+	form_class = forms.RequestForm
+
+	def get_context_data(self, **kwargs):
+		context = super(EventLists, self).get_context_data(**kwargs)
+		context['events'] = Request.objects.all()[0:5]
+		request_list = Request.objects.all()
+		dates = RequestedDate.objects.all()
+		events_name = dates.values_list('request_id', 'date_needed')
+		dates_json = json.dumps(list(events_name), cls=DjangoJSONEncoder)
+		print (dates_json)
+		context['events_list'] = dates_json
+
+		return context
+
 class DatesView(FormView):
 	template_name = 'rates.html'
 	form_class = forms.RequestDates
@@ -199,11 +216,12 @@ class DatesView(FormView):
 		pk = 0
 		if 'pk' in self.kwargs:
 			pk = self.kwargs['pk']
+			request_list = Request.objects.all()
 			context['request'] = Request.objects.get(pk=pk)
 			request_id = Request.objects.get(pk=pk)
 			context['rented_equipments'] = RentedEquipment.objects.filter(request_id=request_id)
 			context['requested_dates'] = RequestedDate.objects.filter(request_id=request_id)
-		context['pk'] = pk
+			context['pk'] = pk
 		return context
 
 def requestViewing(request):
