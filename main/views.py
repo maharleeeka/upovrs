@@ -20,7 +20,12 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView, RedirectView
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
+import datetime, math
+# from reportlab.pdfgen import canvas
+# from reportlab.lib.pagesizes import letter
+# from reportlab.lib.units import inch
+# from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 from django.core.serializers.json import DjangoJSONEncoder
 import datetime, math, json
 
@@ -32,7 +37,7 @@ def group_check(user):
 
 class LoginView(FormView):
     success_url = '/main'
-    success_office = '/main/requestlist'
+    success_office = '/main'
     form_class = AuthenticationForm
     template_name = "login.html"
     redirect_field_name = '/templates/request_form'
@@ -116,12 +121,30 @@ class RequestView(LoginRequiredMixin, FormView):
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         if form.is_valid():
-            self.object = form.save()
-            r = Request.objects.get(pk=self.object.pk)
-            r.requested_by = request.user
-            r.save()
-            print (r.requested_by)
-            return self.form_valid(form)
+        	if 'pk' not in self.kwargs:
+	            self.object = form.save()
+	            self.object.requested_by = request.user
+	            self.object.save()            
+	        else:
+        		pk = self.kwargs['pk']
+	        	self.object = Request.objects.get(pk=pk)
+	        	name = form.cleaned_data['name']
+	        	organization = form.cleaned_data['organization']
+	        	purpose = form.cleaned_data['purpose']
+	        	participants = form.cleaned_data['participants']
+	        	speakers = form.cleaned_data['speakers']
+	        	venue = form.cleaned_data['venue_id']
+	        	self.object.name = name
+	        	self.object.organization = organization
+	        	self.object.purpose = purpose
+	        	self.object.participants = participants
+	        	self.object.speakers = speakers
+	        	self.object.venue_id = venue
+	        	self.object.save()
+	        	print ("name: ", name)
+	        	print (self.object)
+
+        	return self.form_valid(form)
         else:
             return self.form_invalid(form)
 		
@@ -354,6 +377,12 @@ class SubmitForm(FormView):
 		context = super(SubmitForm, self).get_context_data(**kwargs)
 		pk = self.request.GET.get("request_id")
 		r = Request.objects.get(pk=pk)
+		print (r);
+		print (r.requested_by)
+		upk = r.requested_by
+		print(upk)
+		user = User.objects.get(pk=r.requested_by.pk)
+		print("user: ", user);
 
 		#get dates
 		dates = RequestedDate.objects.filter(request_id=r)
@@ -377,30 +406,113 @@ class SubmitForm(FormView):
 				print("hours: ", hours)
 				print("name: ", e.name)
 				print("price: ", e.price)
-
 				total = unit * price * hours + total
 				print("total: ", total)
 
 		#get venue
 		venue = Venue.objects.get(pk=r.venue_id.pk)
 		if venue.unit == "hour":
-			total = total + (venue.price_general*hours)
+			if user.groups.filter(name="Outsiders").count():
+				total = total + (venue.price_general*hours)
+			elif user.groups.filter(name="Alumni").count():
+				total = total + (venue.price_alumni*hours)
+			else: 
+				total = total + (venue.price_student*hours)
 		elif venue.unit == "package":
 			print("package hours: ", venue.hours)
-			total = total + venue.price_general
+			if user.groups.filter(name="Outsiders").count():
+				total = total + venue.price_general
+			elif user.groups.filter(name="Alumni").count():
+				total = total + venue.price_alumni
+			else: 
+				total = total + venue.price_student
 
 		print("total: ", total)
 
-		#saving to Office Status
-		o = OfficeStatus(request_id=r, osa_status='P', ada_status='P', cashier_status='P', cdmo_status='P')
-		o.save()
+		if OfficeStatus.objects.filter(request_id=r).exists():
+			print("request is already in officestatus model")
+		else:
+			# saving to Office Status
+			o = OfficeStatus(request_id=r, osa_status='P', ada_status='P', cashier_status='P', cdmo_status='P')
+			o.save()
 
 		context['pk'] = pk
 		context['equipment_list'] = equipments
 		context['request'] = r
 		context['total'] = total
 		context['hours'] = hours
+
 		return context
 
 class MyRequests(TemplateView):
 	template_name = "my_requests.html"
+
+		#generate pdf
+		# path_wkthmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
+		# config = pdfkit.configuration(wkhtmltopdf=path_wkthmltopdf)
+		# pdfkit.from_url('submitForm', 'star.pdf', configuration=config)
+		# template = 'success.html'
+		# #context = Context 
+		# html = template.render(context)
+		# pdfkit.from_string(html, 'out.pdf')
+		# pdf = open("out.pdf")
+		# response = HttpResponse(pdf.read(), content_type='application/pdf')  # Generates the response as pdf response.
+		# response['Content-Disposition'] = 'attachment; filename=output.pdf'
+		# pdf.close()
+		# pdfkit.from_string(context, 'out.pdf')
+
+		return context
+
+def chargeslip(request):
+	# path_wkthmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
+	# config = pdfkit.configuration(wkhtmltopdf=path_wkthmltopdf)
+	# pdfkit.from_url('main/templates/success.html', '2.pdf', configuration=config)
+	# template = get_template("success.html")
+	# #context = Context({"data": SubmitForm.get_context_data})  # data is the context data that is sent to the html file to render the output. 
+	# html = template.render(context)  # Renders the template with the context data.
+	# pdfkit.from_string(html, 'out.pdf')
+	# pdf = open("out.pdf")
+	# response = HttpResponse(pdf.read(), content_type='application/pdf')  # Generates the response as pdf response.
+	# response['Content-Disposition'] = 'attachment; filename=output.pdf'
+	# pdf.close()
+	# #os.remove("out.pdf")  # remove the locally created pdf file.
+	# return response  # returns the response.
+	# Create the HttpResponse object with the appropriate PDF headers.
+	#context = super(SubmitForm, self).get_context_data(**kwargs)	
+	logo1 = 'main/static/images/UP_logo.png'
+	logo2 = 'main/static/images/UPC_logo.png'
+
+	response = HttpResponse(content_type='application/pdf')
+	response['Content-Disposition'] = 'attachment; filename="chargeslip.pdf"'
+
+	# Create the PDF object, using the response object as its "file."
+	p = canvas.Canvas(response)
+
+	# Draw things on the PDF. Here's where the PDF generation happens.
+	# See the ReportLab documentation for the full list of functionality.
+	#canvas = canvas.Canvas("form.pdf", pagesize=letter)
+	p.setLineWidth(.3)
+	p.setFont('Helvetica', 12)
+	p.drawImage(logo1, 270, 750, 0.5*inch, 0.5*inch, mask='auto')
+	p.drawImage(logo2, 310, 750, 0.55*inch, 0.55*inch, mask='auto')
+	p.drawString(230,730,'University of the Philippines')
+	p.drawString(220,710,'Gorordo Avenue, Lahug, Cebu City')
+	p.drawString(1*inch,690,'OR Number:')
+	p.line(140,690,250,690)
+	p.drawString(1*inch,670,'Name:')
+	p.drawString(300,670,'Organization:')
+	p.drawString(1*inch,650,'James Reid')
+	p.drawString(300,650,'ABS-CBN Station/Star Magic')
+
+	# p.drawString(275,725,'AMOUNT OWED:')
+	# p.drawString(500,725,"$1,000.00")
+	# p.line(378,723,580,723)
+
+	# p.drawString(30,703,'RECEIVED BY:')
+	# p.line(120,700,580,700)
+	# p.drawString(120,703,"JOHN DOE")
+
+	# Close the PDF object cleanly, and we're done.
+	p.showPage()
+	p.save()
+	return response
