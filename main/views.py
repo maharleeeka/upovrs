@@ -423,23 +423,7 @@ class SubmitForm(FormView):
 
 class MyRequests(TemplateView):
 	template_name = "my_requests.html"
-
-		#generate pdf
-		# path_wkthmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
-		# config = pdfkit.configuration(wkhtmltopdf=path_wkthmltopdf)
-		# pdfkit.from_url('submitForm', 'star.pdf', configuration=config)
-		# template = 'success.html'
-		# #context = Context 
-		# html = template.render(context)
-		# pdfkit.from_string(html, 'out.pdf')
-		# pdf = open("out.pdf")
-		# response = HttpResponse(pdf.read(), content_type='application/pdf')  # Generates the response as pdf response.
-		# response['Content-Disposition'] = 'attachment; filename=output.pdf'
-		# pdf.close()
-		# pdfkit.from_string(context, 'out.pdf')
-
-		return context
-
+	
 def chargeslip(request):
 	# path_wkthmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
 	# config = pdfkit.configuration(wkhtmltopdf=path_wkthmltopdf)
