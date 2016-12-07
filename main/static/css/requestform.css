@@ -153,10 +153,12 @@ label{
 .block .glyphicon {
 	float: right;
 	margin-top: 4px;
+	color: #000;
 }
 
 .block {
-	margin: 5px 15px;
+	margin: 10px 15px;
+	margin-bottom: 0px;
 	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.40);
 }
 

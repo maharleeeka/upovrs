@@ -135,7 +135,7 @@
 							<input name="time_from" class="col-md-3" value="{{ date.time_from }}">
 							<input name="time_to" class="col-md-3" value="{{ date.time_to }}">
 							<input name="date_pk" class="hidden" value="{{ date.pk }}">
-							<a href="{% url 'removedates' %}?pk={{ request.pk }}&q={{ date.pk }}"" onclick="this.parentNode.remove();"><i class="glyphicon glyphicon-remove"></i></a>
+							<a href="{% url 'removedates' %}?pk={{ request.pk }}&q={{ date.pk }}"" onclick="this.parentNode.remove();" class="glyphicon glyphicon-remove"></a>
 							<!-- <span onclick="this.parentNode.remove(); " role="button" class="glyphicon glyphicon-remove"></span> -->
 						</div>
 						{% endfor %}
@@ -179,8 +179,8 @@
 							<div id="added_eq" class="col-md-12 block">
 								<input value="{{ equipment.equipment_id }}" class="col-md-5">
 								<input value="Unit: {{ equipment.unit }}" class="col-md-5">
-								
-								<a href="{% url 'removeequipments' %}?pk={{ request.pk }}&q={{ equipment.pk }}"" onclick="this.parentNode.remove();"><span class="glyphicon glyphicon-remove"></span></a>
+								<!-- <span class="glyphicon glyphicon-remove"></span> -->
+								<a href="{% url 'removeequipments' %}?pk={{ request.pk }}&q={{ equipment.pk }}" class="glyphicon glyphicon-remove" onclick="this.parentNode.remove();"></a>
 							</div>
 						{% endfor %}
 					</div>
