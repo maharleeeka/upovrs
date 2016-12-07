@@ -91,6 +91,10 @@ label{
 
 /** OVERRIDES **/
 
+#content .container {
+	padding: 0px 50px;
+}
+
 .submit_btn .btn-default:hover, .submit_btn .btn-default:active, .submit_btn .btn-default:focus {
 	background: #4CAF50;
 	color: #fff;

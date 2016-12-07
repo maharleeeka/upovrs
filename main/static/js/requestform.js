@@ -7,6 +7,11 @@ function repeat() {
 	document.body.appendChild(clone);
 }
 
+function dateAdded(){
+  var form = document.getElementById("requestDates_form");
+  form.submit();
+}
+
 
 function checkUnitField(){
   var i = 0;
@@ -64,8 +69,7 @@ function checkDuplicateDates(){
       }
     }
     if (i == x.length && !areEqual){
-      var form = document.getElementById("requestDates_form");
-      form.submit();
+      dateAdded();
     }
   }
 }
