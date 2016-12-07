@@ -268,9 +268,9 @@ function showAll () {
 
 function formpanel (x) {
   if(x == 1){
-    document.getElementById('basic_info').style.display = "none";
     document.getElementById('event_schedule').style.display = "block";
-
+    document.getElementById('basic_info').style.display = "none";
+    document.getElementById('basic_info').style.visibility = "hidden";
   }else if(x == 2){
 
   }else if(x == 3){
