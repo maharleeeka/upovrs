@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load widget %}
 
 <div id="content">
 	<div id="cashier" class="container" style="max-width: 1000px;">
@@ -55,21 +56,48 @@
 						<table class="table" style="min-height:50px;">
 							<thead>
 								<td><h4 class="table-title">Venue:  <strong>{{ request.venue_id }}</strong></h4></td>
+								{% if request.requested_by|has_group:"Outsiders" and request.venue_id.unit == "hour" %} 
+								<td><h4 class="table-title">Rate: <strong> {{ request.venue_id.price_general }} (Per hour)</strong></h4></td>
+								{% elif request.requested_by|has_group:"Outsiders" and request.venue_id.unit == "package" %} 
+								<td><h4 class="table-title">Rate: <strong> {{ request.venue_id.price_general }} (Package)</strong></h4></td>
+									
+
+								{% elif request.requested_by|has_group:"UPC Orgs" and request.venue_id.unit == "hour" %}
+								<td><h4 class="table-title">Rate:  <strong>{{ request.venue_id.price_student }} (Per hour)</strong></h4></td>
+								{% elif request.requested_by|has_group:"UPC Orgs" and request.venue_id.unit == "package" %}
+								<td><h4 class="table-title">Rate:  <strong>{{ request.venue_id.price_student }} (Package)</strong></h4></td>
+
+								{% elif requested_by|has_group:"Alumni" and request.venue_id.unit == "hour" %}
+								<td><h4 class="table-title">Rate:  <strong>{{ request.venue_id.price_alumni }} (Per hour)</strong></h4></td>
+								{% elif requested_by|has_group:"Alumni" and request.venue_id.unit == "package" %}
+								<td><h4 class="table-title">Rate:  <strong>{{ request.venue_id.price_alumni }} (Package)</strong></h4></td>
+
+								{% endif %}
 							</thead>
 							<tbody>
 								<tr>
 									<td><center><strong>Date/s</td>
 									<td><center><strong>Time</td>
 									<td><center><strong>Hours</td>
-									<td><center><strong>Rate</td>
-									<td><center><strong>Sub-total</td>
 								</tr>
+								{% for date in dates %}
 								<tr>
 									<td><center>{{ date.date_needed }}</td>
 									<td><center>{{ date.time_from }} - {{ date.time_to }}</td>
 									<td><center>{{ hours }}</td>
-									<td><center>{{ request.venue_id.price_general }}</td>
-									<td><center>{{ subtotal }}</td>
+								</tr>
+								{% endfor %}
+								
+								<tr>
+									<td><center> </td>
+									<td><center><strong>Total Hours: </td>
+									<td><center><strong>{{ tothours }}</td>
+								</tr>
+								<tr>
+									<td><center> </td>
+									<td><center><strong>Sub-total: </td>
+									{% widthratio tothours 1 price as sub %}
+									<td><center><strong>{{ sub }}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -79,7 +107,6 @@
 								<tr>
 									<td><center><strong>Name</td>
 									<td><center><strong>Time</td>
-									<td><center><strong>Hours</td>
 									<td><center><strong>Rate</td>
 									<td><center><strong>Unit</td>
 									<td><center><strong>Sub-total</td>
@@ -88,11 +115,12 @@
 								<tr>
 									<td><center>{{ equipment.equipment_id }}</td>
 									<td><center>{{ date.time_from }} - {{ date.time_to }}</td>
-									<td><center>{{ hours }}</td>
 									<td><center>{{ equipment.equipment_id.price }}</td>
 									<td><center>{{ equipment.unit }}</td>
-									{%  widthratio equipment.equipment_id.price 1 equipment.unit as subtotal %}
+									{% widthratio equipment.equipment_id.price 1 equipment.unit as subtotal %}
 									{% widthratio hours 1 subtotal as subtotal %}
+									{% widthratio tothours 1 subtotal as subtotal %}
+
 									<td><center>{{ subtotal }}</td>
 								</tr>
 								{% endfor %}

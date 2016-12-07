@@ -236,8 +236,8 @@ class DatesView(FormView):
 			# self.object.end = datetime.datetime.combine(date, et)
 			# self.object.save()
 			
-			print (self.object.start)
-			print (self.object.end)
+			# print (self.object.start)
+			# print (self.object.end)
 
 			return self.form_valid(form)
 		else:
@@ -364,6 +364,7 @@ class SubmitForm(FormView):
 		return reverse_lazy("sucess")
 
 	def get_context_data(self, **kwargs):
+		tothours = 0
 		total = 0
 		context = super(SubmitForm, self).get_context_data(**kwargs)
 		pk = self.request.GET.get("request_id")
@@ -399,24 +400,32 @@ class SubmitForm(FormView):
 				print("price: ", e.price)
 				total = unit * price * hours + total
 				print("total: ", total)
+			tothours = tothours + hours
 
 		#get venue
+		p = 0
 		venue = Venue.objects.get(pk=r.venue_id.pk)
 		if venue.unit == "hour":
 			if user.groups.filter(name="Outsiders").count():
-				total = total + (venue.price_general*hours)
+				total = total + (venue.price_general*tothours)
+				p = venue.price_general
 			elif user.groups.filter(name="Alumni").count():
-				total = total + (venue.price_alumni*hours)
+				total = total + (venue.price_alumni*tothours)
+				p = venue.price_alumni
 			else: 
-				total = total + (venue.price_student*hours)
+				total = total + (venue.price_student*tothours)
+				p = venue.price_student
 		elif venue.unit == "package":
 			print("package hours: ", venue.hours)
 			if user.groups.filter(name="Outsiders").count():
 				total = total + venue.price_general
+				p = venue.price_general
 			elif user.groups.filter(name="Alumni").count():
 				total = total + venue.price_alumni
+				p = venue.price_alumni
 			else: 
 				total = total + venue.price_student
+				p = venue.price_student
 
 		print("total: ", total)
 
@@ -433,6 +442,11 @@ class SubmitForm(FormView):
 		context['total'] = total
 		context['hours'] = hours
 		context['date'] = date
+		context['dates'] = dates
+		context['tothours'] = tothours
+		context['price'] = p
+
+		print("tothours: ", tothours)
 
 		return context
 
