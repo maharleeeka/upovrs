@@ -4,9 +4,78 @@ textarea {
 	border: none;
 }
 
+
+#basic_info{
+	/*height: 420px;*/
+	/*min-height: 420px;*/
+}
+
+#event_equipments, #event_schedule{
+	padding-bottom: 20px;
+	display: block;
+	/*overflow: auto; */	
+	min-height: 200px;
+}
+
+
+#equi_box{
+	width: 100px;
+}
+#equipments{
+	width: 150px;
+}
+
+#form-header{
+	position: relative;
+	top: 35px;
+	padding-bottom: 20px;
+}
+
 #header{
 	position: absolute;
 }
+
+#part1{
+	width: 250px;
+	margin-right: 20px;
+	/*float: right;*/
+}
+
+ #form-final-button{
+ 	width: 300px;
+ }
+
+ #requestform{
+ 	/*position: relative;
+ 	top: 50px;
+ 	width: 850px;*/
+ 	/*border: 1px solid #d3d3d3;*/
+ 	/*overflow: auto;*/
+ }
+
+/* #submit_btn input {
+	margin-left: 450px;
+}*/
+
+.form-group .submit_btn {
+	float: right;
+}
+
+/***********SCHEDULE DIV***********/
+/*#schedule{
+	background: red;
+	border: 5px solid black;
+}*/
+#schedule .btn, #add_equipments .btn{
+	margin-top:  45px;
+	margin-bottom: -85px;
+	width: 100%;
+}
+
+#schedule a {
+	text-align: center;
+}
+
 
 .content{
 	position: absolute;
@@ -28,24 +97,13 @@ textarea {
 }*/
 
 .form_panel{
-	width: 800px;
+	/*width: 800px;*/
 	margin: auto;
 	border: 1px solid #d3d3d3;
 	border-radius: 5px;
 	margin-bottom: 55px;
 }
 
-#basic_info{
-	/*height: 420px;*/
-	min-height: 420px;
-}
-
-#event_equipments, #event_schedule{
-	padding-bottom: 20px;
-	display: block;
-	overflow: auto;
-	min-height: 200px;
-}
 
 
 .form_panel_header{
@@ -90,20 +148,6 @@ textarea {
 }
 
 /***********SCHEDULE DIV***********/
-/*#schedule{
-	background: red;
-	border: 5px solid black;
-}*/
-#schedule .btn, #add_equipments .btn{
-	margin-top:  45px;
-	margin-bottom: -85px;
-	width: 100%;
-}
-
-#schedule a {
-	text-align: center;
-}
-/***********SCHEDULE DIV***********/
 
 label{
 	margin-top: 20px;
@@ -131,18 +175,7 @@ label{
 
 }
 
-#form-header{
-	position: relative;
-	top: 35px;
-	padding-bottom: 20px;
-}
 
-#equi_box{
-	width: 100px;
-}
-#equipments{
-	width: 150px;
-}
 
 /*#submit_btn .submit-btn{
 	margin-top: 35px;
@@ -185,23 +218,6 @@ img {
 }
 
 
-#part1{
-	width: 250px;
-	margin-right: 20px;
-	float: right;
-}
-
- #form-final-button{
- 	width: 300px;
- }
-
- #requestform{
- 	position: relative;
- 	top: 50px;
- 	width: 850px;
- 	/*border: 1px solid #d3d3d3;*/
- 	overflow: auto;
- }
 
 .form_panel #request_form {
  	width: auto;
@@ -211,7 +227,3 @@ img {
  	width: 100%;
  	/*margin-bottom: -130px;*/
  }
-
-#submit_btn input {
-	margin-left: 530px;
-}

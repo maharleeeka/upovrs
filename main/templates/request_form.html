@@ -1,205 +1,208 @@
 {% extends 'base.html' %}
 {% block content %}
 		<div id="content">
-			<div class="alert alert-success" id="request-form-notif" >
-				<strong>Success!</strong>
-			</div>
-			<div class="container" id="requestform">
-				<div id="form-header">
-					<div class="col-sm-12">
-						<h2 class="text-center">University of the Philippines Cebu</h2>
+			<div class="container">
+				<!-- <div class="alert alert-success" id="request-form-notif" >
+					<strong>Success!</strong>
+				</div> -->
+				<div id="requestform">
+					<div id="form-header">
+						<div class="col-sm-12">
+							<h2 class="text-center">University of the Philippines Cebu</h2>
+						</div>
+						<h3 class="text-center">General Request Form/Event Sheet</h3>
 					</div>
-					<h3 class="text-center">General Request Form/Event Sheet</h3>
-				</div>
-				<!-- #form-header -->
-				<hr>
-				
-				<div id="basic_info" class="form_panel">
-					<div class="form_panel_header">
-						<div class="form_panel_title">
-							Basic Information
-						</div>
-					</div>
-					<form method="post" id="request_form" name="request_form">
-						{% csrf_token %}
-						<div class="form-group">
-							<div class="col-md-6">
-								<label>Name: </label>
-								<input type="text" class="form-control" name="name" value="{{ request.name }}">
-								<input type="text" class="form-control hidden" name="pk" id="pk" value="{{ request.pk }}">
-								<!-- <input type="text" class="form-control hidden" name="pk"> -->
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-md-6">
-								<label>Organization: </label>
-								<input type="text" class="form-control" name="organization" value="{{ request.organization }}">
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-md-6">
-								<label>Purpose: </label>
-								<input type="text" class="form-control" name="purpose" value="{{ request.purpose }}">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<div class="col-md-6">
-								<label>Participants: </label>
-								<input type="text" class="form-control" name="participants" value="{{ request.participants }}">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<div class="col-md-6">
-								<label>Speakers: </label>
-								<input type="text" class="form-control" name="speakers" value="{{ request.speakers }}">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<div class="col-md-6">
-								<label>Venue</label>
-								<select class="form-control" id="ex11" name="venue_id">
-									{% for venue in venue_list %}
-										{{ form.venue }}
-										{% if request.venue_id.pk == venue.pk %}
-											<option value="{{venue.pk}}" selected>{{venue}}</option>
-										{% endif %}
-										<option value="{{venue.pk}}">{{venue}}</option>									
-									{% endfor %}
-								</select>
-							</div>
-						</div>
-						
-						<div class="form-group">
-							<div class="col-md-12">
-								<label style="display:none;">Remarks</label>
-								<textarea rows="4" cols="40" id="ex11 comment" class="form-control" style="display:none;" readonly></textarea>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<div id="submit_btn" class="submit_btn">
-								<!-- <div class="col-md-12"> -->
-									<a href="#event_schedule"><input type="button" class="submit-btn form-control btn-default btn" id="part1" value="NEXT" onclick="validateForm(this.id)"></a>
-									<!-- <input type="button" class="submit-btn form-control btn-default btn" id="part1" value="SUBMIT" onclick="validateForm(this.id)"> -->
-								<!-- </div> -->	
-							</div>
-						</div>
-					</form>
-				</div>
+					<!-- #form-header -->
+					<hr>
 					
-				<div id="event_schedule" class="form_panel">
-					<div class="form_panel_header">
-						<div class="form_panel_title">
-							Event Schedule
+					<div id="basic_info" class="form_panel">
+						<div class="form_panel_header">
+							<div class="form_panel_title">
+								Basic Information
+							</div>
 						</div>
-					</div>
-					<form action="{% url 'submitDates' %}" method=post id=requestDates_form name=requestDates_form>
-
-						{% csrf_token %}
-						<div id="schedule">
+						<form method="post" id="request_form" name="request_form">
+							{% csrf_token %}
 							<div class="form-group">
-								<div class="col-md-3">
-									<input type="text" class="hidden" name="request_id" value="{{request.pk}}">
-									<label>Date: </label>
-									<input type="date" class="form-control" name="date_needed" id="date_needed" value="{{ date.date_needed }}">
+								<div class="col-md-6">
+									<label>Name: </label>
+									<input type="text" class="form-control" name="name" value="{{ request.name }}">
+									<input type="text" class="form-control hidden" name="pk" id="pk" value="{{ request.pk }}">
+									<!-- <input type="text" class="form-control hidden" name="pk"> -->
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-6">
+									<label>Organization: </label>
+									<input type="text" class="form-control" name="organization" value="{{ request.organization }}">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-6">
+									<label>Purpose: </label>
+									<input type="text" class="form-control" name="purpose" value="{{ request.purpose }}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-md-6">
+									<label>Participants: </label>
+									<input type="text" class="form-control" name="participants" value="{{ request.participants }}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-md-6">
+									<label>Speakers: </label>
+									<input type="text" class="form-control" name="speakers" value="{{ request.speakers }}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-md-6">
+									<label>Venue</label>
+									<select class="form-control" id="ex11" name="venue_id">
+										{% for venue in venue_list %}
+											{{ form.venue }}
+											{% if request.venue_id.pk == venue.pk %}
+												<option value="{{venue.pk}}" selected>{{venue}}</option>
+											{% endif %}
+											<option value="{{venue.pk}}">{{venue}}</option>									
+										{% endfor %}
+									</select>
 								</div>
 							</div>
 							
 							<div class="form-group">
-								<div class="col-md-3">
-									<label>Time (from): </label>
-									<input type="time" class="form-control" name="time_from" id="val" value="{{ date.time_from }}">
+								<div class="col-md-12">
+									<label style="display:none;">Remarks</label>
+									<textarea rows="4" cols="40" id="ex11 comment" class="form-control" style="display:none;" readonly></textarea>
 								</div>
 							</div>
 
 							<div class="form-group">
+								<div class="col-md-6 col-md-offset-4">
+									<!-- <div class="col-md-12"> -->
+										<a href="#event_schedule"><input type="button" class="submit-btn form-control btn-default btn" id="part1" value="NEXT" onclick="validateForm(this.id)"></a>
+										<!-- <input type="button" class="submit-btn form-control btn-default btn" id="part1" value="SUBMIT" onclick="validateForm(this.id)"> -->
+									<!-- </div> -->	
+								</div>
+							</div>
+						</form>
+					</div>
+						
+					<div id="event_schedule" class="form_panel">
+						<div class="form_panel_header">
+							<div class="form_panel_title">
+								Event Schedule
+							</div>
+						</div>
+						<form action="{% url 'submitDates' %}" method=post id=requestDates_form name=requestDates_form>
+
+							{% csrf_token %}
+							<div id="schedule">
+								<div class="form-group">
+									<div class="col-md-3">
+										<input type="text" class="hidden" name="request_id" value="{{request.pk}}">
+										<label>Date: </label>
+										<input type="date" class="form-control" name="date_needed" id="date_needed" value="{{ date.date_needed }}">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<div class="col-md-3">
+										<label>Time (from): </label>
+										<input type="time" class="form-control" name="time_from" id="val" value="{{ date.time_from }}">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-md-3">
+										<label>Time (to): </label>
+										<input type="time" class="form-control" name="time_to" id="val" value="{{ date.time_to }}">
+									</div>
+								</div>
 								<div class="col-md-3">
-									<label>Time (to): </label>
-									<input type="time" class="form-control" name="time_to" id="val" value="{{ date.time_to }}">
+									<a class="btn btn-default" href="#schedule" onclick="checkDateFields();">Add Date</a> 
 								</div>
 							</div>
-							<div class="col-md-3">
-								<a class="btn btn-default" href="#schedule"onclick="checkDateFields();">Add Date</a> 
+							<!-- #schedule -->
+							
+						</form>
+						<div id="added_date">
+							{% for date in requested_dates %}
+							<div id="added_date1" class = "col-md-12 block">
+								<input name="date_needed" class="col-md-3" value="{{ date.date_needed }}">
+								<input name="time_from" class="col-md-3" value="{{ date.time_from }}">
+								<input name="time_to" class="col-md-3" value="{{ date.time_to }}">
+								<span onclick="this.parentNode.remove();" role="button" class="glyphicon glyphicon-remove"></span>
 							</div>
-						</div>
-						<!-- #schedule -->
-						
-					</form>
-					<div id="added_date">
-						{% for date in requested_dates %}
-						<div id="added_date1" class = "col-md-12 block">
-							<input name="date_needed" class="col-md-3" value="{{ date.date_needed }}">
-							<input name="time_from" class="col-md-3" value="{{ date.time_from }}">
-							<input name="time_to" class="col-md-3" value="{{ date.time_to }}">
-							<span onclick="this.parentNode.remove();" role="button" class="glyphicon glyphicon-remove"></span>
-						</div>
-						{% endfor %}
-					</div>
-				</div>
-				<div id="event_equipments" class="form_panel">
-					<div class="form_panel_header">
-						<div class="form_panel_title">
-							Event Equipments
+							{% endfor %}
 						</div>
 					</div>
-					<form method="post" id="rentedequipments_form" name="rentedequipments_form" action="{% url 'submitEquipments' %}">
-						{% csrf_token %}
-						
-						<div id="add_equipments">
-							<div class="form-group">
-								<div class="col-md-4">
-									<input type="text" class="hidden" name="request_id" value="{{request.pk}}">
-									<label>Equipment:</label>
-									<select class="form-control" ed="ex1" name="equipment_id" id="unitbox">
-									{% for equipment in equipment_list %}
-										<option value="{{equipment.pk}}">{{equipment}}</option>
-									{% endfor %}
-									</select>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-md-4">
-									<label>Unit: </label>
-									<input type="text" class="form-control" name="unit">
-								</div>
-							</div>
-							<!-- <div class="form-group"> -->
-								<div class="col-md-4">
-									<a class="btn btn-default" onclick="validateForm(this.id);" id="part3">Add Equipments</a>
-								</div>
-							<!-- </div> -->
-						</div>	
-						<div class="form-group">
-							<div class="col-md-12">
-								{% for equipment in rented_equipments %}
-									<p>{{ equipment.equipment_id }} , {{ equipment.unit }}</p>
-								{% endfor %}
+					<div id="event_equipments" class="form_panel">
+						<div class="form_panel_header">
+							<div class="form_panel_title">
+								Event Equipments
 							</div>
 						</div>
-					</form>	
-				</div>
-				
-				<div class="form_panel" id="form-final-button">
-					<form action="{% url 'submitForm' %}" id="submit_form">
-						<div class="submit_btn">
+						<form method="post" id="rentedequipments_form" name="rentedequipments_form" action="{% url 'submitEquipments' %}">
+							
+							{% csrf_token %}
+							<div id="add_equipments">
+								<div class="form-group">
+									<div class="col-md-4">
+										<input type="text" class="hidden" name="request_id" value="{{request.pk}}">
+										<label>Equipment:</label>
+										<select class="form-control" ed="ex1" name="equipment_id" id="unitbox">
+										{% for equipment in equipment_list %}
+											<option value="{{equipment.pk}}">{{equipment}}</option>
+										{% endfor %}
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-4">
+										<label>Unit: </label>
+										<input type="text" class="form-control" name="unit">
+									</div>
+								</div>
+								<!-- <div class="form-group"> -->
+									<div class="col-md-4">
+										<a class="btn btn-default" onclick="validateForm(this.id);" id="part3">Add Equipments</a>
+									</div>
+								<!-- </div> -->
+							</div>	
 							<div class="form-group">
 								<div class="col-md-12">
-									<input type="text" class="hidden" name="request_id" value="{{request.pk}}">
-									<input type="text" class="hidden" name="osa_status" value="P">
-									<input type="text" class="hidden" name="cdmo_status" value="P">
-									<input type="text" class="hidden" name="cashier_status" value="P">
-									<input type="text" class="hidden" name="ada_status" value="P">
-									<input type="button" class="submit-btn form-control btn-default btn" value="SUBMIT" onclick="submitForm({{request.pk}})">
+									{% for equipment in rented_equipments %}
+										<p>{{ equipment.equipment_id }} , {{ equipment.unit }}</p>
+									{% endfor %}
 								</div>
 							</div>
-						</div>
-					</form>
+						</form>	
+					</div>
+					
+					<div class="form_panel" id="form-final-button">
+						<form action="{% url 'submitForm' %}" id="submit_form">
+							<div class="submit_btn">
+								<div class="form-group">
+									<div class="col-md-12">
+										<input type="text" class="hidden" name="request_id" value="{{request.pk}}">
+										<input type="text" class="hidden" name="osa_status" value="P">
+										<input type="text" class="hidden" name="cdmo_status" value="P">
+										<input type="text" class="hidden" name="cashier_status" value="P">
+										<input type="text" class="hidden" name="ada_status" value="P">
+										<input type="button" class="submit-btn form-control btn-default btn" value="SUBMIT" onclick="submitForm({{request.pk}})">
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
+			<!-- .container -->
 		</div>
-		<hr>
 		<!-- #content -->
+		<hr>
 {% endblock %}
