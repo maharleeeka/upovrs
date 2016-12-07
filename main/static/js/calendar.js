@@ -22,54 +22,30 @@
       businessHours: true, // display business hours
       editable: true,
 
-      // events: JSON.parse({{ events_list}}),
-     // console.log(events[0]),
-      // events: [
-      //     // {
-      //     //    title: getEventTitle()[0],
-      //     //    start: '2016-12-03T13:00:00',
-      //     // },
+      events: [
+          // {
+          //    title: getEventTitle()[0],
+          //    start: '2016-12-03T13:00:00',
+          // },
 
 
+        // areas where "Meeting" must be dropped
+        // {
+        //   id: 'availableForMeeting',
+        //   start: '2016-12-11 T10:00:00',
+        //   end: '2016-12-11 T16:00:00',
+        //   rendering: 'background'
+        // },
 
-      //   {
-      //     title: 'Business Lunch',
-      //     start: '2016-12-03T13:00:00',
-      //     constraint: 'businessHours'
-      //   },
-      //   {
-      //     title: 'Meeting',
-      //     start: '2016-12-13T11:00:00',
-      //     constraint: 'availableForMeeting', // defined below
-      //     // color: '#257e4a'
-      //   },
-      //   {
-      //     title: 'Conference',
-      //     start: '2016-12-18',
-      //     end: '2016-09-20'
-      //   },
-      //   {
-      //     title: 'Party',
-      //     start: '2016-12-29T20:00:00'
-      //   },
-
-      //   // areas where "Meeting" must be dropped
-      //   {
-      //     id: 'availableForMeeting',
-      //     start: '2016-12-11 T10:00:00',
-      //     end: '2016-12-11 T16:00:00',
-      //     rendering: 'background'
-      //   },
-
-      //   // red areas where no events can be dropped
-      //   {
-      //     start: '2016-12-24',
-      //     end: '2016-12-28',
-      //     overlap: false,
-      //     rendering: 'background',
-      //     color: '#ff9f89'
-      //   },
-      // ]
+        // // red areas where no events can be dropped
+        // {
+        //   start: '2016-12-24',
+        //   end: '2016-12-28',
+        //   overlap: false,
+        //   rendering: 'background',
+        //   color: '#ff9f89'
+        // },
+      ]
     });
     
   });

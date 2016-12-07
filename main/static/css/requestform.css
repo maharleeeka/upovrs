@@ -4,26 +4,27 @@ textarea {
 	border: none;
 }
 
-
-#basic_info{
-	/*height: 420px;*/
-	/*min-height: 420px;*/
+label{
+	margin-top: 20px;
 }
 
 #event_equipments, #event_schedule{
 	padding-bottom: 20px;
-	display: block;
-	/*overflow: auto; */	
+/*	overflow: auto;*/
 	min-height: 200px;
 }
 
+#form-final-button{
+	width: 300px;
+	margin-top: -30px;
+	border: none;
+}
 
-#equi_box{
-	width: 100px;
+.btn-margin-bottom {
+	margin: auto;
+	margin-bottom: 55px;;
 }
-#equipments{
-	width: 150px;
-}
+
 
 #form-header{
 	position: relative;
@@ -31,41 +32,31 @@ textarea {
 	padding-bottom: 20px;
 }
 
+#equi_box{
+	width: 100px;
+}
+
+#equipments{
+	width: 150px;
+}
+
 #header{
 	position: absolute;
 }
 
-#part1{
-	width: 250px;
-	margin-right: 20px;
-	/*float: right;*/
-}
-
- #form-final-button{
- 	width: 300px;
- }
-
- #requestform{
- 	/*position: relative;
+#requestform{
+ 	position: relative;
  	top: 50px;
- 	width: 850px;*/
- 	/*border: 1px solid #d3d3d3;*/
- 	/*overflow: auto;*/
- }
-
-/* #submit_btn input {
-	margin-left: 450px;
-}*/
-
-.form-group .submit_btn {
-	float: right;
 }
+
+#request-form-notif{
+	display: none;
+}
+
+
 
 /***********SCHEDULE DIV***********/
-/*#schedule{
-	background: red;
-	border: 5px solid black;
-}*/
+
 #schedule .btn, #add_equipments .btn{
 	margin-top:  45px;
 	margin-bottom: -85px;
@@ -74,34 +65,6 @@ textarea {
 
 #schedule a {
 	text-align: center;
-}
-
-
-.content{
-	position: absolute;
-	top: 50px;
-	width: 750px;
-	height: 100%;
-	padding-bottom: 20px;
-	margin-bottom: 50px;
-	
-}
-
-.content .form-control{
-	margin-top: 0px; 
-
-}
-
-/*.container{
-	width: 100%;
-}*/
-
-.form_panel{
-	/*width: 800px;*/
-	margin: auto;
-	border: 1px solid #d3d3d3;
-	border-radius: 5px;
-	margin-bottom: 55px;
 }
 
 
@@ -125,11 +88,61 @@ textarea {
 	margin: auto;
 }
 
-#form-final-button{
 
-	width: 930px;
-	margin-top: -30px;
-	border: none;
+/** OVERRIDES **/
+
+.submit_btn .btn-default:hover, .submit_btn .btn-default:active, .submit_btn .btn-default:focus {
+	background: #4CAF50;
+	color: #fff;
+}
+
+
+.submit_btn #part1 {
+	margin-right: 20px;
+	width: 30%;
+	float: right;
+}
+
+.sub-btn a:hover, .sub-btn a:active {
+	background: #ccc;
+	color: #333;
+	border: 1px solid transparent;
+}
+
+
+
+/** CLASSES **/
+.alert{
+	position: fixed;
+	top: 60px;
+	z-index: 999;
+	width: 100%;
+}
+
+.btn-default{
+	background: none;
+}
+
+.content{
+	position: absolute;
+	top: 50px;
+	/*width: 750px;*/
+	height: 100%;
+	padding-bottom: 20px;
+	margin-bottom: 50px;	
+}
+
+.content .form-control{
+	margin-top: 0px; 
+
+}
+
+.form_panel{
+	margin: auto;
+	border: 1px solid #d3d3d3;
+	border-radius: 5px;
+	margin-bottom: 55px;
+	min-height: 420px;
 }
 
 .block input {
@@ -143,15 +156,10 @@ textarea {
 }
 
 .block {
-	margin: 5px;
+	margin: 5px 15px;
 	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.40);
 }
 
-/***********SCHEDULE DIV***********/
-
-label{
-	margin-top: 20px;
-}
 
 .main{
 	width: 850px;
@@ -177,53 +185,27 @@ label{
 
 
 
-/*#submit_btn .submit-btn{
-	margin-top: 35px;
-	background: #4CAF50;
-	color: #FFF;
-}*/
-
-.btn-default{
-	background: none;
-}
-
 .submit-btn {
 	background: #4CAF50;
 	color: #FFF;
 	margin-top: 35px;
+	margin-bottom: 50px;
 }
-
-@media (max-width: 991px){
-	#schedule .btn {
-		margin-top: 20px;
-		margin-bottom: 20px;
-	}
-
-}
-
-.alert{
-	position: fixed;
-	top: 60px;
-	z-index: 999;
-	width: 100%;
-}
-
-#request-form-notif{
-	display: none;
-}
-img {
-    width:50px;
-    height:50px;
-    margin-top: 4px;
-}
-
-
 
 .form_panel #request_form {
  	width: auto;
  }
 
- #part3{
- 	width: 100%;
- 	/*margin-bottom: -130px;*/
- }
+
+/** MEDIA **/
+
+@media (max-width: 991px){
+	#schedule .btn, #add_equipments .btn {
+		margin-top: 5px;
+		margin-bottom: 20px;
+	}
+
+	.form_panel #request_form {
+		height: 750px;
+	}
+}
