@@ -36,7 +36,7 @@ urlpatterns = [
     url(r'^osaview/', views.listing, name='osaview'),
     url(r'^requestlist/$', 
         user_passes_test(lambda u: Group.objects.get(name='Approvers') in u.groups.all()) 
-        (views.requestlisting), name="requeslist"),
+        (views.requestlisting), name="requestlist"),
     url(r'^submitForm/$', views.SubmitForm.as_view(), name='submitForm'),
     url(r'^submitDates/$', views.DatesView.as_view(), name='submitDates'),
     url(r'^chargeslip/$', views.chargeslip, name='chargeslip'),

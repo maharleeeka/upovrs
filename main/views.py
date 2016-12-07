@@ -37,7 +37,7 @@ def group_check(user):
 
 class LoginView(FormView):
     success_url = '/main'
-    success_office = '/main/requestlist'
+    success_office = '/main'
     form_class = AuthenticationForm
     template_name = "login.html"
     redirect_field_name = '/templates/request_form'
