@@ -12,7 +12,7 @@ label{
 	width: 97%;
 }
 
-#event_equipments, #event_schedule{
+#event_equipments, #event_schedule, #basic_info{
 	padding-bottom: 20px;
 	overflow: auto;
 	min-height: 200px;
@@ -71,12 +71,12 @@ label{
 
 .form_panel_header{
 	margin: auto;
-    margin-top:-10px;
+    /*margin-top:-10px;*/
     padding-left: 5px;
-    padding-right: 5px;   
+   /* padding-right: 5px;  */ 
     z-index: 999;
     height: 50px;
-    border-bottom: 1px solid #d3d3d3;
+   /* border-bottom: 1px solid #d3d3d3;*/
     background: #7c0f0e;
 }
 
@@ -92,9 +92,12 @@ label{
 /** OVERRIDES **/
 
 #content .container {
-	padding: 0px 50px;
+	padding: 0px 100px;
 }
 
+.form-group {
+	margin-bottom: 0px;
+}
 .submit_btn .btn-default:hover, .submit_btn .btn-default:active, .submit_btn .btn-default:focus {
 	background: #4CAF50;
 	color: #fff;
@@ -105,12 +108,13 @@ label{
 	margin-right: 20px;
 	width: 30%;
 	float: right;
+	margin-bottom: 30px;
 }
 
 .sub-btn a:hover, .sub-btn a:active {
-	background: #ccc;
+	background: #eff1f1;
 	color: #333;
-	border: 1px solid transparent;
+	border: 1px solid #d5d5d5;
 }
 
 
@@ -124,7 +128,10 @@ label{
 }
 
 .btn-default{
-	background: none;
+	background-color: #eff1f1;
+	border-radius: 
+	border: 1px solid #d5d5d5;
+	/*background: none;*/
 }
 
 .content{
@@ -144,9 +151,9 @@ label{
 .form_panel{
 	margin: auto;
 	border: 1px solid #d3d3d3;
-	border-radius: 5px;
-	margin-bottom: 55px;
+	margin-bottom: 30px;
 	min-height: 420px;
+	border-radius: px; 
 }
 
 .block input {
@@ -160,7 +167,8 @@ label{
 }
 
 .block {
-	margin: 5px 15px;
+	margin: 10px 15px;
+	margin-bottom: 0px;
 	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.40);
 }
 
@@ -181,11 +189,6 @@ label{
   	color:red;
 }
 
-.btn-default{
-	/*margin-bottom: 50px;*/
-	background-color: #ccc;
-
-}
 
 
 
@@ -207,14 +210,19 @@ label{
 	#added_date, #equipments {
 		width: 100%;
 	}
+
+	#content .container {
+		padding: 0px 30px;
+	}
 	#schedule .btn, #add_equipments .btn {
-		margin-top: 5px;
+		margin-top: 15px;
 		margin-bottom: 20px;
 	}
 
 	.form_panel #request_form {
-		height: 750px;
+		height: 650px;
 	}
+
 }
 
 @media (max-width: 716px){
