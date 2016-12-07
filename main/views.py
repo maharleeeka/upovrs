@@ -31,7 +31,7 @@ def group_check(user):
                                         'OSA Staff'])
 
 class LoginView(FormView):
-    success_url = '/main/requestform'
+    success_url = '/main'
     success_office = '/main/requestlist'
     form_class = AuthenticationForm
     template_name = "login.html"
@@ -87,6 +87,7 @@ class GuidelineView(TemplateView):
 
 class MainView(TemplateView):
     template_name = "index.html"
+    #get if the user logged in has pending requests
 
 class RateView(TemplateView):
     template_name = "rates.html"

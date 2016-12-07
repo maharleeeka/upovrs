@@ -25,28 +25,28 @@
 						<div class="form-group">
 							<div class="col-md-6">
 								<label>Name: </label>
-								<input type="text" class="form-control" name="name" value="{{ request.name }}">
-								<input type="text" class="form-control hidden" name="pk" id="pk" value="{{ request.pk }}">
+								<input type="text" class="form-control" name="name" value="{{ request.name }}" required>
+								<input type="text" class="form-control hidden" name="pk" id="pk" value="{{ request.pk }}" required>
 								<!-- <input type="text" class="form-control hidden" name="pk"> -->
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-md-6">
 								<label>Organization: </label>
-								<input type="text" class="form-control" name="organization" value="{{ request.organization }}">
+								<input type="text" class="form-control" name="organization" value="{{ request.organization }}" required>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-md-6">
 								<label>Purpose: </label>
-								<input type="text" class="form-control" name="purpose" value="{{ request.purpose }}">
+								<input type="text" class="form-control" name="purpose" value="{{ request.purpose }}" required>
 							</div>
 						</div>
 
 						<div class="form-group">
 							<div class="col-md-6">
 								<label>Participants: </label>
-								<input type="text" class="form-control" name="participants" value="{{ request.participants }}">
+								<input type="text" class="form-control" name="participants" value="{{ request.participants }}" required>
 							</div>
 						</div>
 
@@ -81,8 +81,7 @@
 
 						<div class="form-group">
 							<div id="submit_btn" class="submit_btn">
-								<!-- <div class="col-md-12"> -->
-									<a href="#event_schedule"><input type="button" class="submit-btn form-control btn-default btn" id="part1" value="NEXT" onclick="validateForm(this.id)"></a>
+									<a href="#event_schedule"><input type="button" class="submit-btn form-control btn-default btn" id="part1" value="NEXT" onclick="validateForm(this.id); formpanel(1)"></a>
 									<!-- <input type="button" class="submit-btn form-control btn-default btn" id="part1" value="SUBMIT" onclick="validateForm(this.id)"> -->
 								<!-- </div> -->	
 							</div>
@@ -90,7 +89,9 @@
 					</form>
 				</div>
 					
-				<div id="event_schedule" class="form_panel">
+				{% if request.pk != null %}
+					
+					<div id="event_schedule" class="form_panel" onload="scrollTo()">
 					<div class="form_panel_header">
 						<div class="form_panel_title">
 							Event Schedule
@@ -102,23 +103,23 @@
 						<div id="schedule">
 							<div class="form-group">
 								<div class="col-md-3">
-									<input type="text" class="hidden" name="request_id" value="{{request.pk}}">
+									<input type="text" class="hidden" name="request_id" value="{{request.pk}}" required>
 									<label>Date: </label>
-									<input type="date" class="form-control" name="date_needed" id="date_needed" value="{{ date.date_needed }}">
+									<input type="date" class="form-control" name="date_needed" id="date_needed" value="{{ date.date_needed }}" required>
 								</div>
 							</div>
 							
 							<div class="form-group">
 								<div class="col-md-3">
 									<label>Time (from): </label>
-									<input type="time" class="form-control" name="time_from" id="val" value="{{ date.time_from }}">
+									<input type="time" class="form-control" name="time_from" id="val" value="{{ date.time_from }}" required>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<div class="col-md-3">
 									<label>Time (to): </label>
-									<input type="time" class="form-control" name="time_to" id="val" value="{{ date.time_to }}">
+									<input type="time" class="form-control" name="time_to" id="val" value="{{ date.time_to }}" required>
 								</div>
 							</div>
 							<div class="col-md-3">
@@ -198,6 +199,7 @@
 						</div>
 					</form>
 				</div>
+				{% endif %}
 			</div>
 		</div>
 		<hr>
