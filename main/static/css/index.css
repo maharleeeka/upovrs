@@ -33,9 +33,6 @@
 
 
 /** Bootstrap Override **/
-.btn-block {
-	width: 80%;
-}
 .nav > li > a {
 	color: #000;
 }
