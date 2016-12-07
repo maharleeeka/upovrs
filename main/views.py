@@ -401,3 +401,6 @@ class SubmitForm(FormView):
 		context['total'] = total
 		context['hours'] = hours
 		return context
+
+class MyRequests(TemplateView):
+	template_name = "my_requests.html"

@@ -51,3 +51,16 @@
 #request_form .table tbody tr td{
 	border-top: none;
 }
+
+/*
+*************************************************************
+	* MY REQUEST
+*************************************************************
+*/
+
+#my_requests_list{
+	position: relative;
+	top: 200px;
+	width: 800px;
+	margin: auto;
+}
