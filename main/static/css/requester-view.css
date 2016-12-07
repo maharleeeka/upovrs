@@ -34,11 +34,6 @@
 	min-height: 200px;
 }
 
-#requester_view_form{
-	overflow: hidden;
-	height: 200px;
-}
-
 #requester_form_viewAll{
 	position: relative;
 	top: 10px;
