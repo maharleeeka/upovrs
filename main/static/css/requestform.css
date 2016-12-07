@@ -36,14 +36,13 @@ textarea {
 }
 
 #basic_info{
-	height: 420px;
-	display: block;
+	min-height: 420px;
 }
 
 #event_equipments, #event_schedule{
 	padding-bottom: 20px;
 	overflow: auto;
-	display: none;
+	min-height: 200px;
 }
 
 
@@ -93,7 +92,7 @@ textarea {
 	background: red;
 	border: 5px solid black;
 }*/
-#schedule .btn{
+#schedule .btn, #add_equipments .btn{
 	margin-top:  45px;
 	margin-bottom: -85px;
 	width: 100%;
@@ -125,7 +124,7 @@ label{
 }
 
 .btn-default{
-	margin-bottom: 50px;
+	/*margin-bottom: 50px;*/
 	background-color: #ccc;
 
 }
@@ -143,14 +142,20 @@ label{
 	width: 150px;
 }
 
-#submit_btn .submit-btn{
+/*#submit_btn .submit-btn{
 	margin-top: 35px;
 	background: #4CAF50;
 	color: #FFF;
-}
+}*/
 
 .btn-default{
 	background: none;
+}
+
+.submit-btn {
+	background: #4CAF50;
+	color: #FFF;
+	margin-top: 35px;
 }
 
 @media (max-width: 991px){
@@ -196,7 +201,15 @@ img {
  	overflow: auto;
  }
 
+.form_panel #request_form {
+ 	width: auto;
+ }
+
  #part3{
  	width: 100%;
- 	margin-bottom: -130px;
+ 	/*margin-bottom: -130px;*/
  }
+
+#submit_btn input {
+	margin-left: 530px;
+}
