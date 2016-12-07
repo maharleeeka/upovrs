@@ -44,6 +44,5 @@ urlpatterns = [
     url(r'^requester/$',
         user_passes_test(lambda u: Group.objects.get(name='Requesters') in u.groups.all()) 
         (views.RequesterView.as_view()), name='requester'),
-    url(r'^invoice/$', views.invoiceViewing, name='invoice'),
     url(r'^myrequests/$', views.MyRequests.as_view(), name='myrequests'),
 ]
