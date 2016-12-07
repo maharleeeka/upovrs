@@ -11,11 +11,7 @@
 	border: 1px solid #d3d3d3;
 	border-radius: 5px;
 	margin-bottom: 55px;
-	height: 200px;
-}
-
-#requester_view_form{
-	overflow: auto;
+	min-height: 200px;
 }
 
 .requester_panel_header{
@@ -35,4 +31,28 @@
 	top: 30px;
 	margin: auto;
 	width: 800px;
+	min-height: 200px;
+}
+
+#requester_view_form{
+	overflow: hidden;
+	height: 200px;
+}
+
+#requester_form_viewAll{
+	position: relative;
+	top: 10px;
+	height: 50px;
+	width: 50px;
+	float: right;
+	margin-right: 20px;
+	margin-left: 20px;
+}
+
+#request_form{
+	width: 700px;
+}
+
+#request_form .table tbody tr td{
+	border-top: none;
 }

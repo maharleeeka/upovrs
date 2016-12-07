@@ -7,54 +7,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>UP OVRS Request Form</title>
-
-    <!-- Bootstrap -->
-
-    
+   
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+      <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
     <link rel="stylesheet" href="{% static "css/bootstrap.css" %}" />
-    <link rel="stylesheet" href="{% static "css/header.css" %}"/>
+   <!--  <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}" /> -->
+    <link rel="stylesheet" href="{% static "css/fullcalendar.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/fullcalendar.print.css" %}" media='print'/>
     <link rel="stylesheet" href="{% static "css/requestform.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/header.css" %}"/>
     <link rel="stylesheet" href="{% static "css/success.css" %}"/>
     <link rel="stylesheet" href="{% static "css/login.css" %}"/>
     <link rel="stylesheet" href="{% static "css/osa.css" %}"/>
     <link rel="stylesheet" href="{% static "css/viewrequests.css" %}"/>
+<<<<<<< HEAD
     <link rel="stylesheet" href="{% static "css/requester.css" %}"/>
     <link rel="stylesheet" href="{% static "css/invoice.css" %}"/>
+=======
     <link rel="stylesheet" href="{% static "css/requester-view.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/cashier.css" %}"/>
+>>>>>>> 1443b9cc324dfb6d75003f4d2d88c106b642fad0
+    <link rel="stylesheet" href="{% static "css/requester-view.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/index.css" %}"/> 
 
   </head>
 
   <body class="body">
   	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="container">
-          <div class="navbar-header">
-            
+      <div class="container">
+        <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
               <span class="sr-only">Toggle Navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
+              <span class="glyphicon glyphicon-menu-hamburger"></span>
             </button>
-          </div>
-          <div class="col-md-2 col-sm-3 col-xs-3">
-            <img src="{% static "images/UP_logo.png" %}" alt="">
+        </div>
+
+        <div id="right-nav">
+          <div class="col-md-2 col-sm-3 col-xs-2">
+            <img class="hidden-xs" src="{% static "images/UP_logo.png" %}" alt="">
             <img src="{% static "images/UPC_logo.png" %}" alt="">
           </div>
-          <div class="col-md-5 col-sm-5 col-xs-8">
-            <a class="navbar-title" href="/main/">UP Online Venue Reservation System</a>  
-          </div>
-          <div class="col-md-5 col-md-offset-0 col-sm-4 col-sm-offset-0 col-xs-12">
+        </div>
+        <!-- #right-nav -->
+        
+        <div class="col-md-5 col-sm-4 col-xs-8">
+          <a class="navbar-title" href="/main/">UP Online Venue Reservation System</a>  
+        </div>
+
+        <div id="left-nav">
+          <div class="col-md-5 col-sm-5 col-xs-12">
             <div class="navbar-collapse collapse">
               <ul class="nav navbar-nav navbar-right">
                 <li class="center">
                     <div class="form-group has-success has-feedback search">
-                      <input type="text" class="form-control" id="inputSearch" placeholder="Tracking Number..">
+                      <input type="text" class="form-control" id="inputSearch" placeholder="SEARCH...">
                       <span class="glyphicon glyphicon-search form-control-feedback"></span>
                     </div>
                 </li>
-                <li>
+                 <li>
                   {% if user.is_authenticated %}
-                  <a class="button login_button" href="{% url 'logout' %}">Logout</a>
+                  <a class="button login_button" href="{% url 'login' %}">Logout</a>
                   {% else %}
                   <a class="button login_button" href="{% url 'login' %}">Login</a>
                   {% endif %}
@@ -62,25 +74,26 @@
               </ul>
             </div>
           </div>
-          
         </div>
       </div>
-      <!-- .navbar -->
-
-  	<div>
-  	{% block content %}
-  	{% endblock %}
-  	</div>
-    
-    <div id="site-footer">
-      
-      
     </div>
+
+  	<div class="content-wrapper">
+    	{% block content %}
+    	{% endblock %}
+  	</div>
+    <!-- .content-wrapper -->
+
+    <div id="site-footer">
+    </div>
+    <!-- .site-footer -->
+
       <script type="text/javascript" src="{% static 'js/requestform.js' %}"></script>
-      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-      <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+      
       <!-- Include all compiled plugins (below), or include individual files as needed -->
+      <script type="text/javascript" src="{% static 'js/moment.min.js' %}"></script>
+      <script type="text/javascript" src="{% static 'js/fullcalendar.min.js' %}"></script>
+      <script type="text/javascript" src="{% static 'js/calendar.js' %}"></script>
       <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
   </body>
-
 </html>

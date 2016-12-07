@@ -6,7 +6,7 @@ from django.contrib.auth.models import Group
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.MainView.as_view(), name='index'),
+    url(r'^$', views.EventLists.as_view(), name='index'),
     # url(r'^$', views.HomepageView.as_view(), name='index'),
     # url(r'^requestform/$', views.RequestView.as_view(), name='requestform'),
     url(r'^requestform/$', views.RequestView.as_view(), name='requestform'),
@@ -43,6 +43,6 @@ urlpatterns = [
     #url(r'^addRemarks/$', views.AddRemarksView.as_view(), name='addRemarks')
     url(r'^requester/$',
         user_passes_test(lambda u: Group.objects.get(name='Requesters') in u.groups.all()) 
-        (views.requestlisting), name='requester'),
+        (views.RequesterView.as_view()), name='requester'),
     url(r'^invoice/$', views.invoiceViewing, name='invoice'),
 ]

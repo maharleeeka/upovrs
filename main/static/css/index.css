@@ -1,0 +1,97 @@
+/* OVERRIDES */
+
+/** Full Calendar Override **/
+#calendar{
+	 top: 0;
+	 padding: 20px; 
+	 border: 1px solid #ddd;
+	 margin-bottom: 10px;
+}
+
+.fc-center h2{
+	text-transform: uppercase;
+}
+
+.fc-event {
+	border-radius: 0px;
+	background: #4CAF50;
+	border: 1px solid #4CAF50;
+}
+
+.fc-day-container, .fc-scroller{
+	overflow-y: hidden;
+}
+
+.fc-toolbar .fc-center{
+	width: 100%;
+	padding-top: 20px;
+}
+
+.fc-unthemed .fc-today{
+	background: darksalmon;
+}
+
+
+/** Bootstrap Override **/
+.nav > li > a {
+	color: #000;
+}
+
+.nav.sidebar .nav> li, .panel-body{
+	border-bottom: 1px #e5e5e5 solid;
+	/*background: #4CAF50;*/
+}
+
+.panel-body {
+	padding-bottom: 0px;
+}
+
+.panel-default .panel-heading{
+	/*border: 1px solid #ddd;*/
+	background: #7C0F0E;
+	color: #fff;
+}
+
+.panel-content .panel-notice{
+	margin: 10px;
+}
+
+
+/** CLASSES **/
+
+.event-name{
+	font-weight: bold;
+}
+
+.event-details{
+	font-size: 12px;
+	color: #777;
+}
+
+.index-wrapper{
+	margin-top: 100px;
+}
+
+.side-panel hr{
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+
+/**
+* Media
+*/
+
+@media (max-width: 991px){
+   .req-btn .btn {
+   		width: 80%;
+   }
+
+}
+
+@media (max-width: 765px){
+   .req-btn .btn {
+   		width: 45%;
+   }
+
+}
