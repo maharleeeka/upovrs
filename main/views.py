@@ -335,30 +335,6 @@ class RequesterView(TemplateView):
 		else:
 			return reverse_lazy("requestform")
 
-def invoiceViewing(request):
-	queryset_requestlist = Request.objects.all()
-
-	q = request.GET.get("q")
-	if q:
-		queryset_requestlist = queryset_requestlist.filter(Q(pk__icontains=q))
-		request_id = Request.objects.get(pk=q)
-		date_list = RequestedDate.objects.filter(request_id=request_id)
-		equipment_list = RentedEquipment.objects.filter(request_id=request_id)
-
-		paginator = Paginator(queryset_requestlist, 10)
-		page = request.GET.get('page')
-
-		try:
-			requests = paginator.page(page)
-		except PageNotAnInteger:
-			requests = paginator.page(1)
-		except EmptyPage:
-			requests = paginator.page(paginator.num_pages)
-
-		return render(request, 'payment_invoice.html', {'requests': requests, 'equipment_list': equipment_list, 'date_list': date_list})
-	else:
-		return render(request, 'payment_invoice.html')
-
 def todatetime(time):
 	return datetime.datetime.today().replace(hour=time.hour, minute=time.minute, second=time.second, microsecond=time.microsecond, tzinfo=time.tzinfo)
 
@@ -441,6 +417,7 @@ class SubmitForm(FormView):
 		context['request'] = r
 		context['total'] = total
 		context['hours'] = hours
+		context['date'] = date
 
 		return context
 
