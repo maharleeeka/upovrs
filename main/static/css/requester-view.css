@@ -1,56 +1,30 @@
-#requester-view{
-	position: relative;
-	top: 100px;
-	/*width: 950px;*/
-	margin: auto;
+#requester-view {
+	margin-top: 150px;
 }
 
-.requester_panel{
-	/*width: 900px;*/
-	margin: auto;
-	border: 1px solid #d3d3d3;
-	border-radius: 5px;
-	margin-bottom: 55px;
-	/*min-height: 200px;*/
+/* OVERRIDES*/
+
+#requester-view .panel-body{
+	padding: 0px;
 }
 
-.requester_panel_header{
-	height: 50px;
-	background: #7c0f0e;
-}
-.requester_panel_title{
-	padding-left: 20px;
-	padding-top: 5px;
-	color: #FFF;
-	font-size: 30px;
-	margin: auto;
+#requester-view .table {
+	margin-bottom: 0px;
 }
 
-.requester_view_body{
-	position: relative;
-	top: 30px;
-	margin: auto;
-	width: 90%;
-	/*min-height: 200px;*/
+/* CLASSES */
+
+.request-status td{
+	border-style: solid;
+	border-width: 1px;
+	border-color: #ddd;
 }
 
-#requester_form_viewAll{
-	position: relative;
-	top: 10px;
-	height: 50px;
-	width: 50px;
-	float: right;
-	margin-right: 20px;
-	margin-left: 20px;
+.rf{
+	border-right: 1px solid #ddd;
 }
 
-#request_form{
-	width: 700px;
-}
 
-#request_form .table tbody tr td{
-	border-top: none;
-}
 
 /*
 *************************************************************
