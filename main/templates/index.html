@@ -26,6 +26,7 @@
 						<ul class="nav">
 							{% if user.is_authenticated %}
 								{%	if user.get_username != "osa_maria" and user.get_username != "cdmo_juan" and user.get_username != "ada_adelfa"%}
+
 								<li><a href="{% url 'requestform' %}">ADD REQUEST</a></li>
 								<li><a href="{% url 'requester' %}">MY REQUESTS</a></li>
 								{% else %}

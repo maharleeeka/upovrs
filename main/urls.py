@@ -9,14 +9,14 @@ urlpatterns = [
     url(r'^$', views.EventLists.as_view(), name='index'),
     # url(r'^$', views.HomepageView.as_view(), name='index'),
     # url(r'^requestform/$', views.RequestView.as_view(), name='requestform'),
-    url(r'^requestform/$', views.RequestView.as_view(), name='requestform'),
+    url(r'^requestform/$', views.RequestView.as_view(), name="requestform"),
     # url(r'^requestform/(?P<pk>\d+)/$', views.RequestView.as_view(), name='requestform'),
     url(r'^submitEquipments/$', views.RentedEquipmentsView.as_view(), name='submitEquipments'),
     url(r'^submitDates/$', views.DatesView.as_view(), name='submitDates'),
-    url(r'^requestform/(?P<pk>\d+)/$', 
+    url(r'^requestform/(?P<pk>\d+)/$',
         user_passes_test(lambda u: Group.objects.get(name='Requesters') in u.groups.all())
-        (views.RequestView.as_view()),name="requestform"),
-    url(r'^requestform/(?P<pk>\d+)/$', views.RequestView.as_view(), name='requestform'),
+        (views.RequestView.as_view()),name='requestform'),
+    #url(r'^requestform/(?P<pk>\d+)/$', views.RequestView.as_view(), name='requestform'),
     url(r'^submitEquipments/$', views.RentedEquipmentsView.as_view(), name='submitEquipments'),
     url(r'^submitDates/$', views.DatesView.as_view(), name='submitDates'),
     # url(r'^requestform/(?P<pk>\d+)/$', 
@@ -44,5 +44,5 @@ urlpatterns = [
     url(r'^requester/$',
         user_passes_test(lambda u: Group.objects.get(name='Requesters') in u.groups.all()) 
         (views.RequesterView.as_view()), name='requester'),
-    url(r'^invoice/$', views.invoiceViewing, name='invoice'),
+    url(r'^myrequests/$', views.MyRequests.as_view(), name='myrequests'),
 ]

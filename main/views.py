@@ -80,13 +80,13 @@ class LoginView(FormView):
 
 
 class LogoutView(RedirectView):
-    url = '/main/requestform'
+    url = '/main/'
 
     def get(self, request, *args, **kwargs):
         auth_logout(request)
         return super(LogoutView, self).get(request, *args, **kwargs)
 
-class SuccessView(TemplateView):
+class SuccessView(LoginRequiredMixin, TemplateView):
     template_name = "success.html"
 
 class GuidelineView(TemplateView):
@@ -350,29 +350,6 @@ class RequesterView(TemplateView):
 		else:
 			return reverse_lazy("requestform")
 
-def invoiceViewing(request):
-	queryset_requestlist = Request.objects.all()
-
-	q = request.GET.get("quer")
-	if q:
-		queryset_requestlist = queryset_requestlist.filter(Q(pk__icontains=q))
-		request_id = Request.objects.get(pk=q)
-		equipment_list = RentedEquipment.objects.filter(request_id=request_id)
-
-		paginator = Paginator(queryset_requestlist, 10)
-		page = request.GET.get('page')
-
-		try:
-			requests = paginator.page(page)
-		except PageNotAnInteger:
-			requests = paginator.page(1)
-		except EmptyPage:
-			requests = paginator.page(paginator.num_pages)
-
-		return render(request, 'payment_invoice.html', {'requests': requests, 'equipment_list': equipment_list})
-	else:
-		return render(request, 'payment_invoice.html')
-
 def todatetime(time):
 	return datetime.datetime.today().replace(hour=time.hour, minute=time.minute, second=time.second, microsecond=time.microsecond, tzinfo=time.tzinfo)
 
@@ -455,23 +432,13 @@ class SubmitForm(FormView):
 		context['request'] = r
 		context['total'] = total
 		context['hours'] = hours
-
-		#generate pdf
-		# path_wkthmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
-		# config = pdfkit.configuration(wkhtmltopdf=path_wkthmltopdf)
-		# pdfkit.from_url('submitForm', 'star.pdf', configuration=config)
-		# template = 'success.html'
-		# #context = Context 
-		# html = template.render(context)
-		# pdfkit.from_string(html, 'out.pdf')
-		# pdf = open("out.pdf")
-		# response = HttpResponse(pdf.read(), content_type='application/pdf')  # Generates the response as pdf response.
-		# response['Content-Disposition'] = 'attachment; filename=output.pdf'
-		# pdf.close()
-		# pdfkit.from_string(context, 'out.pdf')
+		context['date'] = date
 
 		return context
 
+class MyRequests(TemplateView):
+	template_name = "my_requests.html"
+	
 def chargeslip(request):
 	# path_wkthmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
 	# config = pdfkit.configuration(wkhtmltopdf=path_wkthmltopdf)
