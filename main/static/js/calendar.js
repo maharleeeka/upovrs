@@ -28,7 +28,6 @@
           //    start: '2016-12-03T13:00:00',
           // },
 
-
         // areas where "Meeting" must be dropped
         // {
         //   id: 'availableForMeeting',

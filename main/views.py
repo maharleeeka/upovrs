@@ -22,6 +22,8 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView, RedirectView
 from django.contrib.auth.models import Group, User
 import datetime, math
+from django.utils.timezone import utc
+from django.core.serializers.json import DjangoJSONEncoder
 # from reportlab.pdfgen import canvas
 # from reportlab.lib.pagesizes import letter
 # from reportlab.lib.units import inch
@@ -208,7 +210,8 @@ class EventLists(FormView):
 		context = super(EventLists, self).get_context_data(**kwargs)
 		context['events'] = Request.objects.all()[0:5]
 		request_list = Request.objects.all()
-		dates = RequestedDate.objects.all()
+		dates = RequestedDate.objects.all() 
+
 		print (dates)
 		context['dates'] = dates
 
@@ -223,7 +226,19 @@ class DatesView(FormView):
 		if form.is_valid():
 			print ('valid')
 			print (form)
+
+			date = form.cleaned_data['date_needed']
+			st = form.cleaned_data['time_from']
+			et = form.cleaned_data['time_to']
+
 			self.object = form.save()
+			# self.object.start = datetime.datetime.combine(date, st)
+			# self.object.end = datetime.datetime.combine(date, et)
+			# self.object.save()
+			
+			print (self.object.start)
+			print (self.object.end)
+
 			return self.form_valid(form)
 		else:
 			return self.form_invalid(form)
@@ -510,3 +525,24 @@ def chargeslip(request):
 	p.showPage()
 	p.save()
 	return response
+
+def eventsFeed(request):
+	
+
+    entries = RequestedDate.objects.all()
+    print (entries)
+    json_list = []
+    for entry in entries:
+        id = entry.id
+        title = entry.request_id.purpose
+        start = entry.start_date.strftime("%Y-%m-%dT%H:%M:%S")
+        end = entry.end_date.strftime("%Y-%m-%dT%H:%M:%S")
+        allDay = False
+
+        json_entry = {'id':id, 'start':start, 'allDay':allDay, 'title': title, 'end':end}
+        json_entry = json.dumps(json_entry, cls=DjangoJSONEncoder)
+        json_list.append(json_entry)
+
+
+
+    return HttpResponse(json_list, content_type='application/json')
