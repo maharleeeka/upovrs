@@ -49,18 +49,3 @@
     });
     
   });
-
-function getEventTitle(){
-  
-  console.log(events[0]);
-
-return events;
-} 
-
-function getEventDate(){
-
-}
-
-function get () {
-
-}

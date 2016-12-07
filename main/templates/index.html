@@ -93,9 +93,18 @@
          {
           title: '{{ date.request_id.purpose }}',
           start: '{{ date.date_needed }}',
+          venue: '{{ date.request_id.venue_id }}',
+          organization: '{{ date.request_id.organization }}',
         }, 
         {% endfor %}
-      ]
+      ],
+
+      eventRender: function(event, element) {
+        element.attr("venue", event.venue),
+        element.attr("organization", event.organization)
+    }
+
+
     });
     
   });
