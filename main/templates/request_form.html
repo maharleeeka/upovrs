@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 		<div id="content">
+			{% if request.pk != %}
 			<div class="alert alert-success" id="request-form-notif" >
 				<strong>Success!</strong>
 			</div>
