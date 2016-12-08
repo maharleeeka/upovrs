@@ -324,10 +324,7 @@ class RequesterView(TemplateView):
 		user = 	self.request.user
 		q = self.request.GET.get("q")
 		print(q)
-		# rid = Request.objects.filter(requested_by=user)
 		request_id = Request.objects.get(pk=q)
-		# if rid.count() > 0:
-		# request_id = Request.objects.get(pk=rid)
 		print(request_id)
 		context['request'] = Request.objects.get(pk=request_id.pk)
 		context['date_list'] = RequestedDate.objects.filter(request_id=request_id)
@@ -336,8 +333,6 @@ class RequesterView(TemplateView):
 		context['user'] = user
 		print(context['date_list'])
 		return context
-		# else:
-			# return reverse_lazy("requestform")
 
 def invoiceViewing(request):
 	queryset_requestlist = Request.objects.all()
