@@ -2,9 +2,8 @@
 {% block content %}
 
 
-	<div id="cashier" class="container" style="max-width: 1000px;">
-	
-	<div class="col-md-12 col-lg-12 col-sm-12">
+	<div class="container" style="max-width: 1000px;">
+		<div class="col-md-12 col-lg-12 col-sm-12">
 		<div id="card">
 		<h2>Your request for has been successfully submitted.</h2>
 		<h4>REQUEST FORM TRACKING NUMBER: {{ pk }}</h4>
@@ -59,6 +58,7 @@
 					</table>
 					<div id="total" class="col-md-4">
 						<p><strong>Total: <u>Php {{ total }}</u></p>
+						<a href="{% url 'chargeslip' %}">Download PDF</a>
 					</div>
 					<!-- total -->
 				</div>
@@ -66,6 +66,7 @@
 		</div>
 		<!-- #expenses -->
 	</div>
+	
 	</div>
 
 

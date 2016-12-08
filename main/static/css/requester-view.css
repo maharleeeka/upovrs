@@ -60,7 +60,12 @@
 
 #my_requests_list{
 	position: relative;
-	top: 200px;
+	top: 100px;
 	width: 800px;
 	margin: auto;
+}
+
+#my_request_header{
+	position: relative;
+	top: 10px;
 }

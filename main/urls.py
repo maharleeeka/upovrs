@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import Group
+# from django_pdfkit import PDFView
 
 from . import views
 
@@ -8,14 +9,14 @@ urlpatterns = [
     url(r'^$', views.EventLists.as_view(), name='index'),
     # url(r'^$', views.HomepageView.as_view(), name='index'),
     # url(r'^requestform/$', views.RequestView.as_view(), name='requestform'),
-    url(r'^requestform/$', views.RequestView.as_view(), name='requestform'),
+    url(r'^requestform/$', views.RequestView.as_view(), name="requestform"),
     # url(r'^requestform/(?P<pk>\d+)/$', views.RequestView.as_view(), name='requestform'),
     url(r'^submitEquipments/$', views.RentedEquipmentsView.as_view(), name='submitEquipments'),
     url(r'^submitDates/$', views.DatesView.as_view(), name='submitDates'),
-    url(r'^requestform/(?P<pk>\d+)/$', 
+    url(r'^requestform/(?P<pk>\d+)/$',
         user_passes_test(lambda u: Group.objects.get(name='Requesters') in u.groups.all())
-        (views.RequestView.as_view()),name="requestform"),
-    url(r'^requestform/(?P<pk>\d+)/$', views.RequestView.as_view(), name='requestform'),
+        (views.RequestView.as_view()),name='requestform'),
+    #url(r'^requestform/(?P<pk>\d+)/$', views.RequestView.as_view(), name='requestform'),
     url(r'^submitEquipments/$', views.RentedEquipmentsView.as_view(), name='submitEquipments'),
     url(r'^submitDates/$', views.DatesView.as_view(), name='submitDates'),
     # url(r'^requestform/(?P<pk>\d+)/$', 
@@ -35,16 +36,20 @@ urlpatterns = [
     url(r'^osaview/', views.listing, name='osaview'),
     url(r'^requestlist/$', 
         user_passes_test(lambda u: Group.objects.get(name='Approvers') in u.groups.all()) 
-        (views.requestlisting), name="requeslist"),
+        (views.requestlisting), name="requestlist"),
     url(r'^submitForm/$', views.SubmitForm.as_view(), name='submitForm'),
     url(r'^submitDates/$', views.DatesView.as_view(), name='submitDates'),
+    url(r'^chargeslip/$', views.chargeslip, name='chargeslip'),
     #url(r'^addRemarks/$', views.AddRemarksView.as_view(), name='addRemarks')
-
     url(r'^requester/$',
         user_passes_test(lambda u: Group.objects.get(name='Requesters') in u.groups.all()) 
         (views.RequesterView.as_view()), name='requester'),
     url(r'^invoice/$', views.invoiceViewing, name='invoice'),
-    url(r'^myrequests/$', views.MyRequests.as_view(), name='myrequests'),
+    # url(r'^myrequests/$', views.MyRequests.as_view(), name='myrequests'),
+    url(r'^myrequests/$', views.MyRequests, name='myrequests'),
+    url(r'^requester/(?P<pk>\d+)/$',
+        user_passes_test(lambda u: Group.objects.get(name='Requesters') in u.groups.all())
+        (views.RequesterView.as_view()),name='requester'),
+
+
 ]
-
-
