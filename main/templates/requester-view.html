@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
+	{% if user == request.requested_by %}
 	<div id="requester-view">
 		<div id="requester-header"><h1>{{ user }}</h1></div>
 		<div id="requester_view_status" class="requester_panel">
@@ -171,6 +172,9 @@
 			</div>
 		</div>
 	</div>
+	{% else %}
+		<meta http-equiv="REFRESH" content="0;url=/main">
+	{% endif %}
 </div>
 
 {% endblock %}

@@ -4,6 +4,7 @@
 
 <div id="content">
 	<div id="cashier" class="container" style="max-width: 1000px;">
+	{% if user == request.requested_by %}
 		<div class="col-md-12 col-lg-12 col-sm-12">
 			<h2><center>Your request for has been successfully submitted.</center></h2>
 			<h4><center>REQUEST FORM TRACKING NUMBER: <strong>{{ pk }}</strong></center></h4>
@@ -156,6 +157,9 @@
 			</div>
 			<!-- #expenses -->
 		</div>
+	{% else %}
+		<meta http-equiv="REFRESH" content="0;url=/main">
+	{% endif %}
 	</div>
 </div>
 

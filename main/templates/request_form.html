@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-		{% request.user as user.name }
 		<div id="content">
 			<div class="alert alert-success" id="request-form-notif" >
 				<strong>Success!</strong>
 			</div>
+			{% if user == request.requested_by or request.pk == None %}
 			<div class="container" id="requestform">
 				<div id="form-header">
 					<div class="col-sm-12">
@@ -14,7 +14,6 @@
 				</div>
 				<!-- #form-header -->
 				<hr>
-				
 				<div id="basic_info" class="form_panel">
 					<div class="form_panel_header">
 						<div class="form_panel_title">
@@ -34,7 +33,7 @@
 						<div class="form-group">
 							<div class="col-md-6">
 								<label>Organization: </label>
-								<input type="text" class="form-control required" name="organization" value="{{ user.last_name }}">
+								<input type="text" class="form-control required" name="organization" value="{{ request.organization }}">
 							</div>
 						</div>
 						<div class="form-group">
@@ -204,6 +203,9 @@
 				</div>
 				{% endif %}
 			</div>
+			{% else %}
+				<meta http-equiv="REFRESH" content="0;url=/main">
+			{% endif %}
 		</div>
 		<hr>
 		<!-- #content -->

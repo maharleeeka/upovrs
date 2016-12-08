@@ -410,45 +410,50 @@ class SubmitForm(TemplateView):
 		total = 0
 		context = super(SubmitForm, self).get_context_data(**kwargs)
 		pk = self.request.GET.get("request_id")
-		r = Request.objects.get(pk=pk)
+		r = Request.objects.get(pk=pk) # request object
 		print (r);
-		print (r.requested_by)
-		upk = r.requested_by
+		print (r.requested_by) 
+		upk = r.requested_by # requester (user)
 		print(upk)
-		user = User.objects.get(pk=r.requested_by.pk)
+		user = User.objects.get(pk=r.requested_by.pk) # user object
 		print("user: ", user);
 
-		#get dates
+		# geting all the dates involved in a request
 		dates = RequestedDate.objects.filter(request_id=r)
 		if dates.count() > 0:
 			for date in dates:
 				timedif = timestodelta(date.time_from, date.time_to)
-				print(timedif)
+				print(timedif) # the time difference between from time_from to time_to
 
 				hours, remainder = divmod(timedif.seconds, 3600)
 				minutes, seconds = divmod(remainder, 60)
 				minutes = hours*60 + minutes
-				print("minutes: ",  minutes)
-				hours = math.ceil(minutes/60)
+				print("minutes: ",  minutes) # the total number of minutes
+				hours = math.ceil(minutes/60) # minutes to hours
 				print("hours: ", hours)
 
-				#get equipments
+				# getting all equipments
 				equipments = RentedEquipment.objects.filter(request_id=r)
 				for equipment in equipments:
-					e = equipment.equipment_id
-					price = e.price
-					unit = equipment.unit
+					e = equipment.equipment_id # e is the equipment object
+					price = e.price # the price of the equipment
 
-					print("name: ", e.name)
-					print("price: ", e.price)
-					total = unit * price * hours + total
+					unit = equipment.unit # the number of equipments being rented
+
+					print("name: ", e.name) 
+					print("price: ", price)
+
+					# total += ((the number of equipments rented * the price of the equipment) * the total number of hours)
+					total = unit * price * hours + total 
 					print("total: ", total)
-				tothours = tothours + hours
+
+				tothours = tothours + hours # counts the total number of hours of all requested dates
 
 			#get venue
 			p = 0
-			venue = Venue.objects.get(pk=r.venue_id.pk)
+			venue = Venue.objects.get(pk=r.venue_id.pk) # the venue object
 			if venue.unit == "hour":
+				# checks what group the user belongs in and add the venue price to the current total times the number of hours
 				if user.groups.filter(name="Outsiders").count():
 					total = total + (venue.price_general*tothours)
 					p = venue.price_general
@@ -458,8 +463,9 @@ class SubmitForm(TemplateView):
 				else: 
 					total = total + (venue.price_student*tothours)
 					p = venue.price_student
+
 			elif venue.unit == "package":
-				print("package hours: ", venue.hours)
+				# checks what group the user belongs in and add the venue price to the current total
 				if user.groups.filter(name="Outsiders").count():
 					total = total + venue.price_general
 					p = venue.price_general
@@ -563,24 +569,3 @@ def chargeslip(request):
 	p.showPage()
 	p.save()
 	return response
-
-def eventsFeed(request):
-	
-
-    entries = RequestedDate.objects.all()
-    print (entries)
-    json_list = []
-    for entry in entries:
-        id = entry.id
-        title = entry.request_id.purpose
-        start = entry.start_date.strftime("%Y-%m-%dT%H:%M:%S")
-        end = entry.end_date.strftime("%Y-%m-%dT%H:%M:%S")
-        allDay = False
-
-        json_entry = {'id':id, 'start':start, 'allDay':allDay, 'title': title, 'end':end}
-        json_entry = json.dumps(json_entry, cls=DjangoJSONEncoder)
-        json_list.append(json_entry)
-
-
-
-    return HttpResponse(json_list, content_type='application/json')
