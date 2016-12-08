@@ -34,7 +34,7 @@
 						<div class="form-group">
 							<div class="col-md-6">
 								<label>Organization: </label>
-								<input type="text" class="form-control required" name="organization" value="{{ request.organization }}">
+								<input type="text" class="form-control required" name="organization" value="{{ user.last_name }}">
 							</div>
 						</div>
 						<div class="form-group">
@@ -80,19 +80,17 @@
 							</div>
 						</div>
 
-						<div class="form-group">
+						
 							<div id="submit_btn" class="submit_btn">
-									<a href="#event_schedule"><input type="button" class="submit-btn form-control btn-default btn" id="part1" value="NEXT" onclick="validateForm(this.id);"></a>
-									<!-- <input type="button" class="submit-btn form-control btn-default btn" id="part1" value="SUBMIT" onclick="validateForm(this.id)"> -->
-								<!-- </div> -->	
+									<input type="button" class="submit-btn form-control btn-default btn" id="part1" value="NEXT" onclick="validateForm(this.id); formpanel(1)">
 							</div>
-						</div>
+						
 					</form>
 				</div>
 					
 				{% if request.pk != null %}
 					
-					<div id="event_schedule" class="form_panel">
+					<div id="event_schedule" class="form_panel" onload="scrollTo()">
 					<div class="form_panel_header">
 						<div class="form_panel_title">
 							Event Schedule
@@ -123,7 +121,7 @@
 									<input type="time" class="form-control" name="time_to" id="val" value="{{ date.time_to }}">
 								</div>
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-3 sub-btn">
 								<a class="btn btn-default" href="#schedule"onclick="checkDateFields();">Add Date</a> 
 							</div>
 						</div>
@@ -170,23 +168,24 @@
 									<input type="text" class="form-control" name="unit">
 								</div>
 							</div>
-							<!-- <div class="form-group"> -->
-								<div class="col-md-4">
-									<a class="btn btn-default" onclick="validateForm(this.id);" id="part3">Add Equipments</a>
-								</div>
-							<!-- </div> -->
-						</div>	
-						<div class="form-group">
-							<div class="col-md-12">
-								{% for equipment in rented_equipments %}
-									<p>{{ equipment.equipment_id }} , {{ equipment.unit }}</p>
-								{% endfor %}
+							<div class="col-md-4 sub-btn">
+								<a class="btn btn-default" href="#add_equipments" onclick="checkUnitField();" id="part3">Add Equipments</a>
 							</div>
-						</div>
+						</div>	
+						<!-- #add-equipments -->
 					</form>	
+					<div id="equipments">
+						{% for equipment in rented_equipments %}
+							<div id="added_eq" class="col-md-12 block">
+								<input value="{{ equipment.equipment_id }}" class="col-md-5">
+								<input value="Unit: {{ equipment.unit }}" class="col-md-5">
+								<span onclick="this.parentNode.remove();" class="glyphicon glyphicon-remove" role="button"></span>
+							</div>
+						{% endfor %}
+					</div>
 				</div>
 				
-				<div class="form_panel" id="form-final-button">
+				<div class="btn-margin-bottom" id="form-final-button">
 					<form action="{% url 'submitForm' %}" id="submit_form">
 						<div class="submit_btn">
 							<div class="form-group">
@@ -204,8 +203,7 @@
 				</div>
 				{% endif %}
 			</div>
-		<hr>
 		</div>
-		
+		<hr>
 		<!-- #content -->
 {% endblock %}
