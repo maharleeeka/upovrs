@@ -100,8 +100,13 @@
 								<tr>
 									<td><center> </td>
 									<td><center><strong>Sub-total: </td>
+									{% if request.venue_id.unit == "package" %}
+									{% widthratio request.venue_id.price_general 1 dates|length as sub %}
+									<td><center><strong>{{ sub }}</td>
+									{% else %}
 									{% widthratio tothours 1 price as sub %}
 									<td><center><strong>{{ sub }}</td>
+									{% endif %}
 								</tr>
 							</tbody>
 						</table>

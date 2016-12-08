@@ -473,26 +473,20 @@ class SubmitForm(TemplateView):
 			elif venue.unit == "package":
 				# checks what group the user belongs in and add the venue price to the current total
 				if user.groups.filter(name="Outsiders").count():
-					total = total + venue.price_general
+					total = total + venue.price_general * dates.count()
 					p = venue.price_general
 				elif user.groups.filter(name="Alumni").count():
-					total = total + venue.price_alumni
+					total = total + venue.price_alumni * dates.count()
 					p = venue.price_alumni
 				else: 
-					total = total + venue.price_student
+					total = total + venue.price_student * dates.count()
 					p = venue.price_student
 
 			if venue.pk == 21 or venue.pk == 22 or (venue.pk <= 44 and venue.pk >= 39):
-				if total > 12000:
+				if total >= 12000:
 					bond = 5000.00 
 				if user.groups.filter(name="UPC Orgs").count():
 					bond = 0
-			# if venue.pk <= 44 and venue.pk >= 39:
-			# 	if total >= 12000:
-			# 		bond = 5000.00 
-			# 	if user.groups.filter(name="UPC Orgs").count() > 0:
-			# 		print("here")
-			# 		bond = 0
 			print("bond: ", bond)
 			print("total: ", total)
 
