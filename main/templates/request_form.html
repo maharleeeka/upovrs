@@ -81,7 +81,7 @@
 
 						<div class="form-group">
 							<div id="submit_btn" class="submit_btn">
-									<a href="#event_schedule"><input type="button" class="submit-btn form-control btn-default btn" id="part1" value="NEXT" onclick="validateForm(this.id); formpanel(1)"></a>
+									<a href="#event_schedule"><input type="button" class="submit-btn form-control btn-default btn" id="part1" value="NEXT" onclick="validateForm(this.id);"></a>
 									<!-- <input type="button" class="submit-btn form-control btn-default btn" id="part1" value="SUBMIT" onclick="validateForm(this.id)"> -->
 								<!-- </div> -->	
 							</div>
@@ -91,7 +91,7 @@
 					
 				{% if request.pk != null %}
 					
-					<div id="event_schedule" class="form_panel" onload="scrollTo()">
+					<div id="event_schedule" class="form_panel">
 					<div class="form_panel_header">
 						<div class="form_panel_title">
 							Event Schedule
@@ -203,7 +203,8 @@
 				</div>
 				{% endif %}
 			</div>
-		</div>
 		<hr>
+		</div>
+		
 		<!-- #content -->
 {% endblock %}

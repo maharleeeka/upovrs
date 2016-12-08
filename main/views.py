@@ -356,21 +356,20 @@ class RequesterView(TemplateView):
 	template_name = 'requester-view.html'
 
 	def get_context_data(self, **kwargs):
+
 		context = super(RequesterView, self).get_context_data(**kwargs)
 		user = 	self.request.user
-		rid = Request.objects.filter(requested_by=user)
-		if rid.count() > 0:
-			request_id = Request.objects.get(pk=rid)
-			print(request_id)
-			context['request'] = Request.objects.get(pk=request_id.pk)
-			context['date_list'] = RequestedDate.objects.filter(request_id=request_id)
-			context['equipment_list'] = RentedEquipment.objects.filter(request_id=request_id)
-			context['office_status'] = OfficeStatus.objects.get(request_id=request_id)
-			context['user'] = user
-			print(context['date_list'])
-			return context
-		else:
-			return reverse_lazy("requestform")
+		q = self.request.GET.get("q")
+		print(q)
+		request_id = Request.objects.get(pk=q)
+		print(request_id)
+		context['request'] = Request.objects.get(pk=request_id.pk)
+		context['date_list'] = RequestedDate.objects.filter(request_id=request_id)
+		context['equipment_list'] = RentedEquipment.objects.filter(request_id=request_id)
+		context['office_status'] = OfficeStatus.objects.get(request_id=request_id)
+		context['user'] = user
+		print(context['date_list'])
+		return context
 
 def todatetime(time):
 	return datetime.datetime.today().replace(hour=time.hour, minute=time.minute, second=time.second, microsecond=time.microsecond, tzinfo=time.tzinfo)
@@ -472,9 +471,20 @@ class SubmitForm(FormView):
 
 		return context
 
-class MyRequests(TemplateView):
-	template_name = "my_requests.html"
-	
+def MyRequests(request):
+	request_list = Request.objects.filter(requested_by = request.user)
+	paginator = Paginator(request_list,10)
+	page = request.GET.get('page')
+
+	try:
+		requests = paginator.page(page)
+	except PageNotAnInteger:
+		requests = paginator.page(1)
+	except EmptyPage:
+		requests = paginator.page(paginator.num_pages)
+
+	return render(request, 'my_requests.html', {'requests': requests})
+
 def chargeslip(request):
 	# path_wkthmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
 	# config = pdfkit.configuration(wkhtmltopdf=path_wkthmltopdf)

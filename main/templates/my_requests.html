@@ -14,8 +14,12 @@
 					<th>Purpose</th>
 				</thead>
 				<tbody>
-					<th><a href="#">001</a></th>
-					<th>Parade</th>
+					{% for request in requests %}
+					<tr>	
+						<td><a href="{% url 'requester' %}?q={{ request.pk }}">{{ request.pk }}</a></td>
+						<td>{{request.purpose}}</td>
+					</tr>
+					{% endfor %}
 				</tbody>
 			</table>
 		</div>

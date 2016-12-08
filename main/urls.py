@@ -46,4 +46,5 @@ urlpatterns = [
         (views.RequesterView.as_view()), name='requester'),
     url(r'^myrequests/$', views.MyRequests.as_view(), name='myrequests'),
     url(r'^removedates/$', views.RemoveDate.as_view(), name='removedates'),
+
 ]
