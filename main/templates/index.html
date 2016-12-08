@@ -58,5 +58,47 @@
 </div>
 <!-- .index-wrapper -->
 
+<script type="text/javascript">
+	$( document ).ready(function() {
+	var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1;
+    var yyyy = today.getFullYear();
+
+    if(dd<10){
+        dd='0'+dd
+    } 
+    if(mm<10){
+        mm='0'+mm
+    }
+
+	$('#calendar').fullCalendar({
+      header: {
+        left: 'month,agendaWeek,agendaDay,listMonth',
+        center: 'title',
+        right: 'prev,next today'
+      },
+      defaultDate: mm+'/'+dd+'/'+yyyy,
+      navLinks: true, // can click day/week names to navigate views
+      businessHours: true, // display business hours
+      editable: true,
+
+      events: [
+          // {
+          //    title: getEventTitle()[0],
+          //    start: '2016-12-03T13:00:00',
+          // },
+
+        {% for date in dates %}
+         {
+          title: '{{ date.request_id.purpose }}',
+          start: '{{ date.date_needed }}',
+        }, 
+        {% endfor %}
+      ]
+    });
+    
+  });
+</script>
 
 {% endblock %}
