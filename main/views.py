@@ -291,7 +291,7 @@ class RemoveEquipments(TemplateView):
 		return reverse_lazy('requestform')
 
 	def get_context_data(self, **kwargs):
-		context = super(RemoveDate, self).get_context_data(**kwargs)
+		context = super(RemoveEquipments, self).get_context_data(**kwargs)
 		context['venue_list'] = Venue.objects.all()
 		context['equipment_list'] = Equipment.objects.all()
 
@@ -425,6 +425,13 @@ class SubmitForm(TemplateView):
 				timedif = timestodelta(date.time_from, date.time_to)
 				print(timedif)
 
+				hours, remainder = divmod(timedif.seconds, 3600)
+				minutes, seconds = divmod(remainder, 60)
+				minutes = hours*60 + minutes
+				print("minutes: ",  minutes)
+				hours = math.ceil(minutes/60)
+				print("hours: ", hours)
+
 				#get equipments
 				equipments = RentedEquipment.objects.filter(request_id=r)
 				for equipment in equipments:
@@ -432,13 +439,6 @@ class SubmitForm(TemplateView):
 					price = e.price
 					unit = equipment.unit
 
-					hours, remainder = divmod(timedif.seconds, 3600)
-					minutes, seconds = divmod(remainder, 60)
-					minutes = hours*60 + minutes
-					print("minutes: ",  minutes)
-
-					hours = math.ceil(minutes/60)
-					print("hours: ", hours)
 					print("name: ", e.name)
 					print("price: ", e.price)
 					total = unit * price * hours + total

@@ -179,7 +179,8 @@
 							<div id="added_eq" class="col-md-12 block">
 								<input value="{{ equipment.equipment_id }}" class="col-md-5">
 								<input value="Unit: {{ equipment.unit }}" class="col-md-5">
-								<span onclick="this.parentNode.remove();" class="glyphicon glyphicon-remove" role="button"></span>
+								
+								<a href="{% url 'removeequipments' %}?pk={{ request.pk }}&q={{ equipment.pk }}"" onclick="this.parentNode.remove();"><span class="glyphicon glyphicon-remove"></span></a>
 							</div>
 						{% endfor %}
 					</div>
