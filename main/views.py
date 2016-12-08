@@ -22,6 +22,8 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView, RedirectView
 from django.contrib.auth.models import Group, User
 import datetime, math
+from django.utils.timezone import utc
+from django.core.serializers.json import DjangoJSONEncoder
 # from reportlab.pdfgen import canvas
 # from reportlab.lib.pagesizes import letter
 # from reportlab.lib.units import inch
@@ -208,7 +210,8 @@ class EventLists(FormView):
 		context = super(EventLists, self).get_context_data(**kwargs)
 		context['events'] = Request.objects.all()[0:5]
 		request_list = Request.objects.all()
-		dates = RequestedDate.objects.all()
+		dates = RequestedDate.objects.all() 
+
 		print (dates)
 		context['dates'] = dates
 
@@ -223,7 +226,19 @@ class DatesView(FormView):
 		if form.is_valid():
 			print ('valid')
 			print (form)
+
+			date = form.cleaned_data['date_needed']
+			st = form.cleaned_data['time_from']
+			et = form.cleaned_data['time_to']
+
 			self.object = form.save()
+			# self.object.start = datetime.datetime.combine(date, st)
+			# self.object.end = datetime.datetime.combine(date, et)
+			# self.object.save()
+			
+			# print (self.object.start)
+			# print (self.object.end)
+
 			return self.form_valid(form)
 		else:
 			return self.form_invalid(form)
@@ -334,30 +349,6 @@ class RequesterView(TemplateView):
 		print(context['date_list'])
 		return context
 
-def invoiceViewing(request):
-	queryset_requestlist = Request.objects.all()
-
-	q = request.GET.get("q")
-	if q:
-		queryset_requestlist = queryset_requestlist.filter(Q(pk__icontains=q))
-		request_id = Request.objects.get(pk=q)
-		date_list = RequestedDate.objects.filter(request_id=request_id)
-		equipment_list = RentedEquipment.objects.filter(request_id=request_id)
-
-		paginator = Paginator(queryset_requestlist, 10)
-		page = request.GET.get('page')
-
-		try:
-			requests = paginator.page(page)
-		except PageNotAnInteger:
-			requests = paginator.page(1)
-		except EmptyPage:
-			requests = paginator.page(paginator.num_pages)
-
-		return render(request, 'payment_invoice.html', {'requests': requests, 'equipment_list': equipment_list, 'date_list': date_list})
-	else:
-		return render(request, 'payment_invoice.html')
-
 def todatetime(time):
 	return datetime.datetime.today().replace(hour=time.hour, minute=time.minute, second=time.second, microsecond=time.microsecond, tzinfo=time.tzinfo)
 
@@ -372,6 +363,7 @@ class SubmitForm(FormView):
 		return reverse_lazy("sucess")
 
 	def get_context_data(self, **kwargs):
+		tothours = 0
 		total = 0
 		context = super(SubmitForm, self).get_context_data(**kwargs)
 		pk = self.request.GET.get("request_id")
@@ -407,24 +399,32 @@ class SubmitForm(FormView):
 				print("price: ", e.price)
 				total = unit * price * hours + total
 				print("total: ", total)
+			tothours = tothours + hours
 
 		#get venue
+		p = 0
 		venue = Venue.objects.get(pk=r.venue_id.pk)
 		if venue.unit == "hour":
 			if user.groups.filter(name="Outsiders").count():
-				total = total + (venue.price_general*hours)
+				total = total + (venue.price_general*tothours)
+				p = venue.price_general
 			elif user.groups.filter(name="Alumni").count():
-				total = total + (venue.price_alumni*hours)
+				total = total + (venue.price_alumni*tothours)
+				p = venue.price_alumni
 			else: 
-				total = total + (venue.price_student*hours)
+				total = total + (venue.price_student*tothours)
+				p = venue.price_student
 		elif venue.unit == "package":
 			print("package hours: ", venue.hours)
 			if user.groups.filter(name="Outsiders").count():
 				total = total + venue.price_general
+				p = venue.price_general
 			elif user.groups.filter(name="Alumni").count():
 				total = total + venue.price_alumni
+				p = venue.price_alumni
 			else: 
 				total = total + venue.price_student
+				p = venue.price_student
 
 		print("total: ", total)
 
@@ -440,11 +440,14 @@ class SubmitForm(FormView):
 		context['request'] = r
 		context['total'] = total
 		context['hours'] = hours
+		context['date'] = date
+		context['dates'] = dates
+		context['tothours'] = tothours
+		context['price'] = p
+
+		print("tothours: ", tothours)
 
 		return context
-
-# class MyRequests(TemplateView):
-# 	template_name = "my_requests.html"
 
 def MyRequests(request):
 	request_list = Request.objects.filter(requested_by = request.user)
@@ -513,3 +516,24 @@ def chargeslip(request):
 	p.showPage()
 	p.save()
 	return response
+
+def eventsFeed(request):
+	
+
+    entries = RequestedDate.objects.all()
+    print (entries)
+    json_list = []
+    for entry in entries:
+        id = entry.id
+        title = entry.request_id.purpose
+        start = entry.start_date.strftime("%Y-%m-%dT%H:%M:%S")
+        end = entry.end_date.strftime("%Y-%m-%dT%H:%M:%S")
+        allDay = False
+
+        json_entry = {'id':id, 'start':start, 'allDay':allDay, 'title': title, 'end':end}
+        json_entry = json.dumps(json_entry, cls=DjangoJSONEncoder)
+        json_list.append(json_entry)
+
+
+
+    return HttpResponse(json_list, content_type='application/json')

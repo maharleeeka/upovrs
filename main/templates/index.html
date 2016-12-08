@@ -91,18 +91,17 @@
       editable: true,
 
       events: [
-          // {
-          //    title: getEventTitle()[0],
-          //    start: '2016-12-03T13:00:00',
-          // },
-
         {% for date in dates %}
-         {
+        {
           title: '{{ date.request_id.purpose }}',
-          start: '{{ date.date_needed }}',
+          start: '{{ date.date_needed|date:"Y-m-d" }} {{ date.time_from|time:"H:i" }}',
+          end: '{{ date.date_needed|date:"Y-m-d" }} {{ date.time_to|time:"H:i" }}',
+          // end: '{{ date.end_date|date:"Y-m-d %H:%M" }}',
         }, 
         {% endfor %}
-      ]
+      ],
+
+
     });
     
   });

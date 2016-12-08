@@ -28,7 +28,6 @@
           //    start: '2016-12-03T13:00:00',
           // },
 
-
         // areas where "Meeting" must be dropped
         // {
         //   id: 'availableForMeeting',
@@ -49,18 +48,3 @@
     });
     
   });
-
-function getEventTitle(){
-  
-  console.log(events[0]);
-
-return events;
-} 
-
-function getEventDate(){
-
-}
-
-function get () {
-
-}
