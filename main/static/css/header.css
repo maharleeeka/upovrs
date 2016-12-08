@@ -116,7 +116,7 @@ a:link, a:visited {
 
 /*Login button style*/
 .button {
-    background-color: transparent; 
+    background: #4CAF50; 
     border: 2px solid #4CAF50; /* Green */
     border-radius: 3px;
     color: #fff;
