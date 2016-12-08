@@ -1,6 +1,6 @@
 from django.http import HttpResponse
-from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView, FormView, UpdateView
+from django.shortcuts import render, redirect
+from django.views.generic import TemplateView, CreateView, FormView, UpdateView, DeleteView
 from main.models import Venue, Equipment, Request, RentedEquipment, RequestedDate, OfficeStatus
 from main.forms import RequestForm, RemarksForm
 from main import forms, views
@@ -218,30 +218,24 @@ class EventLists(FormView):
 		return context
 
 class DatesView(FormView):
-	template_name = 'rates.html'
+	template_name = 'request_form.html'
 	form_class = forms.RequestDates
 
 	def post(self, request, *args, **kwargs):
 		form = self.get_form()
-		if form.is_valid():
-			print ('valid')
-			print (form)
-
-			date = form.cleaned_data['date_needed']
-			st = form.cleaned_data['time_from']
-			et = form.cleaned_data['time_to']
-
-			self.object = form.save()
-			# self.object.start = datetime.datetime.combine(date, st)
-			# self.object.end = datetime.datetime.combine(date, et)
-			# self.object.save()
-			
-			# print (self.object.start)
-			# print (self.object.end)
-
-			return self.form_valid(form)
-		else:
-			return self.form_invalid(form)
+		if 'd' not in self.kwargs:
+			print("here")
+			if form.is_valid():
+				print ('valid')
+				date = form.cleaned_data['date_needed']
+				st = form.cleaned_data['time_from']
+				et = form.cleaned_data['time_to']
+				self.object = form.save()
+				
+				return self.form_valid(form)
+			else:
+				return self.form_invalid(form)
+		return self.form_valid(form)
 
 	def get_success_url(self):
 		return reverse_lazy("requestform", kwargs={'pk':self.object.request_id.pk})
@@ -251,6 +245,7 @@ class DatesView(FormView):
 		context['venue_list'] = Venue.objects.all()
 		context['equipment_list'] = Equipment.objects.all()
 		pk = 0
+		d = 0
 		if 'pk' in self.kwargs:
 			pk = self.kwargs['pk']
 			request_list = Request.objects.all()
@@ -259,7 +254,34 @@ class DatesView(FormView):
 			context['rented_equipments'] = RentedEquipment.objects.filter(request_id=request_id)
 			context['requested_dates'] = RequestedDate.objects.filter(request_id=request_id)
 			context['pk'] = pk
+
 		return context
+
+class RemoveDate(TemplateView):
+	template_name = 'request_form.html'
+
+	def get_success_url(self):
+		pk = self.request.GET.get("pk")
+		self.object = Request.objects.get(pk=pk)
+		return reverse_lazy('requestform')
+
+	def get_context_data(self, **kwargs):
+		context = super(RemoveDate, self).get_context_data(**kwargs)
+		context['venue_list'] = Venue.objects.all()
+		context['equipment_list'] = Equipment.objects.all()
+
+		q = self.request.GET.get("q")
+		date = RequestedDate.objects.get(pk=q)
+
+		context['request'] = date.request_id
+		context['rented_equipments'] = RentedEquipment.objects.filter(request_id=date.request_id)
+		context['requested_dates'] = RequestedDate.objects.filter(request_id=date.request_id)
+		context['pk'] = date.request_id.pk
+		print(q)
+		date.delete()
+		return context
+		
+
 
 def requestViewing(request):
 	query = request.GET.get("q")

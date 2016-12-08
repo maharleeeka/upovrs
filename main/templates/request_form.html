@@ -135,7 +135,9 @@
 							<input name="date_needed" class="col-md-3" value="{{ date.date_needed }}">
 							<input name="time_from" class="col-md-3" value="{{ date.time_from }}">
 							<input name="time_to" class="col-md-3" value="{{ date.time_to }}">
-							<span onclick="this.parentNode.remove();" role="button" class="glyphicon glyphicon-remove"></span>
+							<input name="date_pk" class="hidden" value="{{ date.pk }}">
+							<a href="{% url 'removedates' %}?pk={{ request.pk }}&q={{ date.pk }}"" onclick="this.parentNode.remove();"><i class="glyphicon glyphicon-remove"></i></a>
+							<!-- <span onclick="this.parentNode.remove(); " role="button" class="glyphicon glyphicon-remove"></span> -->
 						</div>
 						{% endfor %}
 					</div>
