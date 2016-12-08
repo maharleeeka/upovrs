@@ -27,7 +27,7 @@
 							<li><a href="{% url 'requestform' %}">REQUEST FORM</a></li>
 							{% if user.is_authenticated %}
 								{%	if user.get_username != "osa_maria" and user.get_username != "cdmo_juan" and user.get_username != "ada_adelfa"%}
-								<li><a href="{% url 'requester' %}">VIEW STATUS</a></li>
+								<li><a href="{% url 'myrequests' %}">VIEW REQUEST LIST</a></li>
 								{% endif %}
 							{% endif %}
 						</ul>
