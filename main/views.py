@@ -186,10 +186,8 @@ class EventLists(FormView):
 		context['events'] = Request.objects.all()[0:5]
 		request_list = Request.objects.all()
 		dates = RequestedDate.objects.all()
-		events_name = dates.values_list('request_id', 'date_needed')
-		dates_json = json.dumps(list(events_name), cls=DjangoJSONEncoder)
-		print (dates_json)
-		context['events_list'] = dates_json
+		print (dates)
+		context['dates'] = dates
 
 		return context
 

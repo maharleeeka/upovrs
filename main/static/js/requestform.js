@@ -280,3 +280,10 @@ function formpanel (x) {
   
 }
 
+function slide(){
+  
+}
+
+function panelTransition () {
+  
+}
