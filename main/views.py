@@ -408,6 +408,7 @@ class SubmitForm(TemplateView):
 	def get_context_data(self, *args, **kwargs):
 		tothours = 0
 		total = 0
+		bond = 0
 		context = super(SubmitForm, self).get_context_data(**kwargs)
 		pk = self.request.GET.get("request_id")
 		r = Request.objects.get(pk=pk) # request object
@@ -421,6 +422,7 @@ class SubmitForm(TemplateView):
 		# geting all the dates involved in a request
 		dates = RequestedDate.objects.filter(request_id=r)
 		if dates.count() > 0:
+			venue = Venue.objects.get(pk=r.venue_id.pk) # the venue object
 			for date in dates:
 				timedif = timestodelta(date.time_from, date.time_to)
 				print(timedif) # the time difference between from time_from to time_to
@@ -438,8 +440,13 @@ class SubmitForm(TemplateView):
 					e = equipment.equipment_id # e is the equipment object
 					price = e.price # the price of the equipment
 
+					# if AVR 1 or AS Conference Hall
+					if venue.pk == 21 or venue.pk == 22 or venue.pk == 17 or venue.pk == 18:
+						price = 150
+
 					unit = equipment.unit # the number of equipments being rented
 
+					print("pk: ", venue.pk)
 					print("name: ", e.name) 
 					print("price: ", price)
 
@@ -450,8 +457,7 @@ class SubmitForm(TemplateView):
 				tothours = tothours + hours # counts the total number of hours of all requested dates
 
 			#get venue
-			p = 0
-			venue = Venue.objects.get(pk=r.venue_id.pk) # the venue object
+			p = 0	
 			if venue.unit == "hour":
 				# checks what group the user belongs in and add the venue price to the current total times the number of hours
 				if user.groups.filter(name="Outsiders").count():
@@ -476,6 +482,12 @@ class SubmitForm(TemplateView):
 					total = total + venue.price_student
 					p = venue.price_student
 
+			if venue.pk == 21 or venue.pk == 22 or (venue.pk < 44 and venue.pk > 39):
+				if total > 12000:
+					bond = 5000.00 
+				if user.groups.filter(name="UPC Orgs").count():
+					bond = 0
+
 			print("total: ", total)
 
 
@@ -495,6 +507,7 @@ class SubmitForm(TemplateView):
 			context['dates'] = dates
 			context['tothours'] = tothours
 			context['price'] = p
+			context['bond'] = bond
 
 			print("tothours: ", tothours)
 

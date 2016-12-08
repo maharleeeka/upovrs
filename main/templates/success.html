@@ -56,25 +56,28 @@
 					<div class="table-responsive">
 						<table class="table" style="min-height:50px;">
 							<thead>
-								<td><h4 class="table-title">Venue:  <strong>{{ request.venue_id }}</strong></h4></td>
+								<td><h4 class="table-title">Venue:  <strong>{{ request.venue_id }}</strong></h4><br></td>
+								<td>
 								{% if request.requested_by|has_group:"Outsiders" and request.venue_id.unit == "hour" %} 
-								<td><h4 class="table-title">Rate: <strong> {{ request.venue_id.price_general }} (Per hour)</strong></h4></td>
+								<h4 class="table-title">Rate: <strong> {{ request.venue_id.price_general }} (Per hour)</strong></h4>
 								{% elif request.requested_by|has_group:"Outsiders" and request.venue_id.unit == "package" %} 
-								<td><h4 class="table-title">Rate: <strong> {{ request.venue_id.price_general }} (Package)</strong></h4></td>
-									
+								<h4 class="table-title">Rate: <strong> {{ request.venue_id.price_general }} (Package)</strong></h4>
+								
 
 								{% elif request.requested_by|has_group:"UPC Orgs" and request.venue_id.unit == "hour" %}
-								<td><h4 class="table-title">Rate:  <strong>{{ request.venue_id.price_student }} (Per hour)</strong></h4></td>
+								<h4 class="table-title">Rate:  <strong>{{ request.venue_id.price_student }} (Per hour)</strong></h4>
 								{% elif request.requested_by|has_group:"UPC Orgs" and request.venue_id.unit == "package" %}
-								<td><h4 class="table-title">Rate:  <strong>{{ request.venue_id.price_student }} (Package)</strong></h4></td>
+								<h4 class="table-title">Rate:  <strong>{{ request.venue_id.price_student }} (Package)</strong></h4>
 
 								{% elif requested_by|has_group:"Alumni" and request.venue_id.unit == "hour" %}
-								<td><h4 class="table-title">Rate:  <strong>{{ request.venue_id.price_alumni }} (Per hour)</strong></h4></td>
+								<h4 class="table-title">Rate:  <strong>{{ request.venue_id.price_alumni }} (Per hour)</strong></h4>
 								{% elif requested_by|has_group:"Alumni" and request.venue_id.unit == "package" %}
-								<td><h4 class="table-title">Rate:  <strong>{{ request.venue_id.price_alumni }} (Package)</strong></h4></td>
-
+								<h4 class="table-title">Rate:  <strong>{{ request.venue_id.price_alumni }} (Package)</strong></h4>
 								{% endif %}
+								</td>
 							</thead>
+						</table>
+						<table class="table" style="min-height:50px;">
 							<tbody>
 								<tr>
 									<td><center><strong>Date/s</td>
@@ -116,7 +119,13 @@
 								<tr>
 									<td><center>{{ equipment.equipment_id }}</td>
 									<td><center>{{ date.time_from }} - {{ date.time_to }}</td>
+									
+									{% if request.venue_id.pk == 21 or request.venue_id.pk == 22 or request.venue_id.pk == 17 or request.venue_id.pk == 18 %}
+									<td><center> 150.00 </td>
+									{% else %}
 									<td><center>{{ equipment.equipment_id.price }}</td>
+									{% endif %}
+									
 									<td><center>{{ equipment.unit }}</td>
 									{% widthratio equipment.equipment_id.price 1 equipment.unit as subtotal %}
 									{% widthratio hours 1 subtotal as subtotal %}
@@ -128,17 +137,21 @@
 								
 							</tbody>
 						</table>
+						{% if bond is not None and bond > 0 %}
 						<table class="table">
 							<thead>
-								<td colspan=1><h4 class="table-title">Bond</h4></td>
+								<td colspan=1><h4 class="table-title">Cash Bond</h4></td>
 							</thead>
 							<tbody>
 								<tr>
-									<td><p>(Bond info here...)</p></td>
+									<td><p>
+									This request is being charged with a cash bond worth: <strong>Php {{ bond|floatformat:2 }}</strong>
+									</p></td>
 								</tr>
 							</tbody>
 						</table>
-						<table class="table">
+						{% endif %}
+						<!-- <table class="table">
 							<thead>
 								<td colspan=1><h4 class="table-title">Discount</h4></td>
 							</thead>
@@ -147,7 +160,7 @@
 									<td><p>(Discount info here...)</p></td>
 								</tr>
 							</tbody>
-						</table>
+						</table> -->
 						<div id="total" class="col-md-4">
 							<p><strong>Total: <u>Php {{ total }}</u></p>
 						</div>
