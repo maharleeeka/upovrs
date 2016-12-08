@@ -209,7 +209,7 @@ class EventLists(FormView):
 
 	def get_context_data(self, **kwargs):
 		context = super(EventLists, self).get_context_data(**kwargs)
-		context['events'] = RequestedDate.objects.all()[0:5]
+		context['events'] = RequestedDate.objects.all().order_by('date_needed')[0:5]
 		request_list = Request.objects.all()
 		dates = RequestedDate.objects.all() 
 
