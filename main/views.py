@@ -482,12 +482,18 @@ class SubmitForm(TemplateView):
 					total = total + venue.price_student
 					p = venue.price_student
 
-			if venue.pk == 21 or venue.pk == 22 or (venue.pk < 44 and venue.pk > 39):
+			if venue.pk == 21 or venue.pk == 22 or (venue.pk <= 44 and venue.pk >= 39):
 				if total > 12000:
 					bond = 5000.00 
 				if user.groups.filter(name="UPC Orgs").count():
 					bond = 0
-
+			# if venue.pk <= 44 and venue.pk >= 39:
+			# 	if total >= 12000:
+			# 		bond = 5000.00 
+			# 	if user.groups.filter(name="UPC Orgs").count() > 0:
+			# 		print("here")
+			# 		bond = 0
+			print("bond: ", bond)
 			print("total: ", total)
 
 
