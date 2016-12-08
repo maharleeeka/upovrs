@@ -30,6 +30,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 # from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 from django.core.serializers.json import DjangoJSONEncoder
 import datetime, math, json
+from django.urls import reverse
 
 def group_check(user):
     return user.groups.filter(name__in=['ADA Staff',
@@ -208,7 +209,7 @@ class EventLists(FormView):
 
 	def get_context_data(self, **kwargs):
 		context = super(EventLists, self).get_context_data(**kwargs)
-		context['events'] = Request.objects.all()[0:5]
+		context['events'] = RequestedDate.objects.all()[0:5]
 		request_list = Request.objects.all()
 		dates = RequestedDate.objects.all() 
 
@@ -280,7 +281,30 @@ class RemoveDate(TemplateView):
 		print(q)
 		date.delete()
 		return context
-		
+
+class RemoveEquipments(TemplateView):
+	template_name = 'request_form.html'
+
+	def get_success_url(self):
+		pk = self.request.GET.get("pk")
+		self.object = Request.objects.get(pk=pk)
+		return reverse_lazy('requestform')
+
+	def get_context_data(self, **kwargs):
+		context = super(RemoveDate, self).get_context_data(**kwargs)
+		context['venue_list'] = Venue.objects.all()
+		context['equipment_list'] = Equipment.objects.all()
+
+		q = self.request.GET.get("q")
+		eq = RentedEquipment.objects.get(pk=q)
+
+		context['request'] = eq.request_id
+		context['rented_equipments'] = RentedEquipment.objects.filter(request_id=eq.request_id)
+		context['requested_dates'] = RequestedDate.objects.filter(request_id=eq.request_id)
+		context['pk'] = eq.request_id.pk
+		print(q)
+		eq.delete()
+		return context	
 
 
 def requestViewing(request):
@@ -377,14 +401,11 @@ def todatetime(time):
 def timestodelta(starttime, endtime):
 	return todatetime(endtime) - todatetime(starttime)
 
-class SubmitForm(FormView):
+class SubmitForm(TemplateView):
 	template_name = 'success.html'
 	form_class = forms.RequestStatus
 
-	def get_success_url(self):
-		return reverse_lazy("sucess")
-
-	def get_context_data(self, **kwargs):
+	def get_context_data(self, *args, **kwargs):
 		tothours = 0
 		total = 0
 		context = super(SubmitForm, self).get_context_data(**kwargs)
@@ -399,77 +420,81 @@ class SubmitForm(FormView):
 
 		#get dates
 		dates = RequestedDate.objects.filter(request_id=r)
-		for date in dates:
-			timedif = timestodelta(date.time_from, date.time_to)
-			print(timedif)
+		if dates.count() > 0:
+			for date in dates:
+				timedif = timestodelta(date.time_from, date.time_to)
+				print(timedif)
 
-			#get equipments
-			equipments = RentedEquipment.objects.filter(request_id=r)
-			for equipment in equipments:
-				e = equipment.equipment_id
-				price = e.price
-				unit = equipment.unit
+				#get equipments
+				equipments = RentedEquipment.objects.filter(request_id=r)
+				for equipment in equipments:
+					e = equipment.equipment_id
+					price = e.price
+					unit = equipment.unit
 
-				hours, remainder = divmod(timedif.seconds, 3600)
-				minutes, seconds = divmod(remainder, 60)
-				minutes = hours*60 + minutes
-				print("minutes: ",  minutes)
+					hours, remainder = divmod(timedif.seconds, 3600)
+					minutes, seconds = divmod(remainder, 60)
+					minutes = hours*60 + minutes
+					print("minutes: ",  minutes)
 
-				hours = math.ceil(minutes/60)
-				print("hours: ", hours)
-				print("name: ", e.name)
-				print("price: ", e.price)
-				total = unit * price * hours + total
-				print("total: ", total)
-			tothours = tothours + hours
+					hours = math.ceil(minutes/60)
+					print("hours: ", hours)
+					print("name: ", e.name)
+					print("price: ", e.price)
+					total = unit * price * hours + total
+					print("total: ", total)
+				tothours = tothours + hours
 
-		#get venue
-		p = 0
-		venue = Venue.objects.get(pk=r.venue_id.pk)
-		if venue.unit == "hour":
-			if user.groups.filter(name="Outsiders").count():
-				total = total + (venue.price_general*tothours)
-				p = venue.price_general
-			elif user.groups.filter(name="Alumni").count():
-				total = total + (venue.price_alumni*tothours)
-				p = venue.price_alumni
-			else: 
-				total = total + (venue.price_student*tothours)
-				p = venue.price_student
-		elif venue.unit == "package":
-			print("package hours: ", venue.hours)
-			if user.groups.filter(name="Outsiders").count():
-				total = total + venue.price_general
-				p = venue.price_general
-			elif user.groups.filter(name="Alumni").count():
-				total = total + venue.price_alumni
-				p = venue.price_alumni
-			else: 
-				total = total + venue.price_student
-				p = venue.price_student
+			#get venue
+			p = 0
+			venue = Venue.objects.get(pk=r.venue_id.pk)
+			if venue.unit == "hour":
+				if user.groups.filter(name="Outsiders").count():
+					total = total + (venue.price_general*tothours)
+					p = venue.price_general
+				elif user.groups.filter(name="Alumni").count():
+					total = total + (venue.price_alumni*tothours)
+					p = venue.price_alumni
+				else: 
+					total = total + (venue.price_student*tothours)
+					p = venue.price_student
+			elif venue.unit == "package":
+				print("package hours: ", venue.hours)
+				if user.groups.filter(name="Outsiders").count():
+					total = total + venue.price_general
+					p = venue.price_general
+				elif user.groups.filter(name="Alumni").count():
+					total = total + venue.price_alumni
+					p = venue.price_alumni
+				else: 
+					total = total + venue.price_student
+					p = venue.price_student
 
-		print("total: ", total)
+			print("total: ", total)
 
-		if OfficeStatus.objects.filter(request_id=r).exists():
-			print("request is already in officestatus model")
+
+			if OfficeStatus.objects.filter(request_id=r).exists():
+				print("request is already in officestatus model")
+			else:
+				# saving to Office Status
+				o = OfficeStatus(request_id=r, osa_status='P', ada_status='P', cashier_status='P', cdmo_status='P')
+				o.save()
+
+			context['pk'] = pk
+			context['equipment_list'] = equipments
+			context['request'] = r
+			context['total'] = total
+			context['hours'] = hours
+			context['date'] = date
+			context['dates'] = dates
+			context['tothours'] = tothours
+			context['price'] = p
+
+			print("tothours: ", tothours)
+
+			return context
 		else:
-			# saving to Office Status
-			o = OfficeStatus(request_id=r, osa_status='P', ada_status='P', cashier_status='P', cdmo_status='P')
-			o.save()
-
-		context['pk'] = pk
-		context['equipment_list'] = equipments
-		context['request'] = r
-		context['total'] = total
-		context['hours'] = hours
-		context['date'] = date
-		context['dates'] = dates
-		context['tothours'] = tothours
-		context['price'] = p
-
-		print("tothours: ", tothours)
-
-		return context
+			return super(SubmitForm, self).get_context_data(**kwargs)
 
 def MyRequests(request):
 	request_list = Request.objects.filter(requested_by = request.user)

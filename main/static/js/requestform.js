@@ -138,6 +138,7 @@ function validateForm(clicked_id){
   console.log(clicked_id);
 	var valid = true;
 	var required = document.getElementsByClassName("required");
+  console.log("here")
 	for (var i=0; i < required.length; i++){
 		if (required.item(i).value == ''){
 			alert("Please fill all required fields");
@@ -145,24 +146,6 @@ function validateForm(clicked_id){
 			break;
 		}
 	}
-
-  //for equipment
-  // var x = document.getElementsByClassName("check");
-  // var y = document.getElementsByClassName("unit_field");
-
-  // for (var i=0; i < x.length; i++){
-  //   if (x[i].checked == true && y[i].value == ''){
-  //     alert("Please provide number of units for equipment to be rented.");
-  //     valid = false;
-  //     break;
-  //   }
-  //   if (!isInteger(y[i].value)) {
-  //     alert("Must input integer only for the units.");
-  //     valid = false;
-  //     break;
-  //   }
-  // }
-
   if(valid){
     if (clicked_id == "part1"){
   		var form = document.getElementById("request_form");
@@ -220,8 +203,17 @@ function submitDateFields(){
 
 function submitForm(x){
   console.log(x);
-  var form = document.getElementById("submit_form");
-  form.submit();
+  valid = false;
+  if ($(".hasdate")[0]){
+    valid = true;
+  } else {
+    alert("Please add date");
+  }
+  if(valid){
+    var form = document.getElementById("submit_form");
+    form.submit();
+  }
+  
 }
 
 function submitRemarks(){

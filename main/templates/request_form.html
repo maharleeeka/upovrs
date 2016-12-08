@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+		{% request.user as user.name }
 		<div id="content">
 			<div class="alert alert-success" id="request-form-notif" >
 				<strong>Success!</strong>
@@ -25,28 +26,28 @@
 						<div class="form-group">
 							<div class="col-md-6">
 								<label>Name: </label>
-								<input type="text" class="form-control" name="name" value="{{ request.name }}" required>
-								<input type="text" class="form-control hidden" name="pk" id="pk" value="{{ request.pk }}" required>
+								<input type="text" class="form-control required" name="name" value="{{ request.name }}">
+								<input type="text" class="form-control hidden" name="pk" id="pk" value="{{ request.pk }}">
 								<!-- <input type="text" class="form-control hidden" name="pk"> -->
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-md-6">
 								<label>Organization: </label>
-								<input type="text" class="form-control" name="organization" value="{{ request.organization }}" required>
+								<input type="text" class="form-control required" name="organization" value="{{ request.organization }}">
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-md-6">
 								<label>Purpose: </label>
-								<input type="text" class="form-control" name="purpose" value="{{ request.purpose }}" required>
+								<input type="text" class="form-control required" name="purpose" value="{{ request.purpose }}">
 							</div>
 						</div>
 
 						<div class="form-group">
 							<div class="col-md-6">
 								<label>Participants: </label>
-								<input type="text" class="form-control" name="participants" value="{{ request.participants }}" required>
+								<input type="text" class="form-control required" name="participants" value="{{ request.participants }}">
 							</div>
 						</div>
 
@@ -103,23 +104,23 @@
 						<div id="schedule">
 							<div class="form-group">
 								<div class="col-md-3">
-									<input type="text" class="hidden" name="request_id" value="{{request.pk}}" required>
+									<input type="text" class="hidden" name="request_id" value="{{request.pk}}">
 									<label>Date: </label>
-									<input type="date" class="form-control" name="date_needed" id="date_needed" value="{{ date.date_needed }}" required>
+									<input type="date" class="form-control" name="date_needed" id="date_needed" value="{{ date.date_needed }}">
 								</div>
 							</div>
 							
 							<div class="form-group">
 								<div class="col-md-3">
 									<label>Time (from): </label>
-									<input type="time" class="form-control" name="time_from" id="val" value="{{ date.time_from }}" required>
+									<input type="time" class="form-control" name="time_from" id="val" value="{{ date.time_from }}">
 								</div>
 							</div>
 
 							<div class="form-group">
 								<div class="col-md-3">
 									<label>Time (to): </label>
-									<input type="time" class="form-control" name="time_to" id="val" value="{{ date.time_to }}" required>
+									<input type="time" class="form-control" name="time_to" id="val" value="{{ date.time_to }}">
 								</div>
 							</div>
 							<div class="col-md-3">
@@ -131,7 +132,7 @@
 					</form>
 					<div id="added_date">
 						{% for date in requested_dates %}
-						<div id="added_date1" class = "col-md-12 block">
+						<div id="added_date1" class = "col-md-12 block hasdate">
 							<input name="date_needed" class="col-md-3" value="{{ date.date_needed }}">
 							<input name="time_from" class="col-md-3" value="{{ date.time_from }}">
 							<input name="time_to" class="col-md-3" value="{{ date.time_to }}">
