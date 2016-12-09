@@ -3,71 +3,32 @@ var i = 1;
 function repeat() {
   var div = document.getElementById('schedule'),
     clone = div.cloneNode(true); // true means clone all childNodes and all event handlers
-	clone.id = "schedule1";
-	document.body.appendChild(clone);
+  clone.id = "schedule1";
+  document.body.appendChild(clone);
+}
+
+function dateAdded(){
+  var form = document.getElementById("requestDates_form");
+  form.submit();
 }
 
 
-function dateAdded() {
-  /* by charie: PLEASE DO NOT MODIFY THIS FUNCTION. Will be minified further */
+function checkUnitField(){
+  var i = 0;
+  var input = document.getElementById('add_equipments').getElementsByTagName('input');
 
-  /*get the input values*/
-  var date = document.getElementsByName('date_needed')[0].value;
-  var timeFrom = document.getElementsByName('time_from')[0].value;
-  var timeTo = document.getElementsByName('time_to')[0].value;
+  for (i = 0; i < input.length; i++){
+    if (input.item(i).value == ''){
+      alert("Fill in the input field in the equipments");
+      break;
+    }
+  }
 
-  /* create new elements on html*/
-  var iDiv = document.createElement('div');
-  var input_1 = document.createElement('input');
-  var input_2 = document.createElement('input');
-  var input_3 = document.createElement('input');
-  var btn = document.createElement ('span');
-  
-  /* set id and class for div*/
-  iDiv.id = 'added_date_' + i;
-  iDiv.className = 'col-md-12 block';
-
-  /* create name attribute for the input tags*/
-  var att_1 = document.createAttribute('name');
-  var att_2 = document.createAttribute('name');
-  var att_3 = document.createAttribute('name');
-  var click = document.createAttribute('onclick');
-  var role = document.createAttribute('role');
-
-  /*set the inputs*/
-  input_1.setAttributeNode(att_1);
-  att_1.value = "date_needed";
-  input_1.className = 'col-md-3';
-  input_1.value = date;
- 
-  input_2.setAttributeNode(att_2);
-  att_2.value = "time_from";
-  input_2.className = 'col-md-3';
-  input_2.value = timeFrom;
-
-  input_3.setAttributeNode(att_3);
-  att_3.value = "time_to";
-  input_3.className = 'col-md-3';
-  input_3.value = timeTo;  
-
-  btn.setAttributeNode(click);
-  btn.setAttributeNode(role);
-  click.value = "this.parentNode.remove();";           /* remove date when click*/
-  role.value = "button";
-  btn.className = 'glyphicon glyphicon-remove';
-
-  /* append input tags to div tag*/
-  iDiv.appendChild(input_1);
-  iDiv.appendChild(input_2);
-  iDiv.appendChild(input_3);
-  iDiv.appendChild(btn);
-
-  /* append div tag to html body*/
-   document.getElementById('added_date').appendChild(iDiv);
-   i++;
-
-  var form = document.getElementById("requestDates_form");
-  form.submit();
+  if (i >= input.length){
+    var pk = document.getElementById("pk");
+    var form = document.getElementById("rentedequipments_form");
+    form.submit();
+  }
 }
 
 function checkDateFields() {
@@ -136,15 +97,15 @@ function checkDate() {
 
 function validateForm(clicked_id){
   console.log(clicked_id);
-	var valid = true;
-	var required = document.getElementsByClassName("required");
-	for (var i=0; i < required.length; i++){
-		if (required.item(i).value == ''){
-			alert("Please fill all required fields");
-			valid = false;
-			break;
-		}
-	}
+  var valid = true;
+  var required = document.getElementsByClassName("required");
+  for (var i=0; i < required.length; i++){
+    if (required.item(i).value == ''){
+      alert("Please fill all required fields");
+      valid = false;
+      break;
+    }
+  }
 
   //for equipment
   // var x = document.getElementsByClassName("check");
@@ -165,8 +126,8 @@ function validateForm(clicked_id){
 
   if(valid){
     if (clicked_id == "part1"){
-  		var form = document.getElementById("request_form");
-  		form.submit();
+      var form = document.getElementById("request_form");
+      form.submit();
     }
     else if (clicked_id == "part3"){
       var pk = document.getElementById("pk");
