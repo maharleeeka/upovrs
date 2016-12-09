@@ -110,11 +110,23 @@
       editable: true,
 
       events: [
-        {% for date in dates %}
+        {% for date in approved %}
         {
           title: '{{ date.request_id.purpose }}',
           start: '{{ date.date_needed|date:"Y-m-d" }} {{ date.time_from|time:"H:i" }}',
           end: '{{ date.date_needed|date:"Y-m-d" }} {{ date.time_to|time:"H:i" }}',
+          backgroundColor: '#FFFFF',
+          // end: '{{ date.end_date|date:"Y-m-d %H:%M" }}',
+        }, 
+        {% endfor %}
+
+        {% for date in pending %}
+        {
+          title: '{{ date.request_id.purpose }}',
+          start: '{{ date.date_needed|date:"Y-m-d" }} {{ date.time_from|time:"H:i" }}',
+          end: '{{ date.date_needed|date:"Y-m-d" }} {{ date.time_to|time:"H:i" }}',
+          // rendering: 'background',
+          color: '#ff9f89'
           // end: '{{ date.end_date|date:"Y-m-d %H:%M" }}',
         }, 
         {% endfor %}

@@ -209,11 +209,29 @@ class EventLists(FormView):
 
 	def get_context_data(self, **kwargs):
 		context = super(EventLists, self).get_context_data(**kwargs)
-		context['events'] = RequestedDate.objects.all().order_by('date_needed')[0:5]
+
+		context['events'] = RequestedDate.objects.filter(status=True)[0:5]
+
+		all_dates = RequestedDate.objects.all().order_by('date_needed')
+		context['all'] = RequestedDate.objects.all().order_by('date_needed')
+
+		for date in all_dates:
+			request_id = date.request_id
+			r = OfficeStatus.objects.get(request_id=request_id)
+
+			if r.osa_status == "A" and r.ada_status =="A" and r.cdmo_status== "A":
+				date.status = True
+				date.save()
+
+		context['approved'] = RequestedDate.objects.filter(status=True)
+		context['pending'] = RequestedDate.objects.exclude(status=True)
+
 		request_list = Request.objects.all()
 		dates = RequestedDate.objects.all() 
+		pending = RequestedDate.objects.exclude(status=True)
 
-		print (dates)
+		print (pending)
+
 		context['dates'] = dates
 
 		return context
@@ -487,6 +505,7 @@ class SubmitForm(TemplateView):
 					bond = 5000.00 
 				if user.groups.filter(name="UPC Orgs").count():
 					bond = 0
+					
 			print("bond: ", bond)
 			print("total: ", total)
 
@@ -508,6 +527,7 @@ class SubmitForm(TemplateView):
 			context['tothours'] = tothours
 			context['price'] = p
 			context['bond'] = bond
+			context['events'] = RequestedDate.objects.all()[0:5]
 
 			print("tothours: ", tothours)
 
@@ -516,7 +536,8 @@ class SubmitForm(TemplateView):
 			return super(SubmitForm, self).get_context_data(**kwargs)
 
 def MyRequests(request):
-	request_list = Request.objects.filter(requested_by = request.user)
+	request_list = Request.objects.filter(requested_by=request.user)
+	print(request.user)
 	paginator = Paginator(request_list,10)
 	page = request.GET.get('page')
 

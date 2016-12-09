@@ -78,6 +78,7 @@ class RequestedDate(models.Model):
 	date_needed = models.DateField(blank=True, null=True)
 	time_from = models.TimeField(blank=True, null=True)
 	time_to = models.TimeField(blank=True, null=True)
+	status = models.BooleanField(blank=True, default=False)
 
 	def __str__(self):
 		return str(self.pk)
