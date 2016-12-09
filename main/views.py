@@ -530,55 +530,167 @@ def MyRequests(request):
 	return render(request, 'my_requests.html', {'requests': requests})
 
 def chargeslip(request):
-	# path_wkthmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
-	# config = pdfkit.configuration(wkhtmltopdf=path_wkthmltopdf)
-	# pdfkit.from_url('main/templates/success.html', '2.pdf', configuration=config)
-	# template = get_template("success.html")
-	# #context = Context({"data": SubmitForm.get_context_data})  # data is the context data that is sent to the html file to render the output. 
-	# html = template.render(context)  # Renders the template with the context data.
-	# pdfkit.from_string(html, 'out.pdf')
-	# pdf = open("out.pdf")
-	# response = HttpResponse(pdf.read(), content_type='application/pdf')  # Generates the response as pdf response.
-	# response['Content-Disposition'] = 'attachment; filename=output.pdf'
-	# pdf.close()
-	# #os.remove("out.pdf")  # remove the locally created pdf file.
-	# return response  # returns the response.
-	# Create the HttpResponse object with the appropriate PDF headers.
-	#context = super(SubmitForm, self).get_context_data(**kwargs)	
 	logo1 = 'main/static/images/UP_logo.png'
 	logo2 = 'main/static/images/UPC_logo.png'
 
 	response = HttpResponse(content_type='application/pdf')
 	response['Content-Disposition'] = 'attachment; filename="chargeslip.pdf"'
 
-	# Create the PDF object, using the response object as its "file."
-	p = canvas.Canvas(response)
+	print('pk')
+	pk = request.GET.get("q")
+	print(pk)
+	#request itsekf
+	r = Request.objects.get(pk=pk)
+	user = User.objects.get(pk=r.requested_by.pk)
 
-	# Draw things on the PDF. Here's where the PDF generation happens.
-	# See the ReportLab documentation for the full list of functionality.
-	#canvas = canvas.Canvas("form.pdf", pagesize=letter)
+	#getting the user type of the user
+	if user.groups.filter(name="UPC Orgs").exists():
+		user_type = "UPC Orgs"
+		venue_price = Decimal(Venue.objects.filter(request=r)[0].price_student)
+		venue_unit = Venue.objects.filter(request=r)[0].unit
+	elif user.groups.filter(name="Outsiders"):
+		user_type = "Outsiders"
+		venue_price = Decimal(Venue.objects.filter(request=r)[0].price_general)
+		venue_unit = Venue.objects.filter(request=r)[0].unit
+	elif user.groups.filter(name="Outsiders"):
+		user_type = "Alumni"
+		venue_price = Decimal(Venue.objects.filter(request=r)[0].price_alumni)
+		venue_unit = Venue.objects.filter(request=r)[0].unit
+
+	venue = Venue.objects.get(pk=r.venue_id.pk)
+	if venue.unit == "hour":
+		porh = '(Hourly Rate)'
+	elif venue.unit == "package":
+		porh = '(Package Rate)'
+	#Draw things on the PDF. Here's where the PDF generation happens.
+	#See the ReportLab documentation for the full list of functionality.
+	#Create the PDF object, using the response object as its "file."
+	p = canvas.Canvas(response)
 	p.setLineWidth(.3)
 	p.setFont('Helvetica', 12)
 	p.drawImage(logo1, 270, 750, 0.5*inch, 0.5*inch, mask='auto')
 	p.drawImage(logo2, 310, 750, 0.55*inch, 0.55*inch, mask='auto')
 	p.drawString(230,730,'University of the Philippines')
 	p.drawString(220,710,'Gorordo Avenue, Lahug, Cebu City')
-	p.drawString(1*inch,690,'OR Number:')
+	p.drawString(1*inch/2,690,'OR Number:')
 	p.line(140,690,250,690)
-	p.drawString(1*inch,670,'Name:')
+	p.drawString(1*inch/2,670,'Name:')
 	p.drawString(300,670,'Organization:')
-	p.drawString(1*inch,650,'James Reid')
-	p.drawString(300,650,'ABS-CBN Station/Star Magic')
+	p.drawString(80,670, r.name)
+	p.drawString(380, 670, r.organization)
+	p.drawString(1*inch/2,650, 'Venue: ')
+	venue_name = Venue.objects.filter(request=r)[0].name
+	p.drawString(80, 650, venue_name)
+	p.drawString(300, 650, porh)
+	p.setFont('Helvetica-Bold', 12)
+	p.drawString(1*inch/2, 610, 'Date/s')
+	p.drawString(200, 610, 'Hours')
+	p.drawString(300, 610, 'Rate')
+	p.drawString(400, 610, 'Sub-total')
+	p.setFont('Helvetica', 12)
+	y = 590
 
-	# p.drawString(275,725,'AMOUNT OWED:')
-	# p.drawString(500,725,"$1,000.00")
-	# p.line(378,723,580,723)
+	# calculating the expenses and printing it on canvas
+	venue_total = 0
+	user = User.objects.get(pk=r.requested_by.pk)
 
-	# p.drawString(30,703,'RECEIVED BY:')
-	# p.line(120,700,580,700)
-	# p.drawString(120,703,"JOHN DOE")
+	#get dates
+	dates = RequestedDate.objects.filter(request_id=r)
+	total_hours = 0
+	if dates.count() > 0:
 
-	# Close the PDF object cleanly, and we're done.
+		for date in dates:
+			timedif = timestodelta(date.time_from, date.time_to)
+			hours, remainder = divmod(timedif.seconds, 3600)
+			print(timedif)
+			p.drawString(1*inch/2, y, str(date.date_needed))
+			p.drawString(200, y, str(hours))
+			p.drawString(300, y, str(venue_price))
+			total_hours = total_hours + hours
+			
+
+			#get venue
+			venue = Venue.objects.get(pk=r.venue_id.pk)
+			if venue.unit == "hour":
+				if user.groups.filter(name="Outsiders").count():
+					venue_total = venue_total + (venue_price*hours)
+				elif user.groups.filter(name="Alumni").count():
+					venue_total = venue_total + (venue_price*hours)
+				else: 
+					venue_total = venue_total + (venue_price*hours)
+				p.drawString(400, y, str(venue_price*hours))
+			elif venue.unit == "package":
+				print("package hours: ", venue.hours)
+				if user.groups.filter(name="Outsiders").count():
+					venue_total = venue_total + venue_price
+				elif user.groups.filter(name="Alumni").count():
+					venue_total = venue_total + venue_price
+				else: 
+					venue_total = venue_total + venue_price
+				p.drawString(400, y, str(venue_price))
+
+			y = y - 20
+
+	print("total: ", venue_total)
+	p.drawString(300, y, 'Sub-total: ')
+	p.drawString(400, y, str(venue_total))
+	y = y - 30
+
+	#for equipments
+	p.setFont('Helvetica-Bold', 12)
+	p.drawString(1*inch/2, y, 'Equipments Rented')
+	y = y - 20
+	p.drawString(1*inch/2, y, 'Equipment Name')
+	p.drawString(150, y, 'Hours')
+	p.drawString(250, y, 'Rate')
+	p.drawString(350, y, 'Unit')
+	p.drawString(450, y, 'Sub-total')
+	p.setFont('Helvetica', 12)
+
+	equipments = RentedEquipment.objects.filter(request_id=r)
+	total = 0
+	equipment_total = 0
+	
+	for equipment in equipments:
+		e = equipment.equipment_id
+		price = e.price
+		unit = equipment. unit
+		total = unit * price * total_hours
+		equipment_total = equipment_total + total
+		y = y - 20
+		p.drawString(1*inch/2, y, e.name)
+		p.drawString(160, y, str(total_hours))
+		p.drawString(250, y, str(price))
+		p.drawString(360, y, str(unit))
+		p.drawString(450, y, str(total))
+
+	y = y - 20
+	p.drawString(350, y, 'Sub-total: ')
+	p.drawString(450, y, str(equipment_total))
+	y = y - 30
+	bond = 0 
+	print(user_type)
+	if venue.pk == 21 or venue.pk == 22 or (venue.pk <= 44 and venue.pk >= 39):
+		if venue_total >= 12000:
+			if user_type is not "UPC Orgs":
+				bond = 5000.00
+
+	p.setFont('Helvetica-Bold', 12)
+	p.drawString(1*inch/2, y, 'Bond: ')
+	p.setFont('Helvetica', 12)
+	p.drawString(350, y, 'Sub-total: ')
+	p.drawString(450, y, str(bond))
+
+	y = y - 30
+	p.setFont('Helvetica-Bold', 12)
+	p.drawString(350, y, 'TOTAL: ')
+	overall = equipment_total + venue_total
+	p.drawString(450, y, str(overall))
+	p.setFont('Helvetica', 10)
+	p.drawString(1*inch/2, y-40, "***In case a package has been chosen by the requster, number of hours won't matter.")
+
 	p.showPage()
 	p.save()
+	
 	return response
+
