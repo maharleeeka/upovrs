@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 {% block content %}
 
@@ -6,10 +7,9 @@
 		<div class="col-sm-8">
 			<div id="calendar" class="fc-unthemed"></div>
 			<!-- #calendar -->
-			<div class="panel panel-default">
+			<div class="panel panel-default" id="guidelines">
 				<div class="panel-heading">
-					<h4 class="panel-title">GUIDELINES</h4> 
-				</div>
+					<h4 class="panel-title">GUIDELINES</h4></div>
 				<div class="panel-body">
 					<p>1. For use of classrooms for the sole purpose of holding meeting of UP student organization from 8:00am-5:30pm, <b>approval will be at the OSA level only</b>. Announcements can also be apporved right away by OSA (particularly in charge for student organizations) for posting upon coordination</p>
 					<p>2. Reservation have to be field at least three (3) days in advance for UP approved activiteis and the least one (1) week for Non-UP activities. In any  case Nuit-wide activities will supersede any prior reservation.</p>
@@ -27,13 +27,439 @@
 					<p>- The from should be routed first to: (1) PE teachers, (2) Room USe Committee Chair and (3) Office of Students Affairs for the purpose of coordinating activities so as not ro disrupt classes in the Arts & Sciences and the Undergraduate buildings.</p>
 					<p>14. <b>For multimedia projector (MMP)/LCD rental charges:</b></p>
 					<p>- The actual nubmer of hours will be noted in #12 of the form by ARV/CH In-charge for billing at the Cahsier's office after the activity. Upon payment, the organizer shall present the official receipt to the AVR/CH In-charge for clearance.</p>
-					<p><em>Note: Public renters/Outisde organizations partnered with a UP-based organization shall post a P5,000.00 bond for the use of Performing Arts Hall and AVR1 (library building), to be paid at the cashier (for deposit to a trust fund) upon approval of the permit to use to answer for the damages/losses of the rented hall/room. After the activity, RENTER submits a request for return of the bond to the ADA with supporting documents: clearance from CDMO and official receipt of the posted bond.</em></p>
+					<p><em>Note: Public renters/Outisde organizations partnered with a UP-based organization shall post a P5,000.00 bond for the use of Performing Arts Hall and AVR1 (library building), to be paid at the cashier (for deposit to a trust fund) upon approval of the permit to use to answer for the damages/losses of the rented hall/room. After the activity, RENTER submits a request for return of the bond to the ADA with supporting documents: clearance from CDMO and official receipt of the posted bond.</em></p></div>
+				<!-- .panel-body -->
+			</div>
+			<div class="panel panel-default" id="rates">
+				<div class="panel-heading">
+					<h4 class="panel-title">RATES</h4></div>
+				<div class="panel-body">
+					<h3><strong>UP Cebu Lahug Facility and Equipment Rental Rates</strong><br>(Updated September 1, 2016)</h3>
 				</div>
+
+				<table class="table table-bordered">
+					<div class="table-responsive">
+						<thead>
+							<tr>
+								<td><h4><strong>Facility</strong></h4></td>
+								<td><h4><strong>Price</strong></h4></td>
+						        <td><h4><strong>Remarks</strong></h4></td>
+						    </tr>
+						</thead>
+						<tbody>
+						    <tr>
+								<td>Performing Arts Hall</td>
+						        <td>₱12,000.00</td>
+						        <td><strong>Package A: For SHOWS</strong><br>
+									This price includes the use of lights, sounds (for the duration<br>
+									of the setup and practices) and air conditioners for eight (8) <br>
+									hours (on the day of the show only).<br>
+									The organizers of the show may enter the Performing Arts Hall, 4 PM.<br>
+									One day BEFORE the actual date for set up and practice. No air Conditioners during set up.<br><br>
+
+									<strong>Package B: For CONFERENCES</strong>
+									Use for (9) hours, 8 am to 5 pm or 9 am to 6 pm.<br>
+									Free use of LCD, lights, sound & AC units.<br><br>
+									Bond of ₱5,000 will be charged to outsiders for the <br>
+									use of PAH &AVR 1. The following users are <br>
+									exempted from the bond requirement:<br>
+									*recognized student organization activities endorsed by OSA<br>
+									*academic related activities of faculty REPS and<br>
+									administration activities<br>
+									<strong>NO DISCOUNTS APPLIES TO PAH USE</strong><br><br>
+									*Half Day use - ₱6,000.00<br>
+									*More than 4 hours or less than 8 hours - ₱12,000.00<br>
+									*No food inside<br>
+								</td>
+						    </tr>
+							<tr>
+						    	<td>Performing Arts Hall Lobby</td>
+						        <td>₱1,000.00<br>package</td>
+						        <td>If renting PAH/AVR1 (on top of the 12k)</td>
+						    </tr>
+						    <tr>
+						        <td>SRP Boardroom<br>(15 seaters)</td>
+						        <td>₱8,500.00<br>package</td>
+						        <td>With Aircon and Microphone</td>
+						    </tr>
+						</tbody>
+					</div>
+				</table>
+
+				<table class="table table-bordered">
+					<div class="table-responsive col-xs-12 col-sm-12">
+						<thead>
+						    <tr>
+						        <td><h4><strong>Facility</strong></h4></td>
+						        <td><h4><strong>A/C Units</strong></h4></td>
+						        <td><h4><strong>Per Hour</strong></h4></td>
+						        <td><h4><strong>Remarks</strong></h4></td>
+						    </tr>
+						</thead>
+						<tbody>
+							<tr>
+						        <td>Performing Arts Hall Lobby</td>
+						        <td></td>
+						        <td>₱400</td>
+						        <td>Only if no one was using the PAH/AVR1</td>
+						    </tr>
+						    <tr>
+						        <td>AVR1 (Beside Performing Arts)</td>
+						        <td>₱150/unit/hour</td>
+						        <td>₱420</td>
+						        <td rowspan=4>
+						        	The rates per hour of all facilities with aircon<br>
+									units are exclusive of all available aircon units<br>
+									inside the facility.
+						        </td>
+						    </tr>
+						    <tr>
+						    	<td>AVR2 (Undergrad<br>Building)</td>
+						    	<td>₱50.00/unit/hour</td>
+						    	<td>₱350.00</td>
+						    </tr>
+						    <tr>
+						    	<td>ILC-AVR</td>
+						    	<td>₱50.00/unit/hour</td>
+						    	<td>₱350.00</td>
+						    </tr>
+						    <tr>
+						    	<td>Union Building</td>
+						    	<td>₱50.00/unit/hour</td>
+						    	<td>₱400.00</td>
+						    </tr>
+						    <tr>
+						    	<td>AS Conference Hall</td>
+						    	<td>₱150.00/unit/hour</td>
+						    	<td>₱500.00</td>
+						    	<td>AS Conference Hall P150.00/unit/hour P500.00
+								Without the use of air conditioners, use of wall fans are<br>
+								FREE but use of IWATA is NOT FREE. Free use of<br>
+								monobloc chairs.
+								</td>
+						    </tr>
+						    <tr>
+						    	<td>NSMD Lobby</td>
+								<td></td>
+								<td>₱100.00</td>
+								<td></td>	
+						    </tr>
+						    <tr>
+						    	<td>High School Covered<br>Court</td>
+						    	<td></td>
+						    	<td>₱300.00</td>
+						    	<td></td>
+						    </tr>
+						    <tr>
+						    	<td rowspan=3>Basketball/Tennis<br>Court</td>
+						    	<td></td>
+						    	<td>FREE</td>
+						    	<td>For current UP Students/faculty/staff (for DAY USE<br>only)</td>
+						    </tr>
+						    <tr>
+						    	<td></td>
+						    	<td>₱200.00</td>
+						    	<td>For Alumni - at least five (5) UP Alumni should be<br>present</td>
+						    </tr>
+						    <tr>
+					    		<td></td>
+					    		<td>₱400.00</td>
+						    	<td>
+						    		For the GENERAL PUBLIC<br>
+						    		Organizers should provide their own portalets and<br>
+						    		water supply. If electricity is required, organizers pay<br>
+						    		additional.
+						    	</td>
+						    </tr>
+						    <tr>
+						    	<td>LIGHTS for the courts</td>
+						    	<td></td>
+						    	<td>₱100.00</td>
+						    	<td>Per unit per hour, regardless who rented</td>
+						    </tr>
+						    <tr>
+						    	<td>Open Field (near<br>Admin Building)</td>
+						    	<td></td>
+						    	<td>₱400.00</td>
+						    	<td>
+						    		Organizers should provide their own portalets and<br>
+						    		water supply. If electricity is required, organizers pay<br>
+						    		additional.
+						    	</td>
+						    </tr>
+						    <tr>
+						    	<td rowspan=2>Football Field (AS<br>Field</td>
+						    	<td rowspan=2></td>
+						    	<td></td>
+						    	<td>FREE for students/faculty/staff</td>
+						    </tr>
+						    <tr>
+						    	<td>₱600.00</td>
+						    	<td>
+						    		For the GENERAL PUBLIC<br>
+						    		Organizers should provide their own portalets and<br>
+						    		water supply. If electricity is required, organizers pay <br>
+						    		additional.
+						    	</td>
+						    </tr>
+						    <tr>
+						    	<td>AS PArking Area</td>
+						    	<td></td>
+						    	<td>₱400.00</td>
+						    	<td>
+						    		Organizers should provide their own portalets and<br>
+						    		water supply. If electricity is required, organizers pay <br>
+						    		additional.
+						    	</td>
+						    </tr>
+						    <tr>
+						    	<td>UP High School<br>Ground</td>
+						    	<td></td>
+						    	<td>₱800.00</td>
+						    	<td>For the GENERAL PUBLIC</td>
+						    </tr>
+						    <tr>
+						    	<td>Colleges</td>
+						    	<td></td>
+						    	<td>₱300.00</td>
+						    	<td>For the GENERAL PUBLIC</td>
+						    </tr>
+						</tbody>
+					</div>
+				</table>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+					    	<td><h4><strong>Classrooms</strong></h4></td>
+					    	<td><h4><strong>Rate (Per Hour)</strong></h4></td>
+					    	<td><h4><strong>Rooms available for rent inclusive of A/C:</strong></h4></td>
+					    </tr>
+					</thead>
+					<tbody>
+						<tr>
+					    	<td>Large Rooms with 2<br>aircon units</td>
+					    	<td>₱350.00</td>
+					    	<td>AS 162-164; AS247-249; AS 259-261</td>
+					    </tr>
+					    <tr>
+					    	<td>Regular Rooms with 2<br>aircon units</td>
+					    	<td>₱300.00</td>
+					    	<td>
+					    		GP1; GP2; GP4<br><br>
+					    		SRP:<br>
+					    		Case Room 105; 103; 202; 203A; 203B; 204A; 204B;<br>
+					    		206
+					    	</td>
+					    </tr>
+					    <tr>
+					    	<td>Small Rooms with 2<br>aircon units</td>
+					    	<td>₱250.00</td>
+					    	<td>GP3; BMC lounge</td>
+					    </tr>
+					    <tr>
+					    	<td>Small Rooms with 1<br>aircon unit</td>
+					    	<td>₱200.00</td>
+					    	<td>
+					    		BMC Pantry<br>
+					    		AS right wing:<br>
+					    		AS 150; AS 151<br><br>
+					    		AS left wing:<br>
+					    		AS 135; AS 235; AS 231; AS 206; AS 302; AS 304<br><br>
+					    		SRP: 201A-1; 201A-2; 201B
+					    	</td>
+					    </tr>
+					    <tr>
+					    	<td>Regular Rooms WITHOUT<br>aircon units</td>
+					    	<td>₱180.00</td>
+					    	<td>
+					    		Undergrad Rooms:<br>
+					    		R214; R215; R216; R217; R218; R219
+					    	</td>
+					    </tr>
+					    <tr>
+					    	<td>Small Rooms WITHOUT<br>aircon units</td>
+					    	<td>₱130.00</td>
+					    	<td>
+					    		AS Right Wing:<br>
+					    		AS 153; AS 165; AS 167<br><br>
+					    		AS Left Wing:<br>
+					    		AS 233
+					    	</td>
+					    </tr>
+					    <tr>
+					    	<td>Computer Laboratories</td>
+					    	<td>₱450.00</td>
+					    	<td>
+					    		This includes the rent of the regular sized room with 2<br>
+					    		air con units and at least 20 computers.
+					    	</td>
+					    </tr>
+					</tbody>
+				</table>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<td><h4><strong>Equipment</strong></h4></td>
+							<td><h4><strong>Rate (Per Hour)</strong></h4></td>
+					        <td><h4><strong>Remarks</strong></h4></td>
+					    </tr>
+					</thead>
+					<tbody>
+					    <tr>
+							<td>Sound System</td>
+					        <td>₱100.00</td>
+					        <td></td>
+					    </tr>
+						<tr>
+					    	<td>LCD/Multimedia<br>projector/LDP</td>
+					        <td>₱150.00</td>
+					        <td></td>
+					    </tr>
+					    <tr>
+					        <td>IWATA</td>
+					        <td>₱60.00 <br>(WHOLE DAY)</td>
+					        <td>Rent for the WHOLE DAY</td>
+					    </tr>
+					    <tr>
+					        <td>Air condition units</td>
+					        <td>₱50.00</td>
+					        <td></td>
+					    </tr>
+					    <tr>
+					        <td rowspan=2>Computer units</td>
+					        <td>₱30.00</td>
+					        <td>for NON-UP Constituent</td>
+					    </tr>
+					    <tr>
+					        <td>₱30.00</td>
+					        <td>For UP Constituent</td>
+					    </tr>
+					    <tr>
+					        <td rowspan=4>Tent</td>
+					        <td>FREE</td>
+					        <td>For Academic related activities requested by faculty<br>
+					        	and UP recognized clubs
+					        </td>
+					    </tr>
+					    <tr>
+					        <td>₱100.00</td>
+					        <td>
+					        	For non-academic activities requested by UP,<br>
+					        	Personnel, Faculty, Staff and Students
+					        </td>
+					    </tr>
+					    <tr>
+					        <td>₱200.00</td>
+					        <td>For Alumni borrowers<br></td>
+					    </tr>
+					    <tr>
+					        <td>₱300.00</td>
+					        <td>NON-UP<br></td>
+					    </tr>
+					    <tr>
+					        <td>5000 Lumens<br>Projector</td>
+					        <td>₱500.00</td>
+					        <td></td>
+					    </tr>
+					    <tr>
+					        <td>3 Tonnage Standees<br>Aircon Units</td>
+					        <td>₱150.00</td>
+					        <td>For Non Academic Use</td>
+					    </tr>
+					</tbody>
+				</table>
+				<div class="col-md-10">
+					<h3><strong>UP Cebu SRP Facility and Equipment Rental Rates</strong><br>
+						(Effective February 12, 2016)</h3>
+				</div>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<td><h4><strong>Facility</strong></h4></td>
+							<td><h4><strong>A/C Units</strong></h4></td>
+					        <td><h4><strong><h4>Per HOUR</strong></h4></td>
+					    </tr>
+					</thead>
+					<tbody>
+					    <tr>
+							<td>SRP Boardroom<br>(15 seaters)</td>
+					        <td></td>
+					        <td></td>
+					    </tr>
+						<tr>
+					    	<td>SRP Auditorium</td>
+					        <td>₱150.00/unit/hour</td>
+					        <td>₱900.00</td>
+					    </tr>
+					    <tr>
+					        <td>SRP Classrooms With Aircon</td>
+					        <td></td>
+					        <td>₱300</td>
+					    </tr>
+					    <tr>
+					        <td>SRP Classrooms WITHOUT Aircon</td>
+					        <td></td>
+					        <td>₱200</td>
+					    </tr>
+					    <tr>
+					        <td>SRP Boardroom<br>(15 seaters)</td>
+					        <td>₱150.00/unit/hour</td>
+					        <td>₱500</td>
+					    </tr>
+					</tbody>
+				</table>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<td><h4><strong>Facility</strong></h4></td>
+					        <td><h4><strong>Rate</strong></h4></td>
+					        <td colspan=2><h4><strong>Remarks</strong></h4></td>
+					    </tr>
+					</thead>
+					<tbody>
+					    <tr>
+							<td>Little Gallery</td>
+					        <td>₱500.00/day</td>
+					        <td colspan=2>For Faculty and Staff</td>
+					    </tr>
+						<tr>
+					    	<td>Guesthouse Lobby</td>
+					        <td>Free</td>
+					        <td colspan=2>For Dean's meeting/UP Faculty, Staff and Students</td>
+					    </tr>
+					    <tr>
+					        <td></td>
+					        <td>₱500.00 With Aircon</td>
+					        <td>Non-UP</td>
+					        <td>Rental rate is inclusive use of kitchen and sala</td>
+					    </tr>
+					</tbody>
+				</table>
+				<div class="col-lg-10 col-md-10 col-sm-12 col-xs-12" style="margin-bottom: 40px;">
+					<strong>Discounts (applicable to ALL hourly rented facilities)</strong><br>
+					The discounts that were aggreed by the committee is as follows: <br>
+					<ol type="1">
+					  <li>All facilities are rented hourly, except for the Performing Arts Hall</li>
+					  <li>if rent of facility is for four (4) hours or more, twenty percent (20%) discount will be given</li>
+					  <li>if reservation is for the whole day (8 AM to 5 PM or 9 AM to 5 PM, eight (8) hours will only be charged.</li>
+					</ol>
+				</div>
+					<!-- </div>
+				</div> -->
 				<!-- .panel-body -->
 			</div>
 		</div>
 		<div class="col-sm-4">
 			<div class="panel-group side-panel">
+				<div class="panel panel-default">
+					<div class="nav navbar-default sidebar center">
+						<ul class="nav navbar-nav" id="navbar_helper">
+							<div class="col-md-4"><li><a href="#" onclick="indexNav(1)">Calendar</a></li></div>
+							<div class="col-md-4"><li><a href="#" onclick="indexNav(2)">Guidelines</a></li></div>
+							<div class="col-md-4"><li><a href="#" onclick="indexNav(3)">Rates</a></li></div>
+						</ul>
+					</div>
+				</div>
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4>NOTICE</h4>
@@ -71,11 +497,6 @@
 						
 					</ul>
 				</div>
-				<!-- <div class="panel panel-default">
-					<div class="panel-heading">
-						<h4>FAQ</h4>
-					</div>
-				</div> -->
 			</div>
 			<!-- .side-panel -->
 		</div>	

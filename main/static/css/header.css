@@ -134,8 +134,7 @@ a:link, a:visited {
 }
 
 .login_button {
-    background: #4CAF50;
-    color: black;
+    background-color: #4CAF50;
     border: 2px solid #4CAF50;
 }
 

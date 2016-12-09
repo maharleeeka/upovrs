@@ -106,3 +106,17 @@
 		float: none;
 	}
 }
+
+
+#guidelines, #rates{
+	display: none;
+}
+
+#navbar_helper li{
+	padding: 15px;
+	margin: auto;
+}
+
+#navbar_helper a{
+	color: black;
+}

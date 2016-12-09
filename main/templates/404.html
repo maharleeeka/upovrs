@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+	<div class="wrap">
+	   <div class="logo">
+	   <h1>404</h1>
+	    <p>Error occured!</p>
+	    <p>This page does not exists or you don't have permission to view this page.</p>
+  	      <div class="sub">
+  	      	<!-- please allow redirection to main page -->
+	        <p><a href="{% url 'index' %}">Go to main page.</a></p>
+	      </div>
+        </div>
+	</div>
+{% endblock %}
