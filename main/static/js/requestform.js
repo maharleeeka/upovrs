@@ -241,3 +241,22 @@ function slide(){
 function panelTransition () {
   
 }
+
+function indexNav(x){
+  if(x == 1){
+    document.getElementById('calendar').style.display = "block";
+    document.getElementById('guidelines').style.display = "none";
+    document.getElementById('rates').style.display = "none";
+  }else if(x == 2){
+    document.getElementById('guidelines').style.display = "block";
+    document.getElementById('calendar').style.display = "none";
+    document.getElementById('rates').style.display = "none";
+  }else if(x == 3){
+    document.getElementById('calendar').style.display = "none";
+    document.getElementById('guidelines').style.display = "none";
+    document.getElementById('rates').style.display = "block";
+
+  }
+
+
+}
