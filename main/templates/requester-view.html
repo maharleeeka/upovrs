@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
+	{% if user == request.requested_by %}
 	<div id="requester-view">
-		<div id="requester-header"><h1>{{ user.last_name }}</h1></div>
-		<div id="requester_view_status" class="requester_panel">
-			<div class="requester_panel_header">
-				<div class="requester_panel_title">
-					Request Status
-				</div>
-			</div>
+		<div id="requester-header">
+			<h1>{{ user.last_name }}</h1>
+		</div>
 
-			<div class="requester_view_body">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h2>Request Status</h2>
+			</div>
+			<div class="panel-body">
 				<table class="table">
 					<thead>
 						<th class="text-center">No.</th>
@@ -20,7 +21,7 @@
 						<th class="text-center">CDMO</th>
 					</thead>
 
-					<tbody>
+					<tbody class="request-status">
 						<tr>
 					     	<td class="col-md-1 text-center">{{ request.pk }}</th>
 					     	<td class="col-md-1 text-center">{{ request.purpose }}</th>
@@ -56,21 +57,11 @@
 				</table>
 			</div>
 		</div>
-<!-- 		<div class="panel panel-default">
+		<div class="panel panel-default">
 			<div class="panel-heading">
-				
+				<h2>Request Remarks</h2>
 			</div>
-			<div class="panel-body">
-				<h4></h4>
-			</div>
-		</div> -->
-		<div id="requester_view_remarks" class="requester_panel">
-			<div class="requester_panel_header">
-				<div class="requester_panel_title">
-					Request Remarks
-				</div>
-			</div>
-			<div class="requester_view_body">
+			<div class="panel-body" hidden>
 				<div id="request_remarks">
 					{% if office_status.osa_remarks != "" %}
 						<h3>Office of Student Affairs</h3>
@@ -95,16 +86,13 @@
 				</div>
 			</div>
 		</div>
-		<div id="requester_view_form" class="requester_panel">
-			<div class="requester_panel_header">
-				<div class="requester_panel_title">
-					Request Form
-				</div>
-			</div>
 
-			<!-- <a class="btn btn-default" id="requester_form_viewAll" onclick="showAll()"><span class="glyphicons glyphicons-circle-arrow-down"></span></a> --> 
-			<!-- <a class="btn btn-default" id="requester_form_hideAll" onclick="showAll()"><span class="glyphicons glyphicons-circle-arrow-down"></span></a>  -->
-			<div class="requester_view_body" id="hideThisBody">
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h2>Request Form</h2>
+			</div>
+			<div class="panel-body">
 				<div id="request_form">
 				 	<div class="table-responsive" >
 						<table class="table">
@@ -114,43 +102,43 @@
 							</thead>
 						    <tbody>
 								<tr>
-									<td>Tracking Number: </td>
+									<td class="rf">Tracking Number: </td>
 							        <td>{{request.pk}}</td>
 							    </tr>
 							    <tr>
-									<td>Date Filed: </td>
+									<td class="rf">Date Filed: </td>
 							        <td>{{request.date_filed}}</td>
 							    </tr>
 							    	
 								<tr>
-							    	<td>Name: </td>
+							    	<td class="rf">Name: </td>
 							        <td>{{request.name}}</td>
 							    </tr>
 							    <tr>
-							        <td>Organization: </td>
+							        <td class="rf">Organization: </td>
 							        <td>{{request.organization}}</td>
 							    </tr>
 							    <tr>
-							        <td>Purpose: </td>
+							        <td class="rf">Purpose: </td>
 							        <td>{{request.purpose}}</td>
 							    </tr>
 							    <tr>
-							        <td>Participants: </td>
+							        <td class="rf">Participants: </td>
 							        <td>{{request.participants}}</td>
 							    </tr>
 							    <tr>
-							        <td>Speakers: </td>
+							        <td class="rf">Speakers: </td>
 							        <td>{{request.speakers}}</td>
 							    </tr>
 							    <tr>
-							        <td>Venue: </td>
+							        <td class="rf">Venue: </td>
 							        <td>
 										{{request.venue_id.name}}
 									</td>
 							        
 							    </tr>
 							    <tr>
-							        <td>Dates: </td> 
+							        <td class="rf">Dates: </td> 
 							        <td>
 							        	{% for date in date_list %}
 							        		{{ date.date_needed }} ({{ date.time_from }} - {{ date.time_to }}) <br>
@@ -158,7 +146,7 @@
 							        </td>
 							    </tr>
 							    <tr>
-							      	<td>Equipment Rented: </td>
+							      	<td class="rf">Equipment Rented: </td>
 							      	<td>
 										{% for equipment in equipment_list %}
 											{{ equipment.equipment_id }} = {{ equipment.unit }} units <br>
@@ -168,9 +156,13 @@
 						    </tbody>
 						 </table>
 					</div>
+				</div>
 			</div>
 		</div>
 	</div>
+	{% else %}
+		<meta http-equiv="REFRESH" content="0;url=/main">
+	{% endif %}
 </div>
 
 {% endblock %}
