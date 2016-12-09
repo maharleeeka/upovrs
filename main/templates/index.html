@@ -62,9 +62,10 @@
 					<ul class="list-group">
 						{% for event in events %}
 						<li class="list-group-item">
-							<span class="event-name">{{event.purpose}}</span><br>
-							<span class="event-details">Organizer: {{event.organization}}</span><br>
-							<span class="event-details">Where: {{event.venue_id}}</span>
+							<span class="event-name"><a href="{% url 'viewrequestdetails' %}?q={{ event.request_id.pk }}">{{event.request_id.purpose}}</a></span><br>
+							<span class="event-details">Organizer: {{ event.request_id.organization }}</span><br>
+							<span class="event-details">Where: {{ event.request_id.venue_id }}</span><br>
+							<span class="event-details">Date: {{ event.date_needed }} ({{ event.time_from }} - {{ event.time_to }})</span><br>
 						</li>
 						{% endfor %}
 						

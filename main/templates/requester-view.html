@@ -16,7 +16,6 @@
 						<th class="text-center">No.</th>
 						<th class="text-center">PURPOSE</th>
 						<th class="text-center">OSA</th>
-						<th class="text-center">CASHIER</th>
 						<th class="text-center">ADA</th>
 						<th class="text-center">CDMO</th>
 					</thead>
@@ -34,15 +33,6 @@
 					     		<span class="glyphicon glyphicon-unchecked"></span>
 					     		{% endif %}
 					     	</td>
-					    	<td class="col-md-1 text-center">
-					    		{% if office_status.cashier_status == 'A' %}
-					     		<span class="glyphicon glyphicon-ok"></span>
-					     		{% elif office_status.cashier_status == 'R' %}
-					     		<span class="glyphicon glyphicon-remove"></span>
-					     		{% elif office_status.cashier_status == 'P' %}
-					     		<span class="glyphicon glyphicon-unchecked"></span>
-					     		{% endif %}
-					    	</td>
 					      	<td class="col-md-1 text-center">
 					      		{% if office_status.ada_status == 'A' %}
 					     		<span class="glyphicon glyphicon-ok"></span>
@@ -66,6 +56,14 @@
 				</table>
 			</div>
 		</div>
+<!-- 		<div class="panel panel-default">
+			<div class="panel-heading">
+				
+			</div>
+			<div class="panel-body">
+				<h4></h4>
+			</div>
+		</div> -->
 		<div id="requester_view_remarks" class="requester_panel">
 			<div class="requester_panel_header">
 				<div class="requester_panel_title">
@@ -93,6 +91,7 @@
 						<h3>CDMO</h3>
 						<p>{{ office_status.cdmo_remarks }}</p>
 					{% endif %}
+					<h3>CDMO</h3>
 				</div>
 			</div>
 		</div>

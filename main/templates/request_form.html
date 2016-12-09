@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+		{% request.user as user.name }
 		<div id="content">
 			<div class="alert alert-success" id="request-form-notif" >
 				<strong>Success!</strong>
@@ -25,27 +26,28 @@
 						<div class="form-group">
 							<div class="col-md-6">
 								<label>Name: </label>
-								<input type="text" class="form-control" name="name" value="{{ request.name }}" required>
-								<input type="text" class="form-control hidden" name="pk" id="pk" value="{{ request.pk }}" required>
+								<input type="text" class="form-control required" name="name" value="{{ request.name }}">
+								<input type="text" class="form-control hidden" name="pk" id="pk" value="{{ request.pk }}">
+								<!-- <input type="text" class="form-control hidden" name="pk"> -->
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-md-6">
 								<label>Organization: </label>
-								<input type="text" class="form-control" name="organization" value="{{ user.last_name }}" required readonly>
+								<input type="text" class="form-control required" name="organization" value="{{ user.last_name }}">
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-md-6">
 								<label>Purpose: </label>
-								<input type="text" class="form-control" name="purpose" value="{{ request.purpose }}" required>
+								<input type="text" class="form-control required" name="purpose" value="{{ request.purpose }}">
 							</div>
 						</div>
 
 						<div class="form-group">
 							<div class="col-md-6">
 								<label>Participants: </label>
-								<input type="text" class="form-control" name="participants" value="{{ request.participants }}" required>
+								<input type="text" class="form-control required" name="participants" value="{{ request.participants }}">
 							</div>
 						</div>
 
@@ -100,23 +102,23 @@
 						<div id="schedule">
 							<div class="form-group">
 								<div class="col-md-3">
-									<input type="text" class="hidden" name="request_id" value="{{request.pk}}" required>
+									<input type="text" class="hidden" name="request_id" value="{{request.pk}}">
 									<label>Date: </label>
-									<input type="date" class="form-control" name="date_needed" id="date_needed" value="{{ date.date_needed }}" required>
+									<input type="date" class="form-control" name="date_needed" id="date_needed" value="{{ date.date_needed }}">
 								</div>
 							</div>
 							
 							<div class="form-group">
 								<div class="col-md-3">
 									<label>Time (from): </label>
-									<input type="time" class="form-control" name="time_from" id="val" value="{{ date.time_from }}" required>
+									<input type="time" class="form-control" name="time_from" id="val" value="{{ date.time_from }}">
 								</div>
 							</div>
 
 							<div class="form-group">
 								<div class="col-md-3">
 									<label>Time (to): </label>
-									<input type="time" class="form-control" name="time_to" id="val" value="{{ date.time_to }}" required>
+									<input type="time" class="form-control" name="time_to" id="val" value="{{ date.time_to }}">
 								</div>
 							</div>
 							<div class="col-md-3 sub-btn">
@@ -128,11 +130,13 @@
 					</form>
 					<div id="added_date">
 						{% for date in requested_dates %}
-						<div id="added_date1" class = "col-md-12 block">
+						<div id="added_date1" class = "col-md-12 block hasdate">
 							<input name="date_needed" class="col-md-3" value="{{ date.date_needed }}">
 							<input name="time_from" class="col-md-3" value="{{ date.time_from }}">
 							<input name="time_to" class="col-md-3" value="{{ date.time_to }}">
-							<span onclick="this.parentNode.remove();" role="button" class="glyphicon glyphicon-remove"></span>
+							<input name="date_pk" class="hidden" value="{{ date.pk }}">
+							<a href="{% url 'removedates' %}?pk={{ request.pk }}&q={{ date.pk }}"" onclick="this.parentNode.remove();" class="glyphicon glyphicon-remove"></a>
+							<!-- <span onclick="this.parentNode.remove(); " role="button" class="glyphicon glyphicon-remove"></span> -->
 						</div>
 						{% endfor %}
 					</div>
@@ -175,7 +179,8 @@
 							<div id="added_eq" class="col-md-12 block">
 								<input value="{{ equipment.equipment_id }}" class="col-md-5">
 								<input value="Unit: {{ equipment.unit }}" class="col-md-5">
-								<span onclick="this.parentNode.remove();" class="glyphicon glyphicon-remove" role="button"></span>
+								<!-- <span class="glyphicon glyphicon-remove"></span> -->
+								<a href="{% url 'removeequipments' %}?pk={{ request.pk }}&q={{ equipment.pk }}" class="glyphicon glyphicon-remove" onclick="this.parentNode.remove();"></a>
 							</div>
 						{% endfor %}
 					</div>
