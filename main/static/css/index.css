@@ -27,9 +27,14 @@
 	padding-top: 20px;
 }
 
+
+.fc-button-group {
+	margin-bottom: 10px;
+}
 .fc-unthemed .fc-today{
 	background: darksalmon;
 }
+
 
 
 /** Bootstrap Override **/
@@ -94,4 +99,10 @@
    		width: 45%;
    }
 
+}
+
+@media (max-width: 449px){
+	.fc-toolbar .fc-left, .fc-toolbar .fc-right{
+		float: none;
+	}
 }

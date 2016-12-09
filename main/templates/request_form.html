@@ -27,7 +27,6 @@
 								<label>Name: </label>
 								<input type="text" class="form-control" name="name" value="{{ request.name }}" required>
 								<input type="text" class="form-control hidden" name="pk" id="pk" value="{{ request.pk }}" required>
-								<!-- <input type="text" class="form-control hidden" name="pk"> -->
 							</div>
 						</div>
 						<div class="form-group">
@@ -79,13 +78,11 @@
 							</div>
 						</div>
 
-						<div class="form-group">
+						
 							<div id="submit_btn" class="submit_btn">
-									<a href="#event_schedule"><input type="button" class="submit-btn form-control btn-default btn" id="part1" value="NEXT" onclick="validateForm(this.id);"></a>
-									<!-- <input type="button" class="submit-btn form-control btn-default btn" id="part1" value="SUBMIT" onclick="validateForm(this.id)"> -->
-								<!-- </div> -->	
+									<a href="#event_schedule"><input type="button" class="submit-btn form-control btn-default btn" id="part1" value="NEXT" onclick="validateForm(this.id); formpanel(1)"></a>
 							</div>
-						</div>
+						
 					</form>
 				</div>
 					
@@ -167,23 +164,24 @@
 									<input type="text" class="form-control" name="unit">
 								</div>
 							</div>
-							<!-- <div class="form-group"> -->
-								<div class="col-md-4">
-									<a class="btn btn-default" onclick="validateForm(this.id);" id="part3">Add Equipments</a>
-								</div>
-							<!-- </div> -->
-						</div>	
-						<div class="form-group">
-							<div class="col-md-12">
-								{% for equipment in rented_equipments %}
-									<p>{{ equipment.equipment_id }} , {{ equipment.unit }}</p>
-								{% endfor %}
+							<div class="col-md-4 sub-btn">
+								<a class="btn btn-default" href="#add_equipments" onclick="checkUnitField();" id="part3">Add Equipments</a>
 							</div>
-						</div>
+						</div>	
+						<!-- #add-equipments -->
 					</form>	
+					<div id="equipments">
+						{% for equipment in rented_equipments %}
+							<div id="added_eq" class="col-md-12 block">
+								<input value="{{ equipment.equipment_id }}" class="col-md-5">
+								<input value="Unit: {{ equipment.unit }}" class="col-md-5">
+								<span onclick="this.parentNode.remove();" class="glyphicon glyphicon-remove" role="button"></span>
+							</div>
+						{% endfor %}
+					</div>
 				</div>
 				
-				<div class="form_panel" id="form-final-button">
+				<div class="btn-margin-bottom" id="form-final-button">
 					<form action="{% url 'submitForm' %}" id="submit_form">
 						<div class="submit_btn">
 							<div class="form-group">
