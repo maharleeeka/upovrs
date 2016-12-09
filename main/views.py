@@ -1,3 +1,4 @@
+
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, CreateView, FormView, UpdateView, DeleteView
@@ -582,3 +583,7 @@ def chargeslip(request):
 	p.showPage()
 	p.save()
 	return response
+
+
+class ErrorPage(TemplateView):
+	template_name = '404.html'
