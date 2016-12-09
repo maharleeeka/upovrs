@@ -32,7 +32,7 @@
 						<div class="form-group">
 							<div class="col-md-6">
 								<label>Organization: </label>
-								<input type="text" class="form-control" name="organization" value="{{ request.organization }}" required>
+								<input type="text" class="form-control" name="organization" value="{{ user.last_name }}" required readonly>
 							</div>
 						</div>
 						<div class="form-group">
@@ -80,7 +80,7 @@
 
 						
 							<div id="submit_btn" class="submit_btn">
-									<a href="#event_schedule"><input type="button" class="submit-btn form-control btn-default btn" id="part1" value="NEXT" onclick="validateForm(this.id); formpanel(1)"></a>
+									<input type="button" class="submit-btn form-control btn-default btn" id="part1" value="NEXT" onclick="validateForm(this.id); formpanel(1)">
 							</div>
 						
 					</form>
@@ -88,7 +88,7 @@
 					
 				{% if request.pk != null %}
 					
-					<div id="event_schedule" class="form_panel">
+					<div id="event_schedule" class="form_panel" onload="scrollTo()">
 					<div class="form_panel_header">
 						<div class="form_panel_title">
 							Event Schedule
@@ -119,8 +119,8 @@
 									<input type="time" class="form-control" name="time_to" id="val" value="{{ date.time_to }}" required>
 								</div>
 							</div>
-							<div class="col-md-3">
-								<a class="btn btn-default" href="#schedule" onclick="checkDateFields();">Add Date</a> 
+							<div class="col-md-3 sub-btn">
+								<a class="btn btn-default" href="#schedule"onclick="checkDateFields();">Add Date</a> 
 							</div>
 						</div>
 						<!-- #schedule -->
@@ -199,8 +199,7 @@
 				</div>
 				{% endif %}
 			</div>
-		<hr>
 		</div>
-		
+		<hr>
 		<!-- #content -->
 {% endblock %}
