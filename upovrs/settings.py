@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'upovrs',
     'main',
-    'home',
 ]
 
 MIDDLEWARE = [
