@@ -4,13 +4,8 @@ from django.views.generic import TemplateView, CreateView
 from django.views import View
 from main.models import Venue, Equipment, Request
 from main import forms, views
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse
 from django.views.generic.edit import ModelFormMixin
-
-
-def login(request):
-	template = 'login.html'
-	return render(request,template)
 
 class SuccessView(TemplateView):
 	template_name = "success.html"
