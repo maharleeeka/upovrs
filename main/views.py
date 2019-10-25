@@ -1,35 +1,57 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import (
+    LoginView,
+    LogoutView
+)
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView
-from django.views import View
-from main.models import Venue, Equipment, Request
-from main import forms, views
 from django.urls import reverse
+from django.views import View
+from django.views.generic import (
+    CreateView,
+    TemplateView
+)
 from django.views.generic.edit import ModelFormMixin
 
-class SuccessView(TemplateView):
+from main import (
+    forms,
+    views
+)
+from main.models import (
+    Equipment,
+    Request,
+    Venue
+)
+
+
+class SuccessView(LoginRequiredMixin, TemplateView):
 	template_name = "success.html"
+	login_url = "/"
 
-class GuidelineView(TemplateView):
+class GuidelineView(LoginRequiredMixin, TemplateView):
 	template_name = "guidelines.html"
+	login_url = "/"
 
-class MainView(TemplateView):
+class MainView(LoginRequiredMixin, TemplateView):
 	template_name = "index.html"
+	login_url = "/"
 
-class RateView(TemplateView):
+class RateView(LoginRequiredMixin, TemplateView):
 	template_name = "rates.html"
+	login_url = "/"
 
-class LoginView(TemplateView):
+class UserLoginView(LoginView):
 	template_name = "login.html"
 
-	def form_valid(self, form):
- 		self.object = form.save()
- 		return super(ModelFormMixin, self).form_valid(form)
+	def get_success_url(self):
+		return reverse('index')
 
-class RequestView(CreateView):
+
+class RequestView(LoginRequiredMixin, CreateView):
 	template_name = 'request_form.html'
 	model = Request
 	form_class = forms.RequestForm
+	login_url = "/"
 	
 	def form_valid(self, form):
  		self.object = form.save()
